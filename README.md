@@ -13,118 +13,79 @@
 
 ## pylontech adapter for ioBroker
 
-Query the cell voltages and the status of pylontech batteries via the console
+Query the cell voltages and the status of pylontech batteries via the console. I'm not affiliated.
 
-## Developer manual
+**Please note that everything you build or connect is always your responsibility. The developer of this adapter assumes no liability for any damage!**
 
-This section is intended for the developer. It can be deleted later.
+## how it works
 
-### DISCLAIMER
+This adapter is used to determine the health status and functions of a Pylontech array, which can consist of one or up to fifteen batteries.
+This adapter is not used to control the battery. This is the part of a charging and power unit or an inverter.
+The batteries have a console connection that provides a V24 or RS232 interface. This adapter is connected to it via a serial interface.
+The first battery provides all the data and asks the others via the uplink.
+Attention, it is not possible to connect a Raspberry or ESP directly. The V24 interfaces do not have a TTL level and are not designed for 3 volts or 5 volts. A level converter is required for connection. You will find construction instructions below.
 
-Please make sure that you consider copyrights and trademarks when you use names or logos of a company and add a disclaimer to your README.
-You can check other adapters for examples or ask in the developer community. Using a name or logo of a company without permission may cause legal problems for you.
+## What is needed for connection?
 
-### Getting started
+A cable and a serial converter are required for connection.
+A serial connection requires three lines rxd, txd and ground.
 
-You are almost done, only a few steps left:
+Rxd and Txd must be crossed. so that what one sends (Txd) can be received (Rxd) by the other. Ground is needed so that a voltage can be built up and an electrical current can be started.
 
-1. Create a new repository on GitHub with the name `ioBroker.pylontech`
-1. Initialize the current folder as a new git repository:
-   ```bash
-   git init -b main
-   git add .
-   git commit -m "Initial commit"
-   ```
-1. Link your local repository with the one on GitHub:
+### The serial connection cable
 
-   ```bash
-   git remote add origin https://github.com/PLCHome/ioBroker.pylontech
-   ```
+Pylontech has changed the RJ plugs on the batteries over time.
+In the beginning there were no RJ10 plugs like on the telephone. Now it is an RJ45 like on the network connection.
+The following drawings show a standard nine pin D-SUB female connector on the cable.
+This cable can be easily connected via the USB port with a V24 to USB adapter.
+Only the first battery in the array provides all information. You only need a cable and a serial port
 
-1. Push all files to the GitHub repo:
-   ```bash
-   git push origin main
-   ```
-1. Add a new secret under https://github.com/PLCHome/ioBroker.pylontech/settings/secrets. It must be named `AUTO_MERGE_TOKEN` and contain a personal access token with push access to the repository, e.g. yours. You can create a new token under https://github.com/settings/tokens.
+#### RJ45
 
-1. Head over to [src/main.ts](src/main.ts) and start programming!
+<Image assignment RJ45>
 
-### Best Practices
+#### RJ45
 
-We've collected some [best practices](https://github.com/ioBroker/ioBroker.repositories#development-and-coding-best-practices) regarding ioBroker development and coding in general. If you're new to ioBroker or Node.js, you should
-check them out. If you're already experienced, you should also take a look at them - you might learn something new :)
+<Image assignment RJ10>
 
-### Scripts in `package.json`
+There are RJ45 console cables with USB port for Cisco routers. These do not have a compatible occupancy. However, with a little experience the RJ45 plug can be replaced.
 
-Several npm scripts are predefined for your convenience. You can run them using `npm run <scriptname>`
-| Script name | Description |
-|-------------|-------------|
-| `build` | Compile the TypeScript sources. |
-| `watch` | Compile the TypeScript sources and watch for changes. |
-| `test:ts` | Executes the tests you defined in `*.test.ts` files. |
-| `test:package` | Ensures your `package.json` and `io-package.json` are valid. |
-| `test:integration` | Tests the adapter startup with an actual instance of ioBroker. |
-| `test` | Performs a minimal test run on package files and your tests. |
-| `check` | Performs a type-check on your code (without compiling anything). |
-| `lint` | Runs `ESLint` to check your code for formatting errors and potential bugs. |
-| `translate` | Translates texts in your adapter to all required languages, see [`@iobroker/adapter-dev`](https://github.com/ioBroker/adapter-dev#manage-translations) for more details. |
-| `release` | Creates a new release, see [`@alcalzone/release-script`](https://github.com/AlCalzone/release-script#usage) for more details. |
+Please note that due to the relatively high transfer rate for V24 connections of 115200 baud, the cable cannot be particularly long.
 
-### Configuring the compilation
+| max. baud   | max. length |
+| ----------- | ----------- |
+| 2400        | 900m        |
+| 4800        | 300m        |
+| 9600        | 152m        |
+| 19.200      | 15m         |
+| 57.600      | 5m          |
+| **115.200** | **2m**      |
 
-The adapter template uses [esbuild](https://esbuild.github.io/) to compile TypeScript and/or React code. You can configure many compilation settings
-either in `tsconfig.json` or by changing options for the build tasks. These options are described in detail in the
-[`@iobroker/adapter-dev` documentation](https://github.com/ioBroker/adapter-dev#compile-adapter-files).
+If there is no USB port nearby, you can build a serial to WiFi adapter with an ESP.
 
-### Writing tests
+These adapters speak a kind of Telnet and essentially extend the serial interface through the WiFi. Here it is important to install a driver module for the serial interface. E.g. the MAX3232. Please pay attention to the voltages but most of them are 3V.
 
-When done right, testing code is invaluable, because it gives you the
-confidence to change your code while knowing exactly if and when
-something breaks. A good read on the topic of test-driven development
-is https://hackernoon.com/introduction-to-test-driven-development-tdd-61a13bc92d92.
-Although writing tests before the code might seem strange at first, but it has very
-clear upsides.
+#### ESP MAX
 
-The template provides you with basic tests for the adapter startup and package files.
-It is recommended that you add your own tests into the mix.
+<Image assignment RJ45>
 
-### Publishing the adapter
+Since the Raspberry also offers a TTL interface with 3V, you can also connect a MAX3232 here.
 
-Using GitHub Actions, you can enable automatic releases on npm whenever you push a new git tag that matches the form
-`v<major>.<minor>.<patch>`. We **strongly recommend** that you do. The necessary steps are described in `.github/workflows/test-and-release.yml`.
+#### Raspi MAX
 
-Since you installed the release script, you can create a new
-release simply by calling:
+<Image assignment RJ10>
 
-```bash
-npm run release
-```
+Anyway, you can also contact me in the ioBroker forum via PM if you need anything.
 
-Additional command line options for the release script are explained in the
-[release-script documentation](https://github.com/AlCalzone/release-script#command-line).
+Another tip: there are cheap and expensive USB serial converters. Converters with CHxxx PLxxx and CPxxx in the name have no identifying features. If you connect two of them and then swap the ports or boot for the first time, you no longer know who is who. Therefore it is better to take the good ones with FTDI and serial number. There are also good serial converters without an FTDI chip that have a serial number.
 
-To get your adapter released in ioBroker, please refer to the documentation
-of [ioBroker.repositories](https://github.com/ioBroker/ioBroker.repositories#requirements-for-adapter-to-get-added-to-the-latest-repository).
+### Connection
 
-### Test the adapter manually on a local ioBroker installation
+Only the first Accu in the array provides all information. If you connect this adapter to one of the following accus, it will no longer work because this accu cannot answer all requests.
 
-In order to install the adapter locally without publishing, the following steps are recommended:
+## Admin interface
 
-1. Create a tarball from your dev directory:
-   ```bash
-   npm pack
-   ```
-1. Upload the resulting file to your ioBroker host
-1. Install it locally (The paths are different on Windows):
-   ```bash
-   cd /opt/iobroker
-   npm i /path/to/tarball.tgz
-   ```
-
-For later updates, the above procedure is not necessary. Just do the following:
-
-1. Overwrite the changed files in the adapter directory (`/opt/iobroker/node_modules/iobroker.pylontech`)
-1. Execute `iobroker upload pylontech` on the ioBroker host
+## Values and operations
 
 ## Changelog
 
