@@ -1,114 +1,106 @@
 {
-    "common": {
-        "name": "pylontech",
-        "version": "0.0.1",
-        "news": {
-            "0.0.1": {
-                "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Начальная версия",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版"
-            }
-        },
-        "title": "Pylontech health",
-        "titleLang": {
-            "en": "Pylontech health",
-            "de": "Pylontech health",
-            "ru": "Pylontech health",
-            "pt": "Pylontech health",
-            "nl": "Pylontech health",
-            "fr": "Pylontech health",
-            "it": "Pylontech health",
-            "es": "Pylontech health",
-            "pl": "Pylontech health",
-            "zh-cn": "Pylontech health"
-        },
-        "desc": {
-            "en": "Query the cell voltages and the status of pylontech batteries via the console",
-            "de": "Query the cell voltages and the status of pylontech batteries via the console",
-            "ru": "Query the cell voltages and the status of pylontech batteries via the console",
-            "pt": "Query the cell voltages and the status of pylontech batteries via the console",
-            "nl": "Query the cell voltages and the status of pylontech batteries via the console",
-            "fr": "Query the cell voltages and the status of pylontech batteries via the console",
-            "it": "Query the cell voltages and the status of pylontech batteries via the console",
-            "es": "Query the cell voltages and the status of pylontech batteries via the console",
-            "pl": "Query the cell voltages and the status of pylontech batteries via the console",
-            "zh-cn": "Query the cell voltages and the status of pylontech batteries via the console"
-        },
-        "authors": ["PLCHome <GitHub@traeger-welt.de>"],
-        "keywords": [
-            "battery",
-            "pylontech",
-            "photovoltaics",
-            "inverter",
-            "energy storage system",
-            "growatt",
-            "victron"
-        ],
-        "license": "MIT",
-        "platform": "Javascript/Node.js",
-        "main": "build/pylontechMain.js",
-        "icon": "pylontech.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/PLCHome/ioBroker.pylontech/main/admin/pylontech.png",
-        "readme": "https://github.com/PLCHome/ioBroker.pylontech/blob/main/README.md",
-        "loglevel": "info",
-        "mode": "daemon",
-        "type": "energy",
-        "compact": true,
-        "connectionType": "local",
-        "dataSource": "poll",
-        "adminUI": {
-            "config": "materialize"
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=3.3.22"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=5.0.0"
-            }
-        ]
+  "common": {
+    "name": "pylontech",
+    "version": "0.0.1",
+    "news": {
+      "0.0.1": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung",
+        "ru": "Начальная версия",
+        "pt": "lançamento inicial",
+        "nl": "Eerste uitgave",
+        "fr": "Première version",
+        "it": "Versione iniziale",
+        "es": "Versión inicial",
+        "pl": "Pierwsze wydanie",
+        "zh-cn": "首次出版"
+      }
     },
-    "native": {
-        "device": "",
-        "password": "",
-        "log": true,
-        "batterycells": true,
-        "statistics": true,
-        "accuinformation": true,
-        "cycle": "1"
+    "title": "Pylontech health",
+    "titleLang": {
+      "en": "Pylontech health",
+      "de": "Pylontech health",
+      "ru": "Pylontech health",
+      "pt": "Pylontech health",
+      "nl": "Pylontech health",
+      "fr": "Pylontech health",
+      "it": "Pylontech health",
+      "es": "Pylontech health",
+      "pl": "Pylontech health",
+      "zh-cn": "Pylontech health"
     },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "Device or service connected",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        }
+    "desc": {
+      "en": "Query the cell voltages and the status of pylontech batteries via the console",
+      "de": "Query the cell voltages and the status of pylontech batteries via the console",
+      "ru": "Query the cell voltages and the status of pylontech batteries via the console",
+      "pt": "Query the cell voltages and the status of pylontech batteries via the console",
+      "nl": "Query the cell voltages and the status of pylontech batteries via the console",
+      "fr": "Query the cell voltages and the status of pylontech batteries via the console",
+      "it": "Query the cell voltages and the status of pylontech batteries via the console",
+      "es": "Query the cell voltages and the status of pylontech batteries via the console",
+      "pl": "Query the cell voltages and the status of pylontech batteries via the console",
+      "zh-cn": "Query the cell voltages and the status of pylontech batteries via the console"
+    },
+    "authors": ["PLCHome <GitHub@traeger-welt.de>"],
+    "keywords": ["battery", "pylontech", "photovoltaics", "inverter", "energy storage system", "growatt", "victron"],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "build/pylontechMain.js",
+    "icon": "pylontech.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/PLCHome/ioBroker.pylontech/main/admin/pylontech.png",
+    "readme": "https://github.com/PLCHome/ioBroker.pylontech/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "type": "energy",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "poll",
+    "adminUI": {
+      "config": "materialize"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=3.3.22"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.0.0"
+      }
     ]
+  },
+  "native": {
+    "device": "",
+    "password": "",
+    "log": true,
+    "batterycells": true,
+    "statistics": true,
+    "accuinformation": true,
+    "cycle": "1"
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
 }

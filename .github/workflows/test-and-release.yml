@@ -8,12 +8,12 @@ on:
       - '*'
     tags:
       # normal versions
-      - "v[0-9]+.[0-9]+.[0-9]+"
+      - 'v[0-9]+.[0-9]+.[0-9]+'
       # pre-releases
-      - "v[0-9]+.[0-9]+.[0-9]+-**"
+      - 'v[0-9]+.[0-9]+.[0-9]+-**'
   pull_request:
     branches:
-      - "*"
+      - '*'
 concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
@@ -26,8 +26,8 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-        matrix:
-            node-version: [16.x, 18.x, 20.x]
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
     steps:
       - uses: ioBroker/testing-action-check@v1
         with:
@@ -55,8 +55,7 @@ jobs:
           # Uncomment the following line if your adapter cannot be installed using 'npm ci'
           # install-command: 'npm install'
           build: true
-
-# TODO: To enable automatic npm releases, create a token on npmjs.org 
+# TODO: To enable automatic npm releases, create a token on npmjs.org
 # Enter this token as a GitHub secret (with name NPM_TOKEN) in the repository options
 # Then uncomment the following block:
 

@@ -30,21 +30,21 @@ You are almost done, only a few steps left:
 
 1. Create a new repository on GitHub with the name `ioBroker.pylontech`
 1. Initialize the current folder as a new git repository:
-    ```bash
-    git init -b main
-    git add .
-    git commit -m "Initial commit"
-    ```
+   ```bash
+   git init -b main
+   git add .
+   git commit -m "Initial commit"
+   ```
 1. Link your local repository with the one on GitHub:
 
-    ```bash
-    git remote add origin https://github.com/PLCHome/ioBroker.pylontech
-    ```
+   ```bash
+   git remote add origin https://github.com/PLCHome/ioBroker.pylontech
+   ```
 
 1. Push all files to the GitHub repo:
-    ```bash
-    git push origin main
-    ```
+   ```bash
+   git push origin main
+   ```
 1. Add a new secret under https://github.com/PLCHome/ioBroker.pylontech/settings/secrets. It must be named `AUTO_MERGE_TOKEN` and contain a personal access token with push access to the repository, e.g. yours. You can create a new token under https://github.com/settings/tokens.
 
 1. Head over to [src/main.ts](src/main.ts) and start programming!
@@ -111,15 +111,15 @@ of [ioBroker.repositories](https://github.com/ioBroker/ioBroker.repositories#req
 In order to install the adapter locally without publishing, the following steps are recommended:
 
 1. Create a tarball from your dev directory:
-    ```bash
-    npm pack
-    ```
+   ```bash
+   npm pack
+   ```
 1. Upload the resulting file to your ioBroker host
 1. Install it locally (The paths are different on Windows):
-    ```bash
-    cd /opt/iobroker
-    npm i /path/to/tarball.tgz
-    ```
+   ```bash
+   cd /opt/iobroker
+   npm i /path/to/tarball.tgz
+   ```
 
 For later updates, the above procedure is not necessary. Just do the following:
 
@@ -135,7 +135,7 @@ For later updates, the above procedure is not necessary. Just do the following:
 
 ### **WORK IN PROGRESS**
 
--   (PLCHome) initial release
+- (PLCHome) initial release
 
 ## License
 
