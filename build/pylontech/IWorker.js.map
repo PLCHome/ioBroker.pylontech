@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/pylontech/IWorker.ts"],
+  "sourcesContent": ["//import * as serialport from \"serialport\"\nexport interface IWorker {\n    sendCommand(cmd: string): Promise<any>;\n    sendData(data: string): void;\n    close(): Promise<boolean>;\n}\n"],
+  "mappings": ";;;;;;;;;;;;;;AAAA;AAAA;",
+  "names": []
+}

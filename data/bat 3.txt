@@ -1,0 +1,22 @@
+
+pylon>bat 3
+@
+Battery  Volt     Curr     Tempr    Base State   Volt. State  Curr. State  Temp. State  SOC          Coulomb      BAL         
+0        3327     5024     30000    Charge       Normal       Normal       Normal       42%         19994 mAH      N
+1        3327     5024     30000    Charge       Normal       Normal       Normal       42%         19994 mAH      N
+2        3327     5024     30000    Charge       Normal       Normal       Normal       35%         16510 mAH      N
+3        3327     5024     30000    Charge       Normal       Normal       Normal       42%         19998 mAH      N
+4        3327     5024     30000    Charge       Normal       Normal       Normal       42%         19994 mAH      N
+5        3327     5024     30000    Charge       Normal       Normal       Normal       42%         19994 mAH      N
+6        3326     5024     30000    Charge       Normal       Normal       Normal       42%         19994 mAH      N
+7        3327     5024     30000    Charge       Normal       Normal       Normal       42%         19994 mAH      N
+8        3327     5024     30000    Charge       Normal       Normal       Normal       42%         19994 mAH      N
+9        3327     5024     30000    Charge       Normal       Normal       Normal       42%         19994 mAH      N
+10       3328     5024     30000    Charge       Normal       Normal       Normal       42%         19994 mAH      N
+11       3326     5024     30000    Charge       Normal       Normal       Normal       42%         19994 mAH      N
+12       3328     5024     30000    Charge       Normal       Normal       Normal       42%         19994 mAH      N
+13       3327     5024     30000    Charge       Normal       Normal       Normal       42%         19994 mAH      N
+14       3327     5024     30000    Charge       Normal       Normal       Normal       42%         19994 mAH      N
+Command completed successfully
+$$
+pylon>

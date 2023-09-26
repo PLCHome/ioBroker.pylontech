@@ -1,0 +1,25 @@
+
+pylon>
+pylon>pwr
+@
+Power Volt   Curr   Tempr  Tlow   Thigh  Vlow   Vhigh  Base.St  Volt.St  Curr.St  Temp.St  Coulomb  Time                 B.V.St   B.T.St   MosTempr M.T.St  
+1     49905  11867  27900  26600  26800  3327   3327   Charge   Normal   Normal   Normal   39%      2023-09-16 11:50:32  Normal   Normal  27500    Normal  
+2     49882  5182   31900  29700  30100  3325   3326   Charge   Normal   Normal   Normal   38%      2023-09-16 11:50:29  Normal   Normal  30200    Normal  
+3     49909  5080   33000  30000  30000  3326   3328   Charge   Normal   Normal   Normal   35%      2023-09-16 11:50:29  Normal   Normal   -        -       
+4     49916  5250   33000  30000  31000  3326   3329   Charge   Normal   Normal   Normal   40%      2023-09-16 11:50:30  Normal   Normal   -        -       
+5     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -       
+6     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -       
+7     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -       
+8     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -       
+9     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -       
+10    -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -       
+11    -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -       
+12    -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -       
+13    -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -       
+14    -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -       
+15    -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -       
+16    -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -       
+Command completed successfully
+$$
+
+pylon>

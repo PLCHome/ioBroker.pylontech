@@ -1,0 +1,199 @@
+
+pylon>log
+@
+ Index   : 31    
+ Time    : 23-09-16 11:43:09
+ ModID   : BMM
+ Code    : 2c50
+ Info    : The device start charging. 
+
+ Index   : 30    
+ Time    : 23-09-16 11:34:51
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging. 
+
+ Index   : 29    
+ Time    : 23-09-16 11:18:07
+ ModID   : BMM
+ Code    : 2c4f
+ Info    : The device start charging. 
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 28    
+ Time    : 23-09-16 11:17:55
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging. 
+
+ Index   : 27    
+ Time    : 23-09-16 11:14:17
+ ModID   : BMM
+ Code    : 2c4e
+ Info    : The device start charging. 
+
+ Index   : 26    
+ Time    : 23-09-16 11:14:13
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging. 
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 25    
+ Time    : 23-09-16 11:14:09
+ ModID   : BMM
+ Code    : 2c4d
+ Info    : The device start charging. 
+
+ Index   : 24    
+ Time    : 23-09-16 11:14:07
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging. 
+
+ Index   : 23    
+ Time    : 23-09-16 11:14:05
+ ModID   : BMM
+ Code    : 2c4c
+ Info    : The device start charging. 
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 22    
+ Time    : 23-09-16 11:14:03
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging. 
+
+ Index   : 21    
+ Time    : 23-09-16 11:13:33
+ ModID   : BMM
+ Code    : 2c4b
+ Info    : The device start charging. 
+
+ Index   : 20    
+ Time    : 23-09-16 11:13:27
+ ModID   : BMM
+ Code    : 2c4a
+ Info    : The device start charging. 
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 19    
+ Time    : 23-09-16 11:13:05
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging. 
+
+ Index   : 18    
+ Time    : 23-09-16 11:12:31
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging. 
+
+ Index   : 17    
+ Time    : 23-09-16 11:11:59
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging. 
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 16    
+ Time    : 23-09-16 11:07:17
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging. 
+
+ Index   : 15    
+ Time    : 23-09-16 11:07:11
+ ModID   : BMM
+ Code    : 2c49
+ Info    : The device start charging. 
+
+ Index   : 14    
+ Time    : 23-09-16 10:58:33
+ ModID   : BMM
+ Code    : 2c48
+ Info    : The device start charging. 
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 13    
+ Time    : 23-09-16 10:43:57
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging. 
+
+ Index   : 12    
+ Time    : 23-09-16 10:43:51
+ ModID   : BMM
+ Code    : 2c47
+ Info    : The device start charging. 
+
+ Index   : 11    
+ Time    : 23-09-16 09:00:39
+ ModID   : BMM
+ Code    : 0
+ Info    : The coulomb of device is normal. 
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 10    
+ Time    : 23-09-16 09:00:37
+ ModID   : BMM
+ Code    : 2c46
+ Info    : The device start charging. 
+
+ Index   : 9     
+ Time    : 23-09-16 09:00:03
+ ModID   : BMM
+ Code    : 0
+ Info    : The coulomb of device is low. 
+
+ Index   : 8     
+ Time    : 23-09-16 09:00:01
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging. 
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 7     
+ Time    : 23-09-16 08:59:39
+ ModID   : BMM
+ Code    : 0
+ Info    : The coulomb of device is normal. 
+
+ Index   : 6     
+ Time    : 23-09-16 08:59:37
+ ModID   : BMM
+ Code    : 2c45
+ Info    : The device start charging. 
+
+ Index   : 5     
+ Time    : 23-09-16 08:59:37
+ ModID   : BMM
+ Code    : 0
+ Info    : The coulomb of device is low. 
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 4     
+ Time    : 23-09-16 08:56:09
+ ModID   : BMM
+ Code    : 0
+ Info    : The coulomb of device is normal. 
+
+ Index   : 3     
+ Time    : 23-09-16 08:56:07
+ ModID   : BMM
+ Code    : 2c44
+ Info    : The device start charging. 
+
+ Index   : 2     
+ Time    : 23-09-16 08:55:41
+ ModID   : BMM
+ Code    : 0
+ Info    : The coulomb of device is low. 
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 1     
+ Time    : 23-09-16 08:55:39
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging. 
+
+ Index   : 0     
+ Time    : 23-09-16 08:55:33
+ ModID   : BMM
+ Code    : 0
+ Info    : The coulomb of device is normal. 
+
+Command completed successfully
+$$
+
+pylon>

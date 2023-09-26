@@ -1,0 +1,57 @@
+
+
+pylon>pwr 2
+
+@
+
+ ----------------------------
+
+ Power  2
+
+
+
+ Voltage         : 49928       mV
+
+ Current         : 6934        mA
+
+ Temperature     : 32100       mC
+
+ Coulomb         : 43          %
+
+ Total Coulomb   : 50000       mAH
+
+ Max Voltage     : 54000       mV
+
+ Charge Times    : 0           
+
+ Basic Status    : Charge  
+
+ Charge Sec.     : 0       s
+
+ Volt Status     : Normal  
+
+ Current Status  : Normal  
+
+ Tmpr. Status    : Normal  
+
+ Coul. Status    : Normal  
+
+ Soh. Status     : Normal  
+
+ Heater Status   : OFF     
+
+ Protect ENA     : BOV BHV BLV BUV POV PHV PLV PUV CBOT CBHT CBLT CBUT DBOT DBHT DBLT DBUT POT PHT COC COC2 COCA DOCA DOC DOC2 SC LCOUL 
+
+ Bat Events      : 0x0        
+
+ Power Events    : 0x0        
+
+ System Fault    : 0x0        
+
+ ----------------------------
+
+Command completed successfully
+
+$$
+
+pylon>

@@ -1,0 +1,47 @@
+
+
+pylon>info 1
+
+@
+
+Device address      : 1
+
+Manufacturer        : Pylon
+
+Device name         : US5000
+
+Board version       : V10R04
+
+Board               : NF4.E3
+
+Main Soft version   : B69.16.0.0
+
+Soft  version       : V1.3
+
+Boot  version       : V1.0
+
+Comm version        : V2.0
+
+Release Date        : 22-08-10
+
+Barcode             : Yxxxxxxxxxxxxxx7
+
+
+
+Specification       : 48V/100AH
+
+Cell Number         : 15
+
+Max Dischg Curr     : -100000mA
+
+Max Charge Curr     : 100000mA
+
+EPONPort rate       : 1200
+
+Console Port rate   : 115200
+
+Command completed successfully
+
+$$
+
+pylon>

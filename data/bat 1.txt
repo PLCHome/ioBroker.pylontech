@@ -1,0 +1,43 @@
+
+
+pylon>bat 1
+
+@
+
+Battery  Volt     Curr     Tempr    Base State   Volt. State  Curr. State  Temp. State  SOC          Coulomb      BAL         
+
+0        3331     16020    27500    Charge       Normal       Normal       Normal       45%         44231 mAH      N
+
+1        3331     16020    27500    Charge       Normal       Normal       Normal       45%         44231 mAH      N
+
+2        3330     16020    27500    Charge       Normal       Normal       Normal       45%         44231 mAH      N
+
+3        3330     16020    27500    Charge       Normal       Normal       Normal       45%         44231 mAH      N
+
+4        3330     16020    27300    Charge       Normal       Normal       Normal       45%         44231 mAH      N
+
+5        3331     16020    27300    Charge       Normal       Normal       Normal       45%         44231 mAH      N
+
+6        3331     16020    27300    Charge       Normal       Normal       Normal       45%         44231 mAH      N
+
+7        3331     16020    27300    Charge       Normal       Normal       Normal       45%         44231 mAH      N
+
+8        3331     16020    27200    Charge       Normal       Normal       Normal       45%         44231 mAH      N
+
+9        3331     16020    27200    Charge       Normal       Normal       Normal       45%         44231 mAH      N
+
+10       3330     16020    27200    Charge       Normal       Normal       Normal       45%         44231 mAH      N
+
+11       3331     16020    27200    Charge       Normal       Normal       Normal       45%         44231 mAH      N
+
+12       3331     16020    27500    Charge       Normal       Normal       Normal       45%         44231 mAH      N
+
+13       3331     16020    27500    Charge       Normal       Normal       Normal       45%         44231 mAH      N
+
+14       3330     16020    27500    Charge       Normal       Normal       Normal       45%         44231 mAH      N
+
+Command completed successfully
+
+$$
+
+pylon>

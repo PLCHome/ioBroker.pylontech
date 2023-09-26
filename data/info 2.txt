@@ -1,0 +1,45 @@
+
+
+pylon>info 2
+
+@
+
+Device address      : 2
+
+Manufacturer        : Pylon
+
+Device name         : US2000C
+
+Board version       : V10R04
+
+Main Soft version   : B68.2.0.0
+
+Soft  version       : V2.6
+
+Boot  version       : V2.1
+
+Comm version        : V2.0
+
+Release Date        : 21-09-26
+
+Barcode             : Hxxxxxxxxxxxxxx6
+
+
+
+Specification       : 48V/50AH
+
+Cell Number         : 15
+
+Max Dischg Curr     : -90000mA
+
+Max Charge Curr     : 90000mA
+
+EPONPort rate       : 1200
+
+Console Port rate   : 115200
+
+Command completed successfully
+
+$$
+
+pylon>

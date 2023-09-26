@@ -1,0 +1,111 @@
+
+
+pylon>stat 4
+
+@
+
+Device address           4
+
+Data Items      :       88
+
+HisData Items   :     1794
+
+Charge Cnt.     :     1794
+
+Discharge Cnt.  :        0
+
+Charge Times    :    38817
+
+Status Cnt.     :     1793
+
+Idle Times      :    65460
+
+COC Times       :        0
+
+DOC Times       :        0
+
+COC2 Times      :        0
+
+DOC2 Times      :        0
+
+COCA Times      :        0
+
+DOCA Times      :        0
+
+SC Times        :        0
+
+Bat OV Times    :        0
+
+Bat HV Times    :       22
+
+Bat LV Times    :        0
+
+Bat UV Times    :        0
+
+Bat SLP Times   :        0
+
+Pwr OV Times    :        2
+
+Pwr HV Times    :       40
+
+Pwr LV Times    :        0
+
+Pwr UV Times    :        0
+
+Pwr SLP Times   :        0
+
+COT Times       :        0
+
+CUT Times       :        0
+
+DOT Times       :        0
+
+DUT Times       :        0
+
+CHT Times       :        0
+
+CLT Times       :        0
+
+DHT Times       :        0
+
+DLT Times       :        0
+
+Shut Times      :       13
+
+Reset Times     :       89
+
+RV Times        :        0
+
+Input OV Times  :        0
+
+SOH Times       :        4
+
+BMICERR Times   :        0
+
+CYCLE Times     :      656
+
+Pwr Percent     :       53
+
+Pwr Coulomb     : 90038090
+
+Dsg Cap         : 32840537
+
+HT@0.5C Cnt     :        0
+
+LT@0.5C Cnt     :        0
+
+HT Cnt          :        0
+
+LT Cnt          :        0
+
+LV Cnt          :        0
+
+LifeWarn Times  :        0
+
+LifeAlarm Times :        0
+
+Command completed successfully
+
+$$
+
+pylon>

@@ -1,0 +1,30 @@
+
+pylon>pwr 3
+@
+ ----------------------------
+ Power  3
+
+ Voltage         : 49905       mV
+ Current         : 5024        mA
+ Temperature     : 33000       mC
+ Coulomb         : 35          %
+ Total Coulomb   : 50000       mAH
+ Max Voltage     : 54000       mV
+ Charge Times    : 0           
+ Basic Status    : Charge  
+ Charge Sec.     : 0       s
+ Volt Status     : Normal  
+ Current Status  : Normal  
+ Tmpr. Status    : Normal  
+ Coul. Status    : Normal  
+ Soh. Status     : Normal  
+ Heater Status   : OFF     
+ Protect ENA     : BOV BHV BLV BUV POV PHV PLV PUV CBOT CBHT CBLT CBUT DBOT DBHT DBLT DBUT POT PHT PLT PUT COC COC2 COCA DOCA DOC DOC2 SC LCOUL 
+ Bat Events      : 0x0        
+ Power Events    : 0x0        
+ System Fault    : 0x0        
+ ----------------------------
+Command completed successfully
+$$
+
+pylon>

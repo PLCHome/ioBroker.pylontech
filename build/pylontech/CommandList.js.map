@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/pylontech/CommandList.ts"],
+  "sourcesContent": ["export type CommandList = {\n    cmd: string;\n    resolve: (value: any) => void;\n    reject: (reason?: any) => void;\n    timeout: NodeJS.Timeout | undefined;\n};\n"],
+  "mappings": ";;;;;;;;;;;;;;AAAA;AAAA;",
+  "names": []
+}

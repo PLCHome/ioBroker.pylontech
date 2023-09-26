@@ -1,0 +1,45 @@
+
+
+pylon>soh 1
+
+@
+
+Power   1
+
+Battery    Voltage    SOHCount   SOHStatus 
+
+0          3331       0          Normal    
+
+1          3331       0          Normal    
+
+2          3330       0          Normal    
+
+3          3330       0          Normal    
+
+4          3330       0          Normal    
+
+5          3331       0          Normal    
+
+6          3331       0          Normal    
+
+7          3331       0          Normal    
+
+8          3331       0          Normal    
+
+9          3331       0          Normal    
+
+10         3330       0          Normal    
+
+11         3331       0          Normal    
+
+12         3331       0          Normal    
+
+13         3331       0          Normal    
+
+14         3330       0          Normal    
+
+Command completed successfully
+
+$$
+
+pylon>
