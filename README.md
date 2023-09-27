@@ -99,7 +99,7 @@ https://www.4iot.store/en/product/wifi-serial-communication/
 
 Since the Raspberry also offers a TTL interface with 3V, you can also connect a MAX3232 here.
 
-[![Raspi MAX](http://www.savagehomeautomation.com/storage/post-images/raspberrypi/raspi-rs232-schematic4.png?__SQUARESPACE_CACHEVERSION=1357108144778)]
+![Raspi MAX](http://www.savagehomeautomation.com/storage/post-images/raspberrypi/raspi-rs232-schematic4.png?__SQUARESPACE_CACHEVERSION=1357108144778)
 
 read more http://www.savagehomeautomation.com/projects/raspberry-pi-rs232-serial-interface-options-revisit.html
 
