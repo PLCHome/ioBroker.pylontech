@@ -81,19 +81,29 @@ These adapters speak a kind of Telnet and essentially extend the serial interfac
 
 #### ESP MAX
 
-<Image assignment RJ45>
+There are several projects that connect ESP or ESP32 to Telnet. Please remember the MAX. If the MAX gets hot then either the signal level of 5V is too high because you got a 3.3V model or you have connected a 3.3V version to 5V operating voltage.
 
-Since the Raspberry also offers a TTL interface with 3V, you can also connect a MAX3232 here.
+Here are some examples:
+ESP-Serial-Bridge: https://github.com/yuri-rage/ESP-Serial-Bridge
+ESP-LINK: https://github.com/jeelabs/esp-link
+Serial Port Over WiFi: https://www.instructables.com/Serial-Port-Over-WiFi/
+
+#### Ready Hardware
+
+of course you can also buy it there
+https://www.perlesystems.de/
+https://www.wut.de/
+https://www.4iot.store/en/product/wifi-serial-communication/
 
 #### Raspi MAX
+
+Since the Raspberry also offers a TTL interface with 3V, you can also connect a MAX3232 here.
 
 [![Raspi MAX](http://www.savagehomeautomation.com/storage/post-images/raspberrypi/raspi-rs232-schematic4.png?__SQUARESPACE_CACHEVERSION=1357108144778)]
 
 read more http://www.savagehomeautomation.com/projects/raspberry-pi-rs232-serial-interface-options-revisit.html
 
-<Image assignment RJ10>
-
-Anyway, you can also contact me in the ioBroker forum via PM if you need anything.
+## Anyway, you can also contact me in the ioBroker forum via PM if you need anything.
 
 Another tip: there are cheap and expensive USB serial converters. Converters with CHxxx PLxxx and CPxxx in the name have no identifying features. If you connect two of them and then swap the ports or boot for the first time, you no longer know who is who. Therefore it is better to take the good ones with FTDI and serial number. There are also good serial converters without an FTDI chip that have a serial number.
 
