@@ -35,18 +35,19 @@ Rxd and Txd must be crossed. so that what one sends (Txd) can be received (Rxd) 
 ### The serial connection cable
 
 Pylontech has changed the RJ plugs on the batteries over time.
-In the beginning there were no RJ10 plugs like on the telephone. Now it is an RJ45 like on the network connection.
+In the beginning there were no RJ11 or RJ12 plugs like on the telephone. Now it is an RJ45 like on the network connection.
 The following drawings show a standard nine pin D-SUB female connector on the cable.
 This cable can be easily connected via the USB port with a V24 to USB adapter.
 Only the first battery in the array provides all information. You only need a cable and a serial port
 
 #### RJ45
 
-<Image assignment RJ45>
+![RJ45](admin/8p.jpg)
 
-#### RJ45
+#### RJ11 / RJ12
 
-<Image assignment RJ10>
+![RJ11 / RJ12](admin/4p.jpg)
+
 
 There are RJ45 console cables with USB port for Cisco routers. These do not have a compatible occupancy. However, with a little experience the RJ45 plug can be replaced.
 
