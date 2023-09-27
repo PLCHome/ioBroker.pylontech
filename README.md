@@ -87,6 +87,10 @@ Since the Raspberry also offers a TTL interface with 3V, you can also connect a 
 
 #### Raspi MAX
 
+[![Raspi MAX](http://www.savagehomeautomation.com/storage/post-images/raspberrypi/raspi-rs232-schematic4.png?__SQUARESPACE_CACHEVERSION=1357108144778)]
+
+read more http://www.savagehomeautomation.com/projects/raspberry-pi-rs232-serial-interface-options-revisit.html
+
 <Image assignment RJ10>
 
 Anyway, you can also contact me in the ioBroker forum via PM if you need anything.
