@@ -42,9 +42,20 @@ Only the first battery in the array provides all information. You only need a ca
 
 #### RJ45
 
+RJ45 | signal  | DSUB | signal
+-----|--|--|---
+8 | Ground | 5 | Ground
+3 | TxD | 2 | RxD
+6 | RxD | 3 | TxD
+
 ![RJ45](admin/8p.jpg)
 
 #### RJ11 / RJ12
+RJ11 | RJ12 | signal  | DSUB | signal
+---|--|--|--|---
+4 | 5 | Ground | 5 | Ground
+2 | 3 | TxD | 2 | RxD
+3 | 4 | RxD | 3 | TxD
 
 ![RJ11 / RJ12](admin/4p.jpg)
 
