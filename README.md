@@ -21,9 +21,9 @@ Query the cell voltages and the status of pylontech batteries via the console. I
 
 This adapter is used to determine the health status and functions of a Pylontech array, which can consist of one or up to fifteen batteries.
 This adapter is not used to control the battery. This is the part of a charging and power unit or an inverter.
-The batteries have a console connection that provides a V24 or RS232 interface. This adapter is connected to it via a serial interface.
+The batteries have a console connection that provides a RS232 or V24 interface. This adapter is connected to it via a serial interface.
 The first battery provides all the data and asks the others via the uplink.
-Attention, it is not possible to connect a Raspberry or ESP directly. The V24 interfaces do not have a TTL level and are not designed for 3 volts or 5 volts. A level converter is required for connection. You will find construction instructions below.
+Attention, it is not possible to connect a Raspberry or ESP directly. The RS232 interfaces do not have a TTL level and are not designed for 3 volts or 5 volts. A level converter is required for connection. You will find construction instructions below.
 
 ## What is needed for connection?
 
@@ -35,9 +35,9 @@ Rxd and Txd must be crossed. so that what one sends (Txd) can be received (Rxd) 
 ### The serial connection cable
 
 Pylontech has changed the RJ plugs on the batteries over time.
-In the beginning there were no RJ11 or RJ12 plugs like on the telephone. Now it is an RJ45 like on the network connection.
+In the beginning there were was a RJ11 plugs like on the telephone. Now it is an RJ45 like on the network connection.
 The following drawings show a standard nine pin D-SUB female connector on the cable.
-This cable can be easily connected via the USB port with a V24 to USB adapter.
+This cable can be easily connected via the USB port with a RS232 to USB adapter.
 Only the first battery in the array provides all information. You only need a cable and a serial port
 
 #### RJ45
@@ -51,6 +51,8 @@ RJ45 | signal  | DSUB | signal
 ![RJ45](admin/8p.jpg)
 
 #### RJ11 / RJ12
+The RJ11 and RJ12 connectors are the same size. The RJ11 has only four contacts, the RJ12 has six contacts. The contacts of the RJ11 are in the middle of the plug, which is why they are counted differently. Physically the contacts are in the same place.
+
 RJ11 | RJ12 | signal  | DSUB | signal
 ---|--|--|--|---
 1 or 4 | 2 or 5 | Ground | 5 | Ground
@@ -62,7 +64,7 @@ RJ11 | RJ12 | signal  | DSUB | signal
 
 There are RJ45 console cables with USB port for Cisco routers. These do not have a compatible occupancy. However, with a little experience the RJ45 plug can be replaced.
 
-Please note that due to the relatively high transfer rate for V24 connections of 115200 baud, the cable cannot be particularly long.
+Please note that due to the relatively high transfer rate for RS232 connections of 115200 baud, the cable cannot be particularly long.
 
 | max. baud   | max. length |
 | ----------- | ----------- |
