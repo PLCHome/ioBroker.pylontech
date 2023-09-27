@@ -53,7 +53,7 @@ RJ45 | signal  | DSUB | signal
 #### RJ11 / RJ12
 RJ11 | RJ12 | signal  | DSUB | signal
 ---|--|--|--|---
-4 | 5 | Ground | 5 | Ground
+1 or 4 | 2 or 5 | Ground | 5 | Ground
 3 | 4 | TxD | 2 | RxD
 2 | 3 | RxD | 3 | TxD
 
