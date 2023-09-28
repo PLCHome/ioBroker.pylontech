@@ -7,7 +7,7 @@ const debugApi = Debug('pylontech:api');
 export = class WorkerNet extends WorkerAbstract {
   protected _socket: net.Socket = new net.Socket();
 
-  constructor(host: string, port: number, baudRate: number, debugData?: (data: Buffer) => void) {
+  constructor(host: string, port: number, baudRate: number, rfc2217: boolean, debugData?: (data: Buffer) => void) {
     debugApi('MyWorkerNet.constructor', 'host:', host, 'port:', port);
     super();
     if (debugData) this._socket.on('data', debugData);

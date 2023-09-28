@@ -18,6 +18,10 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var utils = __toESM(require("@iobroker/adapter-core"));
+var import_serialport = require("serialport");
+var import_Value = require("./pylontech/Value");
+var import_WorkerNet = __toESM(require("./pylontech/WorkerNet"));
+var import_WorkerSerial = __toESM(require("./pylontech/WorkerSerial"));
 class Pylontech extends utils.Adapter {
   constructor(options = {}) {
     super({
@@ -25,51 +29,135 @@ class Pylontech extends utils.Adapter {
       name: "pylontech"
     });
     this.on("ready", this.onReady.bind(this));
-    this.on("stateChange", this.onStateChange.bind(this));
+    this.on("message", this.onMessage.bind(this));
     this.on("unload", this.onUnload.bind(this));
   }
   async onReady() {
     this.setState("info.connection", false, true);
-    this.log.info("config device: " + this.config.device);
-    this.log.info("config password: " + this.config.password);
-    this.log.info("config log: " + this.config.log);
-    this.log.info("config batterycells: " + this.config.batterycells);
-    this.log.info("config statistics: " + this.config.statistics);
-    this.log.info("config accuinformation: " + this.config.accuinformation);
-    this.log.info("config accuinformation: " + this.config.accuinformation);
-    this.log.info("config cycle: " + this.config.cycle);
-    await this.setObjectNotExistsAsync("testVariable", {
-      type: "state",
-      common: {
-        name: "testVariable",
-        type: "boolean",
-        role: "indicator",
-        read: true,
-        write: true
-      },
-      native: {}
-    });
-    this.subscribeStates("testVariable");
-    await this.setStateAsync("testVariable", true);
-    await this.setStateAsync("testVariable", { val: true, ack: true });
-    await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
-    let result = await this.checkPasswordAsync("admin", "iobroker");
-    this.log.info("check user admin pw iobroker: " + result);
-    result = await this.checkGroupAsync("admin", "admin");
-    this.log.info("check group user admin group admin: " + result);
+    if (typeof this.config.connection == "undefined")
+      this.config.connection = "1";
+    if (typeof this.config.baudrate == "undefined")
+      this.config.baudrate = 115200;
+    if (typeof this.config.rfc2217 == "undefined")
+      this.config.rfc2217 = false;
+    if (typeof this.config.netbaudrate == "undefined")
+      this.config.netbaudrate = 115200;
+    if (typeof this.config.info == "undefined")
+      this.config.info = true;
+    if (typeof this.config.power == "undefined")
+      this.config.power = true;
+    if (typeof this.config.statistic == "undefined")
+      this.config.statistic = true;
+    if (typeof this.config.celldata == "undefined")
+      this.config.celldata = true;
+    if (typeof this.config.cellsoh == "undefined")
+      this.config.cellsoh = true;
+    if (typeof this.config.log == "undefined")
+      this.config.log = true;
+    if (typeof this.config.cycle == "undefined")
+      this.config.cycle = 5;
+    this.onTimer();
+    this.workTimer = setInterval(this.onTimer.bind(this), this.config.cycle * 6e4);
+  }
+  onMessage(obj) {
+    let wait = false;
+    this.log.debug(JSON.stringify(obj));
+    if (obj) {
+      switch (obj.command) {
+        case "getDevices":
+          wait = true;
+          import_serialport.SerialPort.list().then((port) => {
+            const ports = [];
+            port.forEach((p) => {
+              ports.push(p.path);
+            });
+            this.sendTo(obj.from, obj.command, JSON.stringify(ports), obj.callback);
+          });
+          break;
+        default:
+          this.log.warn(`Unknown command: ${obj.command}`);
+          return;
+      }
+    }
+    if (!wait && obj.callback) {
+      this.sendTo(obj.from, obj.command, obj.message, obj.callback);
+    }
+    return;
+  }
+  onTimer() {
+    try {
+      const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate) : new import_WorkerNet.default(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217);
+      worker.getData({
+        info: this.config.info,
+        power: this.config.power,
+        statistic: this.config.statistic,
+        celldata: this.config.celldata,
+        cellsoh: this.config.cellsoh,
+        log: this.config.log
+      }).then((allData) => {
+        worker.close();
+        this.setState("info.connection", true, true);
+        const walk = async (path, val) => {
+          if (val instanceof import_Value.Value) {
+            const objdesc = {
+              type: "state",
+              common: {
+                name: val.name,
+                type: "number",
+                role: "value",
+                read: true,
+                write: val.write
+              },
+              native: {}
+            };
+            if (val.unit)
+              objdesc.common.unit = val.unit;
+            if (val.function)
+              objdesc.native.function = val.function;
+            switch (val.type) {
+              case "date":
+                objdesc.common.role = "value.time";
+                break;
+              case "boolean":
+              case "string":
+                objdesc.common.type = val.type;
+                break;
+            }
+            await this.setObjectNotExistsAsync(path, objdesc);
+            this.setStateAsync(path, val.value, true);
+          } else {
+            let p = "";
+            if (path !== "")
+              p = ".";
+            Object.keys(val).forEach((key) => {
+              walk(`${path}${p}${key}`, val[key]);
+            });
+          }
+        };
+        walk("", allData);
+        this.getStatesAsync("info.*.connected").then((state) => {
+          Object.keys(state).forEach((path) => {
+            const info = path.split(".");
+            this.log.info(info[3]);
+            this.log.info(
+              `${allData.info && allData.info[info[3]] && allData.info[info[3]].connected} ${allData.info && allData.info[info[3]]} ${allData.info}`
+            );
+            if (!(allData.info && allData.info[info[3]] && allData.info[info[3]].connected)) {
+              this.setStateAsync(path, false, true);
+            }
+          });
+        });
+      }).catch(this.log.error);
+    } catch (e) {
+      this.log.error(e.message);
+    }
   }
   onUnload(callback) {
     try {
+      clearTimeout(this.workTimer);
       callback();
     } catch (e) {
       callback();
-    }
-  }
-  onStateChange(id, state) {
-    if (state) {
-      this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-    } else {
-      this.log.info(`state ${id} deleted`);
     }
   }
 }

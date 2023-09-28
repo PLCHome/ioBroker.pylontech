@@ -17,6 +17,31 @@
     <script type="text/javascript" src="words.js"></script>
 
     <script type="text/javascript">
+      function getPorts() {
+        let callTimeout = setTimeout(() => {
+          //alert('The server did not respond to the request!');
+        }, 20000);
+        sendTo('pylontech.' + instance, 'getDevices', '{}', function (result) {
+          clearTimeout(callTimeout);
+          console.log(result);
+          $('#devicelist').empty();
+          let r = JSON.parse(result);
+          r.forEach(device => {
+            $('#devicelist').append(new Option(device, device));
+          });
+        });
+      }
+
+      function getBauds() {
+        const bauds = [300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600];
+        $('#baudlist').empty();
+        $('#netbaudlist').empty();
+        bauds.forEach(baud => {
+          $('#baudlist').append(new Option(baud.toString(), baud));
+          $('#netbaudlist').append(new Option(baud.toString(), baud));
+        });
+      }
+
       // This will be called by the admin adapter when the settings page loads
       function load(settings, onChange) {
         // example: select elements with id=key and class=value and insert value
@@ -35,6 +60,30 @@
               .on('keyup', () => onChange());
           }
         });
+        getPorts();
+        getBauds();
+        $('#connection')
+          .change(function () {
+            if (parseInt($(this).val()) == 1) {
+              $('.local').show();
+              $('.network').hide();
+            } else {
+              $('.local').hide();
+              $('.network').show();
+            }
+          })
+          .trigger('change');
+
+        $('#rfc2217')
+          .change(function () {
+            if ($(this).prop('checked')) {
+              $('.netbaudrate').show();
+            } else {
+              $('.netbaudrate').hide();
+            }
+          })
+          .trigger('change');
+
         onChange(false);
         // reinitialize all the Materialize labels on the page if you are dynamically adding inputs:
         if (M) M.updateTextFields();
@@ -62,53 +111,80 @@
   <body>
     <div class="m adapter-container">
       <div class="row">
-        <div class="col s12 m4 l2">
-          <img src="pylontech.png" class="logo" alt="pylontech" />
+        <div class="col s6 input-field">
+          <select class="value" id="connection">
+            <option value="1" class="translate">local device</option>
+            <option value="2" class="translate">network device</option>
+          </select>
+          <label for="connection" class="translate">Connection via</label>
         </div>
       </div>
-
-      <!-- Put your content here -->
-
-      <!-- For example columns with settings: -->
+      <div class="row local">
+        <div class="col s12 input-field">
+          <input type="text" class="value" id="device" list="devicelist" />
+          <datalist id="devicelist"> </datalist>
+          <label for="device" class="translate">local device</label>
+        </div>
+        <div class="col s6 input-field">
+          <input type="number" class="value" id="baudrate" list="baudlist" />
+          <datalist id="baudlist"> </datalist>
+          <label for="baudrate" class="translate">Baudrate</label>
+        </div>
+      </div>
+      <div class="row network">
+        <div class="col s6 input-field">
+          <input type="text" class="value" id="host" />
+          <label for="host" class="translate">Network host</label>
+        </div>
+        <div class="col s6 input-field">
+          <input type="number" class="value" id="port" />
+          <label for="port" class="translate">Port</label>
+        </div>
+        <div class="col s6 input-field">
+          <input type="checkbox" class="value" id="rfc2217" />
+          <label for="rfc2217" class="translate">Supports rfc2217</label>
+        </div>
+        <div class="col s6 input-field netbaudrate">
+          <input type="number" class="value" id="netbaudrate" list="netbaudlist" />
+          <datalist id="netbaudlist"> </datalist>
+          <label for="netbaudrate" class="translate">Baudrate</label>
+        </div>
+      </div>
       <div class="row">
         <div class="col s6 input-field">
-          <input type="text" class="value" id="device" />
-          <label for="device" class="translate">Device oder Port</label>
+          <input type="number" class="value" id="cycle" />
+          <label for="cycle" class="translate">Cycle time in minutes</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s6 input-field">
+          <input type="checkbox" class="value" id="info" />
+          <label for="info" class="translate">Download the battery information data</label>
         </div>
 
         <div class="col s6 input-field">
-          <input type="text" class="value" id="password" />
-          <label for="password" class="translate">password</label>
+          <input type="checkbox" class="value" id="power" />
+          <label for="power" class="translate">Download the battery power data</label>
+        </div>
+
+        <div class="col s6 input-field">
+          <input type="checkbox" class="value" id="statistic" />
+          <label for="statistic" class="translate">Download the battery statistics data</label>
+        </div>
+
+        <div class="col s6 input-field">
+          <input type="checkbox" class="value" id="celldata" />
+          <label for="celldata" class="translate">Download the battery cells data</label>
+        </div>
+
+        <div class="col s6 input-field">
+          <input type="checkbox" class="value" id="cellsoh" />
+          <label for="cellsoh" class="translate">Download the battery cells state of health</label>
         </div>
 
         <div class="col s6 input-field">
           <input type="checkbox" class="value" id="log" />
-          <label for="log" class="translate">Log</label>
-        </div>
-
-        <div class="col s6 input-field">
-          <input type="checkbox" class="value" id="batterycells" />
-          <label for="batterycells" class="translate">Battery cells</label>
-        </div>
-
-        <div class="col s6 input-field">
-          <input type="checkbox" class="value" id="statistics" />
-          <label for="statistics" class="translate">Statistics</label>
-        </div>
-
-        <div class="col s6 input-field">
-          <input type="checkbox" class="value" id="accuinformation" />
-          <label for="accuinformation" class="translate">Accu information</label>
-        </div>
-
-        <div class="col s6 input-field">
-          <input type="checkbox" class="value" id="accuinformation" />
-          <label for="accuinformation" class="translate">Accu information</label>
-        </div>
-
-        <div class="col s6 input-field">
-          <input type="number" class="value" id="cycle" />
-          <label for="cycle" class="translate">Cycle time in minutes</label>
+          <label for="log" class="translate">Download the log data</label>
         </div>
       </div>
     </div>

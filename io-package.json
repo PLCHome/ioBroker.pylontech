@@ -54,6 +54,7 @@
     "mode": "daemon",
     "type": "energy",
     "compact": true,
+    "messagebox": true,
     "connectionType": "local",
     "dataSource": "poll",
     "adminUI": {
@@ -71,13 +72,20 @@
     ]
   },
   "native": {
+    "connection": "1",
     "device": "",
-    "password": "",
-    "log": true,
-    "batterycells": true,
-    "statistics": true,
-    "accuinformation": true,
-    "cycle": "1"
+    "baudrate": 115200,
+    "host": "",
+    "port": 23,
+    "rfc2217": false,
+    "netbaudrate": 115200,
+    "cycle": 5,
+    "info": true,
+    "power": true,
+    "statistic": true,
+    "celldata": true,
+    "cellsoh": true,
+    "log": true
   },
   "objects": [],
   "instanceObjects": [

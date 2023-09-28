@@ -27,6 +27,7 @@ class Value {
     this.type = type;
     this.unit = unit;
     this.name = name;
+    this.write = false;
   }
   set(value, type, unit, name) {
     this.value = value;

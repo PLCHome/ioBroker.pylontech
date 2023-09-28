@@ -130,7 +130,7 @@ abstract class WorkerAbstract implements IWorker {
     });
   }
 
-  protected async _getinfo(p: { pwrs: any; batteries: string[] }): Promise<resultForGet> {
+  protected async _getinfo(p: { pwrs: any; batteries: string[] }, info: boolean, power: boolean): Promise<resultForGet> {
     return new Promise<resultForGet>((resolve, reject) => {
       this._getAlldata(p.batteries, INFO)
         .then((infos: any) => {
@@ -139,16 +139,21 @@ abstract class WorkerAbstract implements IWorker {
           Object.keys(infos).forEach((key: string) => {
             if (infos[key].info && infos[key].info.barcode && infos[key].info.barcode instanceof Value) {
               batterienames[key] = infos[key].info.barcode.value;
-              allData[infos[key].info.barcode.value] = infos[key];
-              delete allData[infos[key].info.barcode.value].info.barcode;
+              if (info) {
+                allData[infos[key].info.barcode.value] = infos[key];
+                delete allData[infos[key].info.barcode.value].info.barcode;
+              }
             }
           });
           p.batteries.forEach((bat: any) => {
             if (batterienames[bat]) {
-              allData[batterienames[bat]].power = allData[batterienames[bat]].power
-                ? Object.assign(allData[batterienames[bat]].power, p.pwrs.pwr[bat])
-                : p.pwrs.pwr[bat];
-              allData[`info.${bat}`] = {
+              if (power) {
+                allData[batterienames[bat]].power = allData[batterienames[bat]].power
+                  ? Object.assign(allData[batterienames[bat]].power, p.pwrs.pwr[bat])
+                  : p.pwrs.pwr[bat];
+              }
+              if (!allData.info) allData.info = {};
+              allData.info[`${bat}`] = {
                 barcode: new Value(batterienames[bat], 'string', '', 'Barcode'),
                 connected: new Value(true, 'boolean', '', 'Connected'),
               };
@@ -160,73 +165,95 @@ abstract class WorkerAbstract implements IWorker {
     });
   }
 
-  protected async _getNormal(p: resultForGet, what: string, to: string): Promise<resultForGet> {
+  protected async _getNormal(p: resultForGet, what: string, to: string, process: boolean): Promise<resultForGet> {
     return new Promise<resultForGet>((resolve, reject) => {
-      this._getAlldata(p.batteries, what)
-        .then((data: any) => {
-          Object.keys(data).forEach((key: string) => {
-            if (p.batterienames[key] && p.allData[p.batterienames[key]] && data[key][what]) {
-              p.allData[p.batterienames[key]][to] = p.allData[p.batterienames[key]][to]
-                ? Object.assign(p.allData[p.batterienames[key]].power, data[key][what])
-                : data[key][what];
-            }
-          });
-          resolve({ batteries: p.batteries, batterienames: p.batterienames, allData: p.allData });
-        })
-        .catch(reject);
+      if (process) {
+        this._getAlldata(p.batteries, what)
+          .then((data: any) => {
+            Object.keys(data).forEach((key: string) => {
+              if (p.batterienames[key] && p.allData[p.batterienames[key]] && data[key][what]) {
+                p.allData[p.batterienames[key]][to] = p.allData[p.batterienames[key]][to]
+                  ? Object.assign(p.allData[p.batterienames[key]].power, data[key][what])
+                  : data[key][what];
+              }
+            });
+            resolve(p);
+          })
+          .catch(reject);
+      } else {
+        resolve(p);
+      }
     });
   }
 
-  protected async _getBatterie(p: resultForGet, what: string): Promise<resultForGet> {
+  protected async _getBatterie(p: resultForGet, what: string, process: boolean): Promise<resultForGet> {
     return new Promise<resultForGet>((resolve, reject) => {
-      this._getAlldata(p.batteries, what)
-        .then((data: any) => {
-          Object.keys(data).forEach((key: string) => {
-            if (p.batterienames[key] && data[key][what]) {
-              Object.keys(data[key][what]).forEach((batnr: string) => {
-                const batkey = `battery${(parseInt(batnr, 10) + 1).toString().padStart(2, '0')}`;
-                p.allData[p.batterienames[key]][batkey] = p.allData[p.batterienames[key]][batkey]
-                  ? Object.assign(p.allData[p.batterienames[key]][batkey], data[key][what][batnr])
-                  : data[key][what][batnr];
-              });
-            }
-          });
-          resolve({ batteries: p.batteries, batterienames: p.batterienames, allData: p.allData });
-        })
-        .catch(reject);
+      if (process) {
+        this._getAlldata(p.batteries, what)
+          .then((data: any) => {
+            Object.keys(data).forEach((key: string) => {
+              if (p.batterienames[key] && data[key][what]) {
+                Object.keys(data[key][what]).forEach((batnr: string) => {
+                  const batkey = `battery${(parseInt(batnr, 10) + 1).toString().padStart(2, '0')}`;
+                  p.allData[p.batterienames[key]][batkey] = p.allData[p.batterienames[key]][batkey]
+                    ? Object.assign(p.allData[p.batterienames[key]][batkey], data[key][what][batnr])
+                    : data[key][what][batnr];
+                });
+              }
+            });
+            resolve(p);
+          })
+          .catch(reject);
+      } else {
+        resolve(p);
+      }
     });
   }
 
-  protected async _getLog(allData: any): Promise<any> {
+  protected async _getLog(allData: any, what: string, process: boolean): Promise<any> {
     return new Promise<any>((resolve, reject) => {
-      this.sendCommand('log')
-        .then(log => {
-          if (log.log) {
-            allData.log = log.log;
-          }
-          resolve(allData);
-        })
-        .catch(reject);
+      if (process) {
+        this.sendCommand(what)
+          .then(data => {
+            if (data[what]) {
+              allData[what] = data[what];
+            }
+            resolve(allData);
+          })
+          .catch(reject);
+      } else {
+        resolve(allData);
+      }
     });
   }
 
-  public async getData(): Promise<any> {
+  public async getData(option: any): Promise<any> {
+    if (typeof option.info == 'undefined') option.info = true;
+    if (typeof option.power == 'undefined') option.power = true;
+    if (typeof option.statistic == 'undefined') option.statistic = true;
+    if (typeof option.celldata == 'undefined') option.celldata = true;
+    if (typeof option.cellsoh == 'undefined') option.cellsoh = true;
+    if (typeof option.log == 'undefined') option.log = true;
     return new Promise<any>((resolve, reject) => {
       this._getPwr()
         .then((p: { pwrs: any; batteries: string[] }) => {
-          this._getinfo(p)
+          this._getinfo(p, option.info, option.power)
             .then((p: resultForGet) => {
-              this._getNormal(p, PWR, POWER)
+              this._getNormal(p, PWR, POWER, option.power)
                 .then(p => {
-                  this._getNormal(p, STAT, STATISTIC)
+                  this._getNormal(p, STAT, STATISTIC, option.statistic)
                     .then(p => {
-                      this._getBatterie(p, BAT)
+                      this._getBatterie(p, BAT, option.celldata)
                         .then(p => {
-                          this._getBatterie(p, SOH)
+                          this._getBatterie(p, SOH, option.cellsoh)
                             .then(p => {
-                              this._getLog(p.allData)
+                              this._getLog(p.allData, 'log', option.log)
                                 .then(allData => {
-                                  resolve(allData);
+                                  this._getLog(allData, 'time', option.log)
+                                    .then(allData => {
+                                      resolve(allData);
+                                    })
+                                    .catch(reject);
                                 })
                                 .catch(reject);
                             })

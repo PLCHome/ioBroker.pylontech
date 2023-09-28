@@ -44,15 +44,18 @@ abstract class ParserBase implements IParser {
   }
 
   protected _parseDataNameValN(data: string, row: RegExp, command: string): any {
-    const result: any = {};
-    if (this._number !== undefined) {
-      result[this._number] = {};
-      result[this._number][command] = {};
-      for (let match; (match = row.exec(data)) !== null; ) {
-        if (match !== null) {
-          result[this._number][command][match[1] === '' ? '-X-' : match[1].trim()] = match[2].trim();
-        }
+    let result: any = {};
+    result = {};
+    result[command] = {};
+    for (let match; (match = row.exec(data)) !== null; ) {
+      if (match !== null) {
+        result[command][match[1] === '' ? '-X-' : match[1].trim()] = match[2].trim();
       }
+    }
+    if (this._number) {
+      const res: any = {};
+      res[this._number] = result;
+      result = res;
     }
     return this._processDatatypes(result);
   }

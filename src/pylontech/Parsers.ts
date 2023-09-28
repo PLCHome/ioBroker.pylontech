@@ -7,6 +7,7 @@ import { ParserPwr } from './ParserPwr';
 import { ParserPwrN } from './ParserPwrN';
 import { ParserSohN } from './ParserSohN';
 import { ParserStatN } from './ParserStatN';
+import { ParserTime } from './ParserTime';
 
 const debugParsers = debug('pylontech:parsers');
 
@@ -22,6 +23,7 @@ export class Parsers {
     this._parser.push(new ParserStatN());
     this._parser.push(new ParserPwr());
     this._parser.push(new ParserLog());
+    this._parser.push(new ParserTime());
   }
 
   getParser(data: string): IParser | undefined {

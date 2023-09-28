@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["../../src/pylontech/ParserInfoN.ts"],
-  "sourcesContent": ["import ParserBase from \"./ParserBase\";\n\n//const debugApi = Debug(\"pylontech:api\");\n\nconst COMMAND: string = \"info\";\n\nexport class ParserInfoN extends ParserBase {\n    _number: number | undefined;\n\n    isParser(data: string): boolean {\n        const prompt: RegExp = /(>)(\\S+)\\s(\\d+)$/gm;\n        return this._isParser(data, prompt, COMMAND);\n    }\n\n    parseData(data: string): any {\n        const row: RegExp = /(.+\\S)\\s+:\\s(.*)/gm;\n        return this._parseDataNameValN(data, row, COMMAND);\n    }\n}\n"],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,wBAAuB;AAIvB,MAAM,UAAkB;AAEjB,MAAM,oBAAoB,kBAAAA,QAAW;AAAA,EAGxC,SAAS,MAAuB;AAC5B,UAAM,SAAiB;AACvB,WAAO,KAAK,UAAU,MAAM,QAAQ,OAAO;AAAA,EAC/C;AAAA,EAEA,UAAU,MAAmB;AACzB,UAAM,MAAc;AACpB,WAAO,KAAK,mBAAmB,MAAM,KAAK,OAAO;AAAA,EACrD;AACJ;",
+  "sourcesContent": ["import ParserBase from './ParserBase';\n\n//const debugApi = Debug(\"pylontech:api\");\n\nconst COMMAND: string = 'info';\n\nexport class ParserInfoN extends ParserBase {\n  _number: number | undefined;\n\n  isParser(data: string): boolean {\n    const prompt: RegExp = /(>)(\\S+)\\s(\\d+)$/gm;\n    return this._isParser(data, prompt, COMMAND);\n  }\n\n  parseData(data: string): any {\n    const row: RegExp = /(.+\\S)\\s+:\\s(.*)/gm;\n    return this._parseDataNameValN(data, row, COMMAND);\n  }\n}\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,wBAAuB;AAIvB,MAAM,UAAkB;AAEjB,MAAM,oBAAoB,kBAAAA,QAAW;AAAA,EAG1C,SAAS,MAAuB;AAC9B,UAAM,SAAiB;AACvB,WAAO,KAAK,UAAU,MAAM,QAAQ,OAAO;AAAA,EAC7C;AAAA,EAEA,UAAU,MAAmB;AAC3B,UAAM,MAAc;AACpB,WAAO,KAAK,mBAAmB,MAAM,KAAK,OAAO;AAAA,EACnD;AACF;",
   "names": ["ParserBase"]
 }

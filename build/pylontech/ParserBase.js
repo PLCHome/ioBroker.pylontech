@@ -39,15 +39,18 @@ class ParserBase {
     return this._processDatatypes(result);
   }
   _parseDataNameValN(data, row, command) {
-    const result = {};
-    if (this._number !== void 0) {
-      result[this._number] = {};
-      result[this._number][command] = {};
-      for (let match; (match = row.exec(data)) !== null; ) {
-        if (match !== null) {
-          result[this._number][command][match[1] === "" ? "-X-" : match[1].trim()] = match[2].trim();
-        }
+    let result = {};
+    result = {};
+    result[command] = {};
+    for (let match; (match = row.exec(data)) !== null; ) {
+      if (match !== null) {
+        result[command][match[1] === "" ? "-X-" : match[1].trim()] = match[2].trim();
       }
+    }
+    if (this._number) {
+      const res = {};
+      res[this._number] = result;
+      result = res;
     }
     return this._processDatatypes(result);
   }

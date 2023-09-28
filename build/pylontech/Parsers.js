@@ -29,6 +29,7 @@ var import_ParserPwr = require("./ParserPwr");
 var import_ParserPwrN = require("./ParserPwrN");
 var import_ParserSohN = require("./ParserSohN");
 var import_ParserStatN = require("./ParserStatN");
+var import_ParserTime = require("./ParserTime");
 const debugParsers = (0, import_debug.debug)("pylontech:parsers");
 class Parsers {
   constructor() {
@@ -41,6 +42,7 @@ class Parsers {
     this._parser.push(new import_ParserStatN.ParserStatN());
     this._parser.push(new import_ParserPwr.ParserPwr());
     this._parser.push(new import_ParserLog.ParserLog());
+    this._parser.push(new import_ParserTime.ParserTime());
   }
   getParser(data) {
     debugParsers("Parsers.getParser", "data", data);

@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["../../src/pylontech/ParserBatN.ts"],
-  "sourcesContent": ["import ParserBase from \"./ParserBase\";\n\n//const debugApi = Debug(\"pylontech:parser\");\n\nconst COMMAND: string = \"bat\";\n\nexport class ParserBatN extends ParserBase {\n    isParser(data: string): boolean {\n        const prompt: RegExp = /(>)(\\S+)\\s(\\d+)$/gm;\n        return this._isParser(data, prompt, COMMAND);\n    }\n\n    parseData(data: string): object {\n        const row: RegExp = /^(.{9})(.{9})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{10})(.{9,16})?(.{1,3})?/gm;\n        return this._parseDataHeadlineN(data, row, COMMAND, 1);\n    }\n}\n"],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,wBAAuB;AAIvB,MAAM,UAAkB;AAEjB,MAAM,mBAAmB,kBAAAA,QAAW;AAAA,EACvC,SAAS,MAAuB;AAC5B,UAAM,SAAiB;AACvB,WAAO,KAAK,UAAU,MAAM,QAAQ,OAAO;AAAA,EAC/C;AAAA,EAEA,UAAU,MAAsB;AAC5B,UAAM,MAAc;AACpB,WAAO,KAAK,oBAAoB,MAAM,KAAK,SAAS,CAAC;AAAA,EACzD;AACJ;",
+  "sourcesContent": ["import ParserBase from './ParserBase';\n\n//const debugApi = Debug(\"pylontech:parser\");\n\nconst COMMAND: string = 'bat';\n\nexport class ParserBatN extends ParserBase {\n  isParser(data: string): boolean {\n    const prompt: RegExp = /(>)(\\S+)\\s(\\d+)$/gm;\n    return this._isParser(data, prompt, COMMAND);\n  }\n\n  parseData(data: string): object {\n    const row: RegExp = /^(.{9})(.{9})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{10})(.{9,16})?(.{1,3})?/gm;\n    return this._parseDataHeadlineN(data, row, COMMAND, 1);\n  }\n}\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,wBAAuB;AAIvB,MAAM,UAAkB;AAEjB,MAAM,mBAAmB,kBAAAA,QAAW;AAAA,EACzC,SAAS,MAAuB;AAC9B,UAAM,SAAiB;AACvB,WAAO,KAAK,UAAU,MAAM,QAAQ,OAAO;AAAA,EAC7C;AAAA,EAEA,UAAU,MAAsB;AAC9B,UAAM,MAAc;AACpB,WAAO,KAAK,oBAAoB,MAAM,KAAK,SAAS,CAAC;AAAA,EACvD;AACF;",
   "names": ["ParserBase"]
 }

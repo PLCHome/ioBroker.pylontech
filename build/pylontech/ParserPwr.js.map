@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["../../src/pylontech/ParserPwr.ts"],
-  "sourcesContent": ["import ParserBase from \"./ParserBase\";\n\n//const debugApi = Debug(\"pylontech:api\");\n\nconst COMMAND: string = \"pwr\";\n\nexport class ParserPwr extends ParserBase {\n    isParser(data: string): boolean {\n        const prompt: RegExp = /(>)(\\S+)$/gm;\n        return this._isParser(data, prompt, COMMAND);\n    }\n\n    parseData(data: string): any {\n        const row: RegExp =\n            /^(.{6})(.{7})(.{7})(.{7})(.{7})(.{7})(.{7})(.{7})(.{9})(.{9})(.{9})(.{9})(.{9})(.{21})(.{9})(.{9})?(.{8})?(.{7})?/gm;\n        return this._parseDataHeadlineN(data, row, COMMAND, 1);\n    }\n}\n"],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,wBAAuB;AAIvB,MAAM,UAAkB;AAEjB,MAAM,kBAAkB,kBAAAA,QAAW;AAAA,EACtC,SAAS,MAAuB;AAC5B,UAAM,SAAiB;AACvB,WAAO,KAAK,UAAU,MAAM,QAAQ,OAAO;AAAA,EAC/C;AAAA,EAEA,UAAU,MAAmB;AACzB,UAAM,MACF;AACJ,WAAO,KAAK,oBAAoB,MAAM,KAAK,SAAS,CAAC;AAAA,EACzD;AACJ;",
+  "sourcesContent": ["import ParserBase from './ParserBase';\n\n//const debugApi = Debug(\"pylontech:api\");\n\nconst COMMAND: string = 'pwr';\n\nexport class ParserPwr extends ParserBase {\n  isParser(data: string): boolean {\n    const prompt: RegExp = /(>)(\\S+)$/gm;\n    return this._isParser(data, prompt, COMMAND);\n  }\n\n  parseData(data: string): any {\n    const row: RegExp = /^(.{6})(.{7})(.{7})(.{7})(.{7})(.{7})(.{7})(.{7})(.{9})(.{9})(.{9})(.{9})(.{9})(.{21})(.{9})(.{9})?(.{8})?(.{7})?/gm;\n    return this._parseDataHeadlineN(data, row, COMMAND, 1);\n  }\n}\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,wBAAuB;AAIvB,MAAM,UAAkB;AAEjB,MAAM,kBAAkB,kBAAAA,QAAW;AAAA,EACxC,SAAS,MAAuB;AAC9B,UAAM,SAAiB;AACvB,WAAO,KAAK,UAAU,MAAM,QAAQ,OAAO;AAAA,EAC7C;AAAA,EAEA,UAAU,MAAmB;AAC3B,UAAM,MAAc;AACpB,WAAO,KAAK,oBAAoB,MAAM,KAAK,SAAS,CAAC;AAAA,EACvD;AACF;",
   "names": ["ParserBase"]
 }

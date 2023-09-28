@@ -1,0 +1,9 @@
+
+
+pylon>time
+@
+Ds3231 2023-09-28 20:11:40
+Command completed successfully
+$$
+
+pylon>

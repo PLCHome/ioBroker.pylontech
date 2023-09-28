@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["../../src/pylontech/Value.ts"],
-  "sourcesContent": ["//import * as serialport from \"serialport\"\nexport class Value {\n    value: number | string | boolean;\n    type: string;\n    unit: string;\n    name: string;\n\n    constructor(value: number | string | boolean, type: string, unit: string, name: string) {\n        this.value = value;\n        this.type = type;\n        this.unit = unit;\n        this.name = name;\n    }\n\n    set(value: number | string | boolean, type: string, unit: string, name: string): void {\n        this.value = value;\n        this.type = type;\n        this.unit = unit;\n        this.name = name;\n    }\n}\n"],
-  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AACO,MAAM,MAAM;AAAA,EAMf,YAAY,OAAkC,MAAc,MAAc,MAAc;AACpF,SAAK,QAAQ;AACb,SAAK,OAAO;AACZ,SAAK,OAAO;AACZ,SAAK,OAAO;AAAA,EAChB;AAAA,EAEA,IAAI,OAAkC,MAAc,MAAc,MAAoB;AAClF,SAAK,QAAQ;AACb,SAAK,OAAO;AACZ,SAAK,OAAO;AACZ,SAAK,OAAO;AAAA,EAChB;AACJ;",
+  "sourcesContent": ["//import * as serialport from \"serialport\"\nexport class Value {\n  value: number | string | boolean;\n  type: string;\n  unit: string;\n  name: string;\n  write: boolean;\n  function: string | undefined;\n\n  constructor(value: number | string | boolean, type: string, unit: string, name: string) {\n    this.value = value;\n    this.type = type;\n    this.unit = unit;\n    this.name = name;\n    this.write = false;\n  }\n\n  set(value: number | string | boolean, type: string, unit: string, name: string): void {\n    this.value = value;\n    this.type = type;\n    this.unit = unit;\n    this.name = name;\n  }\n}\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AACO,MAAM,MAAM;AAAA,EAQjB,YAAY,OAAkC,MAAc,MAAc,MAAc;AACtF,SAAK,QAAQ;AACb,SAAK,OAAO;AACZ,SAAK,OAAO;AACZ,SAAK,OAAO;AACZ,SAAK,QAAQ;AAAA,EACf;AAAA,EAEA,IAAI,OAAkC,MAAc,MAAc,MAAoB;AACpF,SAAK,QAAQ;AACb,SAAK,OAAO;AACZ,SAAK,OAAO;AACZ,SAAK,OAAO;AAAA,EACd;AACF;",
   "names": []
 }

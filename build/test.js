@@ -22,7 +22,7 @@ var import_WorkerSerial = __toESM(require("./pylontech/WorkerSerial"));
 var import_promises = __toESM(require("fs/promises"));
 const worker = new import_WorkerSerial.default("com7", 115200);
 import_promises.default.writeFile("./elements", "", { flag: "w+" });
-worker.getData().then((allData) => {
+worker.getData({ info: true, power: true, statistic: true, celldata: true, cellsoh: true }).then((allData) => {
   console.log(JSON.stringify(allData, null, " "));
   function walk(path, val) {
     if (val instanceof import_Value.Value) {

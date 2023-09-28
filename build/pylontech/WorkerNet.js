@@ -22,7 +22,7 @@ var net = __toESM(require("net"));
 var import_WorkerAbstract = __toESM(require("./WorkerAbstract"));
 const debugApi = (0, import_debug.default)("pylontech:api");
 module.exports = class WorkerNet extends import_WorkerAbstract.default {
-  constructor(host, port, baudRate, debugData) {
+  constructor(host, port, baudRate, rfc2217, debugData) {
     debugApi("MyWorkerNet.constructor", "host:", host, "port:", port);
     super();
     this._socket = new net.Socket();

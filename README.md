@@ -42,25 +42,25 @@ Only the first battery in the array provides all information. You only need a ca
 
 #### RJ45
 
-RJ45 | signal  | DSUB | signal
------|--|--|---
-8 | Ground | 5 | Ground
-3 | TxD | 2 | RxD
-6 | RxD | 3 | TxD
+| RJ45 | signal | DSUB | signal |
+| ---- | ------ | ---- | ------ |
+| 8    | Ground | 5    | Ground |
+| 3    | TxD    | 2    | RxD    |
+| 6    | RxD    | 3    | TxD    |
 
-![RJ45](admin/8p.jpg)
+![RJ45](media/8p.jpg)
 
 #### RJ11 / RJ12
+
 The RJ11 and RJ12 connectors are the same size. The RJ11 has only four contacts, the RJ12 has six contacts. The contacts of the RJ11 are in the middle of the plug, which is why they are counted differently. Physically the contacts are in the same place.
 
-RJ11 | RJ12 | signal  | DSUB | signal
----|--|--|--|---
-1 or 4 | 2 or 5 | Ground | 5 | Ground
-3 | 4 | TxD | 2 | RxD
-2 | 3 | RxD | 3 | TxD
+| RJ11   | RJ12   | signal | DSUB | signal |
+| ------ | ------ | ------ | ---- | ------ |
+| 1 or 4 | 2 or 5 | Ground | 5    | Ground |
+| 3      | 4      | TxD    | 2    | RxD    |
+| 2      | 3      | RxD    | 3    | TxD    |
 
-![RJ11 / RJ12](admin/4p.jpg)
-
+![RJ11 / RJ12](media/4p.jpg)
 
 There are RJ45 console cables with USB port for Cisco routers. These do not have a compatible occupancy. However, with a little experience the RJ45 plug can be replaced.
 
@@ -99,7 +99,7 @@ https://www.4iot.store/en/product/wifi-serial-communication/
 
 Since the Raspberry also offers a TTL interface with 3V, you can also connect a MAX3232 here.
 
-![Raspi MAX](http://www.savagehomeautomation.com/storage/post-images/raspberrypi/raspi-rs232-schematic4.png?__SQUARESPACE_CACHEVERSION=1357108144778)
+![Raspi with MAX](media/rpicom.jpg)
 
 read more http://www.savagehomeautomation.com/projects/raspberry-pi-rs232-serial-interface-options-revisit.html
 

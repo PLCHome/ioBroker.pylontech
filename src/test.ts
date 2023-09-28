@@ -9,8 +9,7 @@ import fs from 'fs/promises';
 const worker: WorkerAbstract = new WorkerSerial('com7', 115200);
 
 fs.writeFile('./elements', '', { flag: 'w+' });
-
-worker.getData().then((allData: any) => {
+worker.getData({ info: true, power: true, statistic: true, celldata: true, cellsoh: true }).then((allData: any) => {
   console.log(JSON.stringify(allData, null, ' '));
   function walk(path: string, val: any): void {
     if (val instanceof Value) {

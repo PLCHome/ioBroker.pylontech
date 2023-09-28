@@ -1,16 +1,9 @@
-/*
- * Created with @iobroker/create-adapter v2.3.0
- */
-
-// The adapter-core module gives you access to the core ioBroker functions
-// you need to create an adapter
 import * as utils from '@iobroker/adapter-core';
+import { SerialPort } from 'serialport';
 import { Value } from './pylontech/Value';
 import WorkerAbstract from './pylontech/WorkerAbstract';
+import WorkerNet from './pylontech/WorkerNet';
 import WorkerSerial from './pylontech/WorkerSerial';
-
-// Load your modules here, e.g.:
-// import * as fs from "fs";
 
 class Pylontech extends utils.Adapter {
   workTimer: NodeJS.Timeout | undefined;
@@ -23,7 +16,7 @@ class Pylontech extends utils.Adapter {
     this.on('ready', this.onReady.bind(this));
     //this.on("stateChange", this.onStateChange.bind(this));
     // this.on("objectChange", this.onObjectChange.bind(this));
-    // this.on("message", this.onMessage.bind(this));
+    this.on('message', this.onMessage.bind(this));
     this.on('unload', this.onUnload.bind(this));
   }
 
@@ -36,83 +29,125 @@ class Pylontech extends utils.Adapter {
     // Reset the connection indicator during startup
     this.setState('info.connection', false, true);
 
-    // The adapters config (in the instance object everything under the attribute "native") is accessible via
-    // this.config:
-    this.log.info('config device: ' + this.config.device);
-    this.log.info('config password: ' + this.config.password);
-    this.log.info('config log: ' + this.config.log);
-    this.log.info('config batterycells: ' + this.config.batterycells);
-    this.log.info('config statistics: ' + this.config.statistics);
-    this.log.info('config accuinformation: ' + this.config.accuinformation);
-    this.log.info('config accuinformation: ' + this.config.accuinformation);
-    this.log.info('config cycle: ' + this.config.cycle);
-
-    /*
-		For every state in the system there has to be also an object of type state
-		Here a simple template for a boolean variable named "testVariable"
-		Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
-		*/
-    await this.setObjectNotExistsAsync('testVariable', {
-      type: 'state',
-      common: {
-        name: 'testVariable',
-        type: 'boolean',
-        role: 'indicator',
-        read: true,
-        write: true,
-      },
-      native: {},
-    });
-
-    // In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
-    this.subscribeStates('testVariable');
+    // this.subscribeStates('testVariable');
     // You can also add a subscription for multiple states. The following line watches all states starting with "lights."
     // this.subscribeStates("lights.*");
     // Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
     // this.subscribeStates("*");
 
-    this.workTimer = setTimeout(this.onTimer.bind(this), 30000);
-    /*
-			setState examples
-			you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
-		*/
-    // the variable testVariable is set to true as command (ack=false)
-    await this.setStateAsync('testVariable', true);
+    if (typeof this.config.connection == 'undefined') this.config.connection = '1';
+    if (typeof this.config.baudrate == 'undefined') this.config.baudrate = 115200;
+    if (typeof this.config.rfc2217 == 'undefined') this.config.rfc2217 = false;
+    if (typeof this.config.netbaudrate == 'undefined') this.config.netbaudrate = 115200;
+    if (typeof this.config.info == 'undefined') this.config.info = true;
+    if (typeof this.config.power == 'undefined') this.config.power = true;
+    if (typeof this.config.statistic == 'undefined') this.config.statistic = true;
+    if (typeof this.config.celldata == 'undefined') this.config.celldata = true;
+    if (typeof this.config.cellsoh == 'undefined') this.config.cellsoh = true;
+    if (typeof this.config.log == 'undefined') this.config.log = true;
+    if (typeof this.config.cycle == 'undefined') this.config.cycle = 5;
 
-    // same thing, but the value is flagged "ack"
-    // ack should be always set to true if the value is received from or acknowledged from the target system
-    await this.setStateAsync('testVariable', { val: true, ack: true });
+    this.onTimer();
+    this.workTimer = setInterval(this.onTimer.bind(this), this.config.cycle * 60000);
+  }
 
-    // same thing, but the state is deleted after 30s (getState will return null afterwards)
-    await this.setStateAsync('testVariable', { val: true, ack: true, expire: 30 });
-
-    // examples for the checkPassword/checkGroup functions
-    let result = await this.checkPasswordAsync('admin', 'iobroker');
-    this.log.info('check user admin pw iobroker: ' + result);
-
-    result = await this.checkGroupAsync('admin', 'admin');
-    this.log.info('check group user admin group admin: ' + result);
+  onMessage(obj: any): void {
+    let wait = false;
+    this.log.debug(JSON.stringify(obj));
+    if (obj) {
+      switch (obj.command) {
+        case 'getDevices':
+          wait = true;
+          SerialPort.list().then(port => {
+            const ports: string[] = [];
+            port.forEach(p => {
+              ports.push(p.path);
+            });
+            this.sendTo(obj.from, obj.command, JSON.stringify(ports), obj.callback);
+          });
+          break;
+        default:
+          this.log.warn(`Unknown command: ${obj.command}`);
+          return;
+      }
+    }
+    if (!wait && obj.callback) {
+      this.sendTo(obj.from, obj.command, obj.message, obj.callback);
+    }
+    return;
   }
 
   private onTimer(): void {
-    const worker: WorkerAbstract = new WorkerSerial('com7', 115200);
+    try {
+      const worker: WorkerAbstract =
+        this.config.connection == '1'
+          ? new WorkerSerial(this.config.device, this.config.baudrate)
+          : new WorkerNet(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217);
 
-    worker.getData().then((allData: any) => {
-      //console.log(JSON.stringify(allData, null, " "));
-      function walk(path: string, val: any): void {
-        if (val instanceof Value) {
-          //fs.writeFile("./elements", path + "\t" + val.value + "\n", { flag: "a+" });
-          //console.log(path + "\t" + val.value);
-        } else {
-          let p = '';
-          if (path !== '') p = '.';
-          Object.keys(val).forEach(key => {
-            walk(`${path}${p}${key}`, val[key]);
+      worker
+        .getData({
+          info: this.config.info,
+          power: this.config.power,
+          statistic: this.config.statistic,
+          celldata: this.config.celldata,
+          cellsoh: this.config.cellsoh,
+          log: this.config.log,
+        })
+        .then((allData: any) => {
+          worker.close();
+          this.setState('info.connection', true, true);
+          const walk = async (path: string, val: any): Promise<void> => {
+            if (val instanceof Value) {
+              const objdesc: any = {
+                type: 'state',
+                common: {
+                  name: val.name,
+                  type: 'number',
+                  role: 'value',
+                  read: true,
+                  write: val.write,
+                },
+                native: {},
+              };
+              if (val.unit) objdesc.common.unit = val.unit;
+              if (val.function) objdesc.native.function = val.function;
+              switch (val.type) {
+                case 'date':
+                  objdesc.common.role = 'value.time';
+                  break;
+                case 'boolean':
+                case 'string':
+                  objdesc.common.type = val.type;
+                  break;
+              }
+              await this.setObjectNotExistsAsync(path, objdesc);
+              this.setStateAsync(path, val.value, true);
+            } else {
+              let p = '';
+              if (path !== '') p = '.';
+              Object.keys(val).forEach(key => {
+                walk(`${path}${p}${key}`, val[key]);
+              });
+            }
+          };
+          walk('', allData);
+          this.getStatesAsync('info.*.connected').then(state => {
+            Object.keys(state).forEach(path => {
+              const info = path.split('.');
+              this.log.info(info[3]);
+              this.log.info(
+                `${allData.info && allData.info[info[3]] && allData.info[info[3]].connected} ${allData.info && allData.info[info[3]]} ${allData.info}`
+              );
+              if (!(allData.info && allData.info[info[3]] && allData.info[info[3]].connected)) {
+                this.setStateAsync(path, false, true);
+              }
+            });
           });
-        }
-      }
-      walk('', allData);
-    });
+        })
+        .catch(this.log.error);
+    } catch (e) {
+      this.log.error((e as Error).message);
+    }
   }
 
   /**
