@@ -1,4 +1,4 @@
-![Logo](admin/pylontech.png)
+![Logo](media/logo.png)
 
 # ioBroker.pylontech
 
