@@ -155,7 +155,7 @@ class Pylontech extends utils.Adapter {
    */
   private onUnload(callback: () => void): void {
     try {
-      clearTimeout(this.workTimer);
+      clearInterval(this.workTimer);
       // Here you must clear all timeouts or intervals that may still be active
       // clearTimeout(timeout1);
       // clearTimeout(timeout2);
