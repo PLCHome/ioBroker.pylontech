@@ -19,52 +19,10 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var utils = __toESM(require("@iobroker/adapter-core"));
 var import_serialport = require("serialport");
+var import_FktInOrder = require("./pylontech/FktInOrder");
 var import_Value = require("./pylontech/Value");
 var import_WorkerNet = __toESM(require("./pylontech/WorkerNet"));
 var import_WorkerSerial = __toESM(require("./pylontech/WorkerSerial"));
-class order {
-  constructor(errLog) {
-    this._list = [];
-    this._busy = false;
-    this._errLog = errLog;
-  }
-  addFunc(func) {
-    if (func) {
-      this._list.push(func);
-      this.donext();
-    }
-  }
-  doende() {
-    this._busy = false;
-    clearTimeout(this._timer);
-    this.donext();
-  }
-  donext() {
-    if (!this._busy) {
-      this._busy = true;
-      const func = this._list.pop();
-      if (func) {
-        new Promise((resolve, reject) => {
-          this._timer = setTimeout(() => {
-            this.doende();
-            reject("order timeout!!!");
-          }, 3e4);
-          const resolveInt = () => {
-            this.doende();
-            resolve();
-          };
-          const rejectInt = (err) => {
-            this.doende();
-            reject(err);
-          };
-          func(resolveInt, rejectInt);
-        }).catch(this._errLog);
-      } else {
-        this._busy = false;
-      }
-    }
-  }
-}
 class Pylontech extends utils.Adapter {
   constructor(options = {}) {
     super({
@@ -79,7 +37,7 @@ class Pylontech extends utils.Adapter {
   async onReady() {
     this.setState("info.connection", false, true);
     this.subscribeStates("*");
-    this._order = new order(this.log.error);
+    this._fktInOrder = new import_FktInOrder.FktInOrder(this.log.error);
     if (typeof this.config.connection == "undefined")
       this.config.connection = "1";
     if (typeof this.config.baudrate == "undefined")
@@ -102,15 +60,18 @@ class Pylontech extends utils.Adapter {
       this.config.log = true;
     if (typeof this.config.cycle == "undefined")
       this.config.cycle = 5;
-    this._order.addFunc(this._onTimer.bind(this));
+    this._fktInOrder.addFunc(this._onTimer.bind(this));
     this._workTimer = setInterval(() => {
-      if (this._order)
-        this._order.addFunc(this._onTimer.bind(this));
+      if (this._fktInOrder)
+        this._fktInOrder.addFunc(this._onTimer.bind(this));
     }, this.config.cycle * 6e4);
+  }
+  _debugData(data) {
+    this.log.silly(data.toString());
   }
   _onTimer(resolve, reject) {
     try {
-      const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate) : new import_WorkerNet.default(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217);
+      const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate, false, this._debugData.bind(this)) : new import_WorkerNet.default(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217, false, this._debugData.bind(this));
       worker.getData({
         info: this.config.info,
         power: this.config.power,
@@ -150,7 +111,7 @@ class Pylontech extends utils.Adapter {
             }
             await this.setObjectNotExistsAsync(path, objdesc);
             this.setStateAsync(path, val.value, true);
-          } else {
+          } else if (typeof val == "object") {
             let p = "";
             if (path !== "")
               p = ".";
@@ -178,21 +139,42 @@ class Pylontech extends utils.Adapter {
   }
   _setTime(time, cb) {
     const d = new Date(time);
-    if (this._order) {
-      this.log.info("settime ..");
-      this._order.addFunc((resolve, reject) => {
+    if (this._fktInOrder) {
+      this._fktInOrder.addFunc((resolve, reject) => {
         try {
           let f22 = function(val) {
             return val.toString().padStart(2, "0");
           };
           var f2 = f22;
-          const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate) : new import_WorkerNet.default(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217);
+          const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate, false, this._debugData.bind(this)) : new import_WorkerNet.default(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217, false, this._debugData.bind(this));
           const cmd = `time ${f22(d.getFullYear() % 100)} ${f22(d.getMonth() + 1)} ${f22(d.getDate())} ${f22(d.getHours())} ${f22(d.getMinutes())} ${f22(
             d.getSeconds()
           )}`;
-          this.log.info(cmd);
           worker.sendCommand(cmd).then(() => {
-            this.log.info("then");
+            worker.close();
+            resolve();
+            if (cb)
+              cb(true);
+          }).catch((err) => {
+            worker.close();
+            reject(err);
+            if (cb)
+              cb(false);
+          });
+        } catch (e) {
+          reject(e.message);
+          if (cb)
+            cb(false);
+        }
+      });
+    }
+  }
+  _setSpeed(cb) {
+    if (this._fktInOrder) {
+      this._fktInOrder.addFunc((resolve, reject) => {
+        try {
+          const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate, true, this._debugData.bind(this)) : new import_WorkerNet.default(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217, true, this._debugData.bind(this));
+          worker.sendSpeedInit().then(() => {
             worker.close();
             resolve();
             if (cb)
@@ -232,9 +214,13 @@ class Pylontech extends utils.Adapter {
             case "akttime":
               if (state.val)
                 this._setTime(new Date().getTime(), (ok) => {
-                  this.log.info("cb !!");
                   this.setStateAsync(id, ok, true);
                 });
+              break;
+            case "setspeed115200":
+              this._setSpeed((ok) => {
+                this.setStateAsync(id, ok, true);
+              });
               break;
           }
         }

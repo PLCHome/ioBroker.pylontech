@@ -22,17 +22,23 @@ var import_serialport = require("serialport");
 var import_WorkerAbstract = __toESM(require("./WorkerAbstract"));
 const debugApi = (0, import_debug.default)("pylontech:api");
 module.exports = class WorkerSerial extends import_WorkerAbstract.default {
-  constructor(path, baudRate, debugData) {
+  constructor(path, baudRate, noPrompt, debugData) {
     debugApi("MyWorkerNet.constructor", "path:", path, "baudRate:", baudRate);
     super();
     this._socket = new import_serialport.SerialPort({ path, baudRate });
+    if (noPrompt)
+      this._noPrompt = noPrompt;
     if (debugData)
       this._socket.on("data", debugData);
     this._socket.pipe(this._consolenReader);
     this._socket.open(this._connected.bind(this));
   }
+  sendDataB(data) {
+    debugApi("MyWorkerSerial.sendData", "data:", data.toString("hex"), "this._activeCmd:", this._activeCmd);
+    this._socket.write(data);
+  }
   sendData(data) {
-    debugApi("MyWorkerSerial.sendData", "data:", data.toString(), "this._activeCmd:", this._activeCmd);
+    debugApi("MyWorkerSerial.sendData", "data:", data, "this._activeCmd:", this._activeCmd);
     this._socket.write(data);
   }
   close() {

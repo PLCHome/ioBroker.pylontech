@@ -1,64 +1,38 @@
+// Copyright (c) 2020-2023 Träger
+
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the "Software"),
+// to deal in the Software without restriction, including without limitation
+// the rights to use, copy, modify, merge, publish, distribute, sublicense,
+// and/or sell copies of the Software, and to permit persons to whom the
+// Software is furnished to do so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+
 import * as utils from '@iobroker/adapter-core';
 import { SerialPort } from 'serialport';
+import { FktInOrder } from './pylontech/FktInOrder';
 import { Value } from './pylontech/Value';
 import WorkerAbstract from './pylontech/WorkerAbstract';
 import WorkerNet from './pylontech/WorkerNet';
 import WorkerSerial from './pylontech/WorkerSerial';
 
-class order {
-  protected _list: ((resolve: (value: void | PromiseLike<void>) => void, reject: (reason?: any) => void) => void)[] = [];
-  protected _busy: boolean = false;
-  protected _timer: NodeJS.Timeout | undefined;
-  protected _errLog: (msg: string) => void;
-
-  constructor(errLog: (msg: string) => void) {
-    this._errLog = errLog;
-  }
-
-  addFunc(func: (resolve: (value: void | PromiseLike<void>) => void, reject: (reason?: any) => void) => void): void {
-    if (func) {
-      this._list.push(func);
-      this.donext();
-    }
-  }
-
-  doende(): void {
-    this._busy = false;
-    clearTimeout(this._timer);
-    this.donext();
-  }
-  donext(): void {
-    if (!this._busy) {
-      this._busy = true;
-      const func: ((resolve: (value: void | PromiseLike<void>) => void, reject: (reason?: any) => void) => void) | undefined = this._list.pop();
-      if (func) {
-        new Promise<void>((resolve, reject) => {
-          this._timer = setTimeout((): void => {
-            this.doende();
-            reject('order timeout!!!');
-          }, 30000);
-
-          const resolveInt = (): void => {
-            this.doende();
-            resolve();
-          };
-          const rejectInt = (err: string): void => {
-            this.doende();
-            reject(err);
-          };
-          func(resolveInt, rejectInt);
-        }).catch(this._errLog);
-      } else {
-        this._busy = false;
-      }
-    }
-  }
-}
-
 class Pylontech extends utils.Adapter {
   private _workTimer: NodeJS.Timeout | undefined;
-  private _order: order | undefined;
+  private _fktInOrder: FktInOrder | undefined;
 
+  /**
+   * a new live
+   */
   public constructor(options: Partial<utils.AdapterOptions> = {}) {
     super({
       ...options,
@@ -75,17 +49,10 @@ class Pylontech extends utils.Adapter {
    * Is called when databases are connected and adapter received configuration.
    */
   private async onReady(): Promise<void> {
-    // Initialize your adapter here
-
-    // Reset the connection indicator during startup
     this.setState('info.connection', false, true);
 
-    // this.subscribeStates('testVariable');
-    // You can also add a subscription for multiple states. The following line watches all states starting with "lights."
-    // this.subscribeStates("lights.*");
-    // Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
     this.subscribeStates('*');
-    this._order = new order(this.log.error);
+    this._fktInOrder = new FktInOrder(this.log.error);
 
     if (typeof this.config.connection == 'undefined') this.config.connection = '1';
     if (typeof this.config.baudrate == 'undefined') this.config.baudrate = 115200;
@@ -99,18 +66,25 @@ class Pylontech extends utils.Adapter {
     if (typeof this.config.log == 'undefined') this.config.log = true;
     if (typeof this.config.cycle == 'undefined') this.config.cycle = 5;
 
-    this._order.addFunc(this._onTimer.bind(this));
+    this._fktInOrder.addFunc(this._onTimer.bind(this));
     this._workTimer = setInterval((): void => {
-      if (this._order) this._order.addFunc(this._onTimer.bind(this));
+      if (this._fktInOrder) this._fktInOrder.addFunc(this._onTimer.bind(this));
     }, this.config.cycle * 60000);
   }
 
+  private _debugData(data: Buffer): void {
+    this.log.silly(data.toString());
+  }
+
+  /**
+   * gets the dada
+   */
   private _onTimer(resolve: (value: void | PromiseLike<void>) => void, reject: (reason?: any) => void): void {
     try {
       const worker: WorkerAbstract =
         this.config.connection == '1'
-          ? new WorkerSerial(this.config.device, this.config.baudrate)
-          : new WorkerNet(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217);
+          ? new WorkerSerial(this.config.device, this.config.baudrate, false, this._debugData.bind(this))
+          : new WorkerNet(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217, false, this._debugData.bind(this));
 
       worker
         .getData({
@@ -151,7 +125,7 @@ class Pylontech extends utils.Adapter {
               }
               await this.setObjectNotExistsAsync(path, objdesc);
               this.setStateAsync(path, val.value, true);
-            } else {
+            } else if (typeof val == 'object') {
               let p = '';
               if (path !== '') p = '.';
               Object.keys(val).forEach(key => {
@@ -178,16 +152,18 @@ class Pylontech extends utils.Adapter {
     }
   }
 
+  /**
+   * Sets the time on the divice
+   */
   private _setTime(time: number, cb?: ((ok: boolean) => void) | undefined): void {
     const d = new Date(time);
-    if (this._order) {
-      this.log.info('settime ..');
-      this._order.addFunc((resolve: (value: void | PromiseLike<void>) => void, reject: (reason?: any) => void): void => {
+    if (this._fktInOrder) {
+      this._fktInOrder.addFunc((resolve: (value: void | PromiseLike<void>) => void, reject: (reason?: any) => void): void => {
         try {
           const worker: WorkerAbstract =
             this.config.connection == '1'
-              ? new WorkerSerial(this.config.device, this.config.baudrate)
-              : new WorkerNet(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217);
+              ? new WorkerSerial(this.config.device, this.config.baudrate, false, this._debugData.bind(this))
+              : new WorkerNet(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217, false, this._debugData.bind(this));
 
           function f2(val: number): string {
             return val.toString().padStart(2, '0');
@@ -195,11 +171,41 @@ class Pylontech extends utils.Adapter {
           const cmd = `time ${f2(d.getFullYear() % 100)} ${f2(d.getMonth() + 1)} ${f2(d.getDate())} ${f2(d.getHours())} ${f2(d.getMinutes())} ${f2(
             d.getSeconds()
           )}`;
-          this.log.info(cmd);
           worker
             .sendCommand(cmd)
             .then(() => {
-              this.log.info('then');
+              worker.close();
+              resolve();
+              if (cb) cb(true);
+            })
+            .catch(err => {
+              worker.close();
+              reject(err);
+              if (cb) cb(false);
+            });
+        } catch (e) {
+          reject((e as Error).message);
+          if (cb) cb(false);
+        }
+      });
+    }
+  }
+
+  /**
+   * Sets the time on the divice
+   */
+  private _setSpeed(cb?: ((ok: boolean) => void) | undefined): void {
+    if (this._fktInOrder) {
+      this._fktInOrder.addFunc((resolve: (value: void | PromiseLike<void>) => void, reject: (reason?: any) => void): void => {
+        try {
+          const worker: WorkerAbstract =
+            this.config.connection == '1'
+              ? new WorkerSerial(this.config.device, this.config.baudrate, true, this._debugData.bind(this))
+              : new WorkerNet(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217, true, this._debugData.bind(this));
+
+          worker
+            .sendSpeedInit()
+            .then(() => {
               worker.close();
               resolve();
               if (cb) cb(true);
@@ -244,9 +250,13 @@ class Pylontech extends utils.Adapter {
             case 'akttime':
               if (state.val)
                 this._setTime(new Date().getTime(), (ok: boolean) => {
-                  this.log.info('cb !!');
                   this.setStateAsync(id, ok, true);
                 });
+              break;
+            case 'setspeed115200':
+              this._setSpeed((ok: boolean) => {
+                this.setStateAsync(id, ok, true);
+              });
               break;
           }
         }
@@ -254,6 +264,9 @@ class Pylontech extends utils.Adapter {
     }
   }
 
+  /**
+   * Is called if a message was send
+   */
   private onMessage(obj: ioBroker.Message): void {
     this.log.debug(JSON.stringify(obj));
     let wait = false;

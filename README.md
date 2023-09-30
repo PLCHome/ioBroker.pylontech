@@ -1,4 +1,4 @@
-![Logo](media/logo.png)
+![Logo](admin/logo.png)
 
 # ioBroker.pylontech
 
@@ -117,7 +117,7 @@ Only the first Accu in the array provides all information. If you connect this a
 
 ## Changelog
 
-### 0.0.1
+### 0.0.2
 
 - (PLCHome) initial release
 

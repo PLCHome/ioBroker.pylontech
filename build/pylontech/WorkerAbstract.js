@@ -36,6 +36,7 @@ class WorkerAbstract {
     this._timeout = 5e3;
     this._started = false;
     this._parser = new import_Parsers.Parsers();
+    this._noPrompt = false;
     debugApi("MyWorkerAbstract.constructor");
     this._consolenReader.on("data", this._onData.bind(this));
     this._consolenReader.on("needsenddata", this.sendData.bind(this));
@@ -77,7 +78,9 @@ class WorkerAbstract {
   }
   _connected() {
     debugApi("MyWorkerAbstract._connected", "this._activeCmd:", this._activeCmd);
-    this.sendData("\r\n");
+    if (!this._noPrompt) {
+      this.sendData("\r\n");
+    }
     this._started = true;
     this._nextcommand();
   }
@@ -86,6 +89,20 @@ class WorkerAbstract {
     return new Promise((resolve, reject) => {
       this._commands.push({ cmd, resolve, reject, timeout: void 0 });
       this._nextcommand();
+    });
+  }
+  sendSpeedInit() {
+    debugApi("MyWorkerAbstract.sendSpeedInit");
+    return new Promise((resolve, reject) => {
+      try {
+        const setSpeed = Buffer.from("7E32303031343638324330303438353230464343330D", "hex");
+        this.sendDataB(setSpeed);
+        setTimeout(() => {
+          resolve();
+        }, 1e3);
+      } catch (err) {
+        reject(err);
+      }
     });
   }
   async _getAlldata(batteries, cmd) {
@@ -189,7 +206,7 @@ class WorkerAbstract {
       }
     });
   }
-  async _getLog(allData, what, process) {
+  async _getOne(allData, what, process) {
     return new Promise((resolve, reject) => {
       if (process) {
         this.sendCommand(what).then((data) => {
@@ -223,8 +240,8 @@ class WorkerAbstract {
             this._getNormal(p3, STAT, STATISTIC, option.statistic).then((p4) => {
               this._getBatterie(p4, BAT, option.celldata).then((p5) => {
                 this._getBatterie(p5, SOH, option.cellsoh).then((p6) => {
-                  this._getLog(p6.allData, "log", option.log).then((allData) => {
-                    this._getLog(allData, "time", option.log).then((allData2) => {
+                  this._getOne(p6.allData, "log", option.log).then((allData) => {
+                    this._getOne(allData, "time", option.log).then((allData2) => {
                       resolve(allData2);
                     }).catch(reject);
                   }).catch(reject);

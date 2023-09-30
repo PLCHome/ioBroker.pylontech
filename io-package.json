@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "pylontech",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "news": {
       "0.0.1": {
         "en": "initial release",
@@ -95,7 +95,19 @@
       "_id": "info",
       "type": "channel",
       "common": {
-        "name": "Information"
+        "name": {
+          "en": "Information",
+          "de": "Informationen",
+          "ru": "Информация",
+          "pt": "Informação",
+          "nl": "Informatie",
+          "fr": "Information",
+          "it": "Informazioni",
+          "es": "Información",
+          "pl": "Informacja",
+          "uk": "Інформація",
+          "zh-cn": "信息"
+        }
       },
       "native": {}
     },
@@ -104,11 +116,43 @@
       "type": "state",
       "common": {
         "role": "indicator.connected",
-        "name": "Device or service connected",
+        "name": {
+          "en": "Device or service connected",
+          "de": "Geräte- oder Serviceanschluss",
+          "ru": "Устройство или сервис подключены",
+          "pt": "Dispositivo ou serviço conectado",
+          "nl": "Device of dienst verbonden",
+          "fr": "Appareil ou service connecté",
+          "it": "Dispositivo o servizio collegato",
+          "es": "Dispositivo o servicio conectado",
+          "pl": "Device",
+          "uk": "Пристрої або послуги підключені",
+          "zh-cn": "证人或有关服务"
+        },
         "type": "boolean",
         "read": true,
         "write": false,
         "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "time",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Time",
+          "de": "Zeit",
+          "ru": "Время",
+          "pt": "Tempo",
+          "nl": "Tijd",
+          "fr": "Heure",
+          "it": "Tempo",
+          "es": "Hora",
+          "pl": "Time",
+          "uk": "Час",
+          "zh-cn": "时间"
+        }
       },
       "native": {}
     },
@@ -137,6 +181,53 @@
       },
       "native": {
         "function": "akttime"
+      }
+    },
+    {
+      "_id": "config",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Configure the device",
+          "de": "Das Gerät konfigurieren",
+          "ru": "Настройте устройство",
+          "pt": "Configurar o dispositivo",
+          "nl": "Bevestig het apparaat",
+          "fr": "Configurer l'appareil",
+          "it": "Configurare il dispositivo",
+          "es": "Configurar el dispositivo",
+          "pl": "Konfiguruje urządzenie",
+          "uk": "Налаштування пристрою",
+          "zh-cn": "装置配置"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "config.set_speed",
+      "type": "state",
+      "common": {
+        "role": "button",
+        "name": {
+          "en": "Set the device speed to 115200 baud",
+          "de": "Gerätegeschwindigkeit auf 115200 baud einstellen",
+          "ru": "Установите скорость устройства до 115200 baud",
+          "pt": "Defina a velocidade do dispositivo para 115200 baud",
+          "nl": "Zet de apparaatsnelheid op 115200 Baud",
+          "fr": "Réglez la vitesse du dispositif à 115200 baud",
+          "it": "Impostare la velocità del dispositivo a 115200 baud",
+          "es": "Establecer la velocidad del dispositivo a 115200 baud",
+          "pl": "Uruchomienie szybkości urządzenia do 115200 baud",
+          "uk": "Встановити швидкість пристрою до 115200 baud",
+          "zh-cn": "A. 安装装置的速度为115 200美元"
+        },
+        "type": "boolean",
+        "read": false,
+        "write": true,
+        "def": true
+      },
+      "native": {
+        "function": "setspeed115200"
       }
     }
   ]

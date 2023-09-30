@@ -17,9 +17,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
+var import_promises = __toESM(require("fs/promises"));
 var import_Value = require("./pylontech/Value");
 var import_WorkerSerial = __toESM(require("./pylontech/WorkerSerial"));
-var import_promises = __toESM(require("fs/promises"));
 const worker = new import_WorkerSerial.default("com7", 115200);
 import_promises.default.writeFile("./elements", "", { flag: "w+" });
 worker.getData({ info: true, power: true, statistic: true, celldata: true, cellsoh: true }).then((allData) => {

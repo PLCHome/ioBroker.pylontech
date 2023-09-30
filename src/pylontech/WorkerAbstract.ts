@@ -1,3 +1,23 @@
+// Copyright (c) 2020-2023 Träger
+
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the "Software"),
+// to deal in the Software without restriction, including without limitation
+// the rights to use, copy, modify, merge, publish, distribute, sublicense,
+// and/or sell copies of the Software, and to permit persons to whom the
+// Software is furnished to do so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+
 import debug from 'debug';
 import { CommandList } from './CommandList';
 import { ConsolenReader } from './ConsolenReader';
@@ -25,6 +45,7 @@ abstract class WorkerAbstract implements IWorker {
   protected _timeout: number = 5000;
   protected _started: boolean = false;
   protected _parser: Parsers = new Parsers();
+  protected _noPrompt: boolean = false;
 
   constructor() {
     debugApi('MyWorkerAbstract.constructor');
@@ -72,7 +93,9 @@ abstract class WorkerAbstract implements IWorker {
 
   protected _connected(): void {
     debugApi('MyWorkerAbstract._connected', 'this._activeCmd:', this._activeCmd);
-    this.sendData('\r\n');
+    if (!this._noPrompt) {
+      this.sendData('\r\n');
+    }
     this._started = true;
     this._nextcommand();
   }
@@ -84,6 +107,23 @@ abstract class WorkerAbstract implements IWorker {
       this._nextcommand();
     });
   }
+
+  public sendSpeedInit(): Promise<void> {
+    debugApi('MyWorkerAbstract.sendSpeedInit');
+    return new Promise<void>((resolve, reject) => {
+      try {
+        const setSpeed = Buffer.from('7E32303031343638324330303438353230464343330D', 'hex');
+        this.sendDataB(setSpeed);
+        setTimeout(() => {
+          resolve();
+        }, 1000);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+
+  abstract sendDataB(data: Buffer): void;
 
   abstract sendData(data: string): void;
 
@@ -210,7 +250,7 @@ abstract class WorkerAbstract implements IWorker {
     });
   }
 
-  protected async _getLog(allData: any, what: string, process: boolean): Promise<any> {
+  protected async _getOne(allData: any, what: string, process: boolean): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       if (process) {
         this.sendCommand(what)
@@ -247,9 +287,9 @@ abstract class WorkerAbstract implements IWorker {
                         .then(p => {
                           this._getBatterie(p, SOH, option.cellsoh)
                             .then(p => {
-                              this._getLog(p.allData, 'log', option.log)
+                              this._getOne(p.allData, 'log', option.log)
                                 .then(allData => {
-                                  this._getLog(allData, 'time', option.log)
+                                  this._getOne(allData, 'time', option.log)
                                     .then(allData => {
                                       resolve(allData);
                                     })
