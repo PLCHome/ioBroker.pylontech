@@ -5,19 +5,70 @@ import WorkerAbstract from './pylontech/WorkerAbstract';
 import WorkerNet from './pylontech/WorkerNet';
 import WorkerSerial from './pylontech/WorkerSerial';
 
+class order {
+  protected _list: ((resolve: (value: void | PromiseLike<void>) => void, reject: (reason?: any) => void) => void)[] = [];
+  protected _busy: boolean = false;
+  protected _timer: NodeJS.Timeout | undefined;
+  protected _errLog: (msg: string) => void;
+
+  constructor(errLog: (msg: string) => void) {
+    this._errLog = errLog;
+  }
+
+  addFunc(func: (resolve: (value: void | PromiseLike<void>) => void, reject: (reason?: any) => void) => void): void {
+    if (func) {
+      this._list.push(func);
+      this.donext();
+    }
+  }
+
+  doende(): void {
+    this._busy = false;
+    clearTimeout(this._timer);
+    this.donext();
+  }
+  donext(): void {
+    if (!this._busy) {
+      this._busy = true;
+      const func: ((resolve: (value: void | PromiseLike<void>) => void, reject: (reason?: any) => void) => void) | undefined = this._list.pop();
+      if (func) {
+        new Promise<void>((resolve, reject) => {
+          this._timer = setTimeout((): void => {
+            this.doende();
+            reject('order timeout!!!');
+          }, 30000);
+
+          const resolveInt = (): void => {
+            this.doende();
+            resolve();
+          };
+          const rejectInt = (err: string): void => {
+            this.doende();
+            reject(err);
+          };
+          func(resolveInt, rejectInt);
+        }).catch(this._errLog);
+      } else {
+        this._busy = false;
+      }
+    }
+  }
+}
+
 class Pylontech extends utils.Adapter {
-  workTimer: NodeJS.Timeout | undefined;
+  private _workTimer: NodeJS.Timeout | undefined;
+  private _order: order | undefined;
 
   public constructor(options: Partial<utils.AdapterOptions> = {}) {
     super({
       ...options,
       name: 'pylontech',
     });
+
     this.on('ready', this.onReady.bind(this));
-    //this.on("stateChange", this.onStateChange.bind(this));
-    // this.on("objectChange", this.onObjectChange.bind(this));
+    this.on('stateChange', this.onStateChange.bind(this));
     this.on('message', this.onMessage.bind(this));
-    this.on('unload', this.onUnload.bind(this));
+    this.on('unload', this._onUnload.bind(this));
   }
 
   /**
@@ -33,7 +84,8 @@ class Pylontech extends utils.Adapter {
     // You can also add a subscription for multiple states. The following line watches all states starting with "lights."
     // this.subscribeStates("lights.*");
     // Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
-    // this.subscribeStates("*");
+    this.subscribeStates('*');
+    this._order = new order(this.log.error);
 
     if (typeof this.config.connection == 'undefined') this.config.connection = '1';
     if (typeof this.config.baudrate == 'undefined') this.config.baudrate = 115200;
@@ -47,37 +99,13 @@ class Pylontech extends utils.Adapter {
     if (typeof this.config.log == 'undefined') this.config.log = true;
     if (typeof this.config.cycle == 'undefined') this.config.cycle = 5;
 
-    this.onTimer();
-    this.workTimer = setInterval(this.onTimer.bind(this), this.config.cycle * 60000);
+    this._order.addFunc(this._onTimer.bind(this));
+    this._workTimer = setInterval((): void => {
+      if (this._order) this._order.addFunc(this._onTimer.bind(this));
+    }, this.config.cycle * 60000);
   }
 
-  onMessage(obj: any): void {
-    let wait = false;
-    this.log.debug(JSON.stringify(obj));
-    if (obj) {
-      switch (obj.command) {
-        case 'getDevices':
-          wait = true;
-          SerialPort.list().then(port => {
-            const ports: string[] = [];
-            port.forEach(p => {
-              ports.push(p.path);
-            });
-            this.sendTo(obj.from, obj.command, JSON.stringify(ports), obj.callback);
-          });
-          break;
-        default:
-          this.log.warn(`Unknown command: ${obj.command}`);
-          return;
-      }
-    }
-    if (!wait && obj.callback) {
-      this.sendTo(obj.from, obj.command, obj.message, obj.callback);
-    }
-    return;
-  }
-
-  private onTimer(): void {
+  private _onTimer(resolve: (value: void | PromiseLike<void>) => void, reject: (reason?: any) => void): void {
     try {
       const worker: WorkerAbstract =
         this.config.connection == '1'
@@ -96,6 +124,7 @@ class Pylontech extends utils.Adapter {
         .then((allData: any) => {
           worker.close();
           this.setState('info.connection', true, true);
+          resolve();
           const walk = async (path: string, val: any): Promise<void> => {
             if (val instanceof Value) {
               const objdesc: any = {
@@ -134,86 +163,124 @@ class Pylontech extends utils.Adapter {
           this.getStatesAsync('info.*.connected').then(state => {
             Object.keys(state).forEach(path => {
               const info = path.split('.');
-              this.log.info(info[3]);
-              this.log.info(
-                `${allData.info && allData.info[info[3]] && allData.info[info[3]].connected} ${allData.info && allData.info[info[3]]} ${allData.info}`
-              );
               if (!(allData.info && allData.info[info[3]] && allData.info[info[3]].connected)) {
                 this.setStateAsync(path, false, true);
               }
             });
           });
         })
-        .catch(this.log.error);
+        .catch(err => {
+          worker.close();
+          reject(err);
+        });
     } catch (e) {
-      this.log.error((e as Error).message);
+      reject((e as Error).message);
+    }
+  }
+
+  private _setTime(time: number, cb?: ((ok: boolean) => void) | undefined): void {
+    const d = new Date(time);
+    if (this._order) {
+      this.log.info('settime ..');
+      this._order.addFunc((resolve: (value: void | PromiseLike<void>) => void, reject: (reason?: any) => void): void => {
+        try {
+          const worker: WorkerAbstract =
+            this.config.connection == '1'
+              ? new WorkerSerial(this.config.device, this.config.baudrate)
+              : new WorkerNet(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217);
+
+          function f2(val: number): string {
+            return val.toString().padStart(2, '0');
+          }
+          const cmd = `time ${f2(d.getFullYear() % 100)} ${f2(d.getMonth() + 1)} ${f2(d.getDate())} ${f2(d.getHours())} ${f2(d.getMinutes())} ${f2(
+            d.getSeconds()
+          )}`;
+          this.log.info(cmd);
+          worker
+            .sendCommand(cmd)
+            .then(() => {
+              this.log.info('then');
+              worker.close();
+              resolve();
+              if (cb) cb(true);
+            })
+            .catch(err => {
+              worker.close();
+              reject(err);
+              if (cb) cb(false);
+            });
+        } catch (e) {
+          reject((e as Error).message);
+          if (cb) cb(false);
+        }
+      });
     }
   }
 
   /**
    * Is called when adapter shuts down - callback has to be called under any circumstances!
    */
-  private onUnload(callback: () => void): void {
+  private _onUnload(callback: () => void): void {
     try {
-      clearInterval(this.workTimer);
-      // Here you must clear all timeouts or intervals that may still be active
-      // clearTimeout(timeout1);
-      // clearTimeout(timeout2);
-      // ...
-      // clearInterval(interval1);
-
+      clearInterval(this._workTimer);
       callback();
     } catch (e) {
       callback();
     }
   }
 
-  // If you need to react to object changes, uncomment the following block and the corresponding line in the constructor.
-  // You also need to subscribe to the objects with `this.subscribeObjects`, similar to `this.subscribeStates`.
-  // /**
-  //  * Is called if a subscribed object changes
-  //  */
-  // private onObjectChange(id: string, obj: ioBroker.Object | null | undefined): void {
-  //     if (obj) {
-  //         // The object was changed
-  //         this.log.info(`object ${id} changed: ${JSON.stringify(obj)}`);
-  //     } else {
-  //         // The object was deleted
-  //         this.log.info(`object ${id} deleted`);
-  //     }
-  // }
-
   /**
    * Is called if a subscribed state changes
    */
-  /*
-    private onStateChange(id: string, state: ioBroker.State | null | undefined): void {
-        if (state) {
-            // The state was changed
-            this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-        } else {
-            // The state was deleted
-            this.log.info(`state ${id} deleted`);
+  private onStateChange(id: string, state: ioBroker.State | null | undefined): void {
+    if (state && state.ack == false) {
+      this.getObjectAsync(id).then((obj: ioBroker.Object | null | undefined) => {
+        if (obj && obj.common.write && obj.native.function) {
+          this.log.debug(obj.native.function);
+          switch (obj.native.function) {
+            case 'settime':
+              if (typeof state.val == 'number') this._setTime(state.val);
+              break;
+            case 'akttime':
+              if (state.val)
+                this._setTime(new Date().getTime(), (ok: boolean) => {
+                  this.log.info('cb !!');
+                  this.setStateAsync(id, ok, true);
+                });
+              break;
+          }
         }
+      });
     }
-    */
+  }
 
-  // If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.
-  // /**
-  //  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
-  //  * Using this method requires "common.messagebox" property to be set to true in io-package.json
-  //  */
-  // private onMessage(obj: ioBroker.Message): void {
-  //     if (typeof obj === "object" && obj.message) {
-  //         if (obj.command === "send") {
-  //             // e.g. send email or pushover or whatever
-  //             this.log.info("send command");
-
-  //             // Send response in callback if required
-  //             if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
-  //         }
-  //     }
-  // }
+  private onMessage(obj: ioBroker.Message): void {
+    this.log.debug(JSON.stringify(obj));
+    let wait = false;
+    if (typeof obj === 'object' && obj.message) {
+      switch (obj.command) {
+        case 'getDevices':
+          wait = false;
+          SerialPort.list().then(port => {
+            const ports: string[] = [];
+            port.forEach(p => {
+              ports.push(p.path);
+            });
+            //obj.message = ports;
+            obj.message = JSON.stringify(ports);
+          });
+          break;
+        default:
+          obj.message = `Unknown command: ${obj.command}`;
+          this.log.warn(obj.message);
+          return;
+      }
+    }
+    if (!wait && obj.callback) {
+      this.sendTo(obj.from, obj.command, obj.message, obj.callback);
+    }
+    return;
+  }
 }
 
 if (require.main !== module) {

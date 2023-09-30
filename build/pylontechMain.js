@@ -22,6 +22,49 @@ var import_serialport = require("serialport");
 var import_Value = require("./pylontech/Value");
 var import_WorkerNet = __toESM(require("./pylontech/WorkerNet"));
 var import_WorkerSerial = __toESM(require("./pylontech/WorkerSerial"));
+class order {
+  constructor(errLog) {
+    this._list = [];
+    this._busy = false;
+    this._errLog = errLog;
+  }
+  addFunc(func) {
+    if (func) {
+      this._list.push(func);
+      this.donext();
+    }
+  }
+  doende() {
+    this._busy = false;
+    clearTimeout(this._timer);
+    this.donext();
+  }
+  donext() {
+    if (!this._busy) {
+      this._busy = true;
+      const func = this._list.pop();
+      if (func) {
+        new Promise((resolve, reject) => {
+          this._timer = setTimeout(() => {
+            this.doende();
+            reject("order timeout!!!");
+          }, 3e4);
+          const resolveInt = () => {
+            this.doende();
+            resolve();
+          };
+          const rejectInt = (err) => {
+            this.doende();
+            reject(err);
+          };
+          func(resolveInt, rejectInt);
+        }).catch(this._errLog);
+      } else {
+        this._busy = false;
+      }
+    }
+  }
+}
 class Pylontech extends utils.Adapter {
   constructor(options = {}) {
     super({
@@ -29,11 +72,14 @@ class Pylontech extends utils.Adapter {
       name: "pylontech"
     });
     this.on("ready", this.onReady.bind(this));
+    this.on("stateChange", this.onStateChange.bind(this));
     this.on("message", this.onMessage.bind(this));
-    this.on("unload", this.onUnload.bind(this));
+    this.on("unload", this._onUnload.bind(this));
   }
   async onReady() {
     this.setState("info.connection", false, true);
+    this.subscribeStates("*");
+    this._order = new order(this.log.error);
     if (typeof this.config.connection == "undefined")
       this.config.connection = "1";
     if (typeof this.config.baudrate == "undefined")
@@ -56,35 +102,13 @@ class Pylontech extends utils.Adapter {
       this.config.log = true;
     if (typeof this.config.cycle == "undefined")
       this.config.cycle = 5;
-    this.onTimer();
-    this.workTimer = setInterval(this.onTimer.bind(this), this.config.cycle * 6e4);
+    this._order.addFunc(this._onTimer.bind(this));
+    this._workTimer = setInterval(() => {
+      if (this._order)
+        this._order.addFunc(this._onTimer.bind(this));
+    }, this.config.cycle * 6e4);
   }
-  onMessage(obj) {
-    let wait = false;
-    this.log.debug(JSON.stringify(obj));
-    if (obj) {
-      switch (obj.command) {
-        case "getDevices":
-          wait = true;
-          import_serialport.SerialPort.list().then((port) => {
-            const ports = [];
-            port.forEach((p) => {
-              ports.push(p.path);
-            });
-            this.sendTo(obj.from, obj.command, JSON.stringify(ports), obj.callback);
-          });
-          break;
-        default:
-          this.log.warn(`Unknown command: ${obj.command}`);
-          return;
-      }
-    }
-    if (!wait && obj.callback) {
-      this.sendTo(obj.from, obj.command, obj.message, obj.callback);
-    }
-    return;
-  }
-  onTimer() {
+  _onTimer(resolve, reject) {
     try {
       const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate) : new import_WorkerNet.default(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217);
       worker.getData({
@@ -97,6 +121,7 @@ class Pylontech extends utils.Adapter {
       }).then((allData) => {
         worker.close();
         this.setState("info.connection", true, true);
+        resolve();
         const walk = async (path, val) => {
           if (val instanceof import_Value.Value) {
             const objdesc = {
@@ -138,27 +163,109 @@ class Pylontech extends utils.Adapter {
         this.getStatesAsync("info.*.connected").then((state) => {
           Object.keys(state).forEach((path) => {
             const info = path.split(".");
-            this.log.info(info[3]);
-            this.log.info(
-              `${allData.info && allData.info[info[3]] && allData.info[info[3]].connected} ${allData.info && allData.info[info[3]]} ${allData.info}`
-            );
             if (!(allData.info && allData.info[info[3]] && allData.info[info[3]].connected)) {
               this.setStateAsync(path, false, true);
             }
           });
         });
-      }).catch(this.log.error);
+      }).catch((err) => {
+        worker.close();
+        reject(err);
+      });
     } catch (e) {
-      this.log.error(e.message);
+      reject(e.message);
     }
   }
-  onUnload(callback) {
+  _setTime(time, cb) {
+    const d = new Date(time);
+    if (this._order) {
+      this.log.info("settime ..");
+      this._order.addFunc((resolve, reject) => {
+        try {
+          let f22 = function(val) {
+            return val.toString().padStart(2, "0");
+          };
+          var f2 = f22;
+          const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate) : new import_WorkerNet.default(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217);
+          const cmd = `time ${f22(d.getFullYear() % 100)} ${f22(d.getMonth() + 1)} ${f22(d.getDate())} ${f22(d.getHours())} ${f22(d.getMinutes())} ${f22(
+            d.getSeconds()
+          )}`;
+          this.log.info(cmd);
+          worker.sendCommand(cmd).then(() => {
+            this.log.info("then");
+            worker.close();
+            resolve();
+            if (cb)
+              cb(true);
+          }).catch((err) => {
+            worker.close();
+            reject(err);
+            if (cb)
+              cb(false);
+          });
+        } catch (e) {
+          reject(e.message);
+          if (cb)
+            cb(false);
+        }
+      });
+    }
+  }
+  _onUnload(callback) {
     try {
-      clearTimeout(this.workTimer);
+      clearInterval(this._workTimer);
       callback();
     } catch (e) {
       callback();
     }
+  }
+  onStateChange(id, state) {
+    if (state && state.ack == false) {
+      this.getObjectAsync(id).then((obj) => {
+        if (obj && obj.common.write && obj.native.function) {
+          this.log.debug(obj.native.function);
+          switch (obj.native.function) {
+            case "settime":
+              if (typeof state.val == "number")
+                this._setTime(state.val);
+              break;
+            case "akttime":
+              if (state.val)
+                this._setTime(new Date().getTime(), (ok) => {
+                  this.log.info("cb !!");
+                  this.setStateAsync(id, ok, true);
+                });
+              break;
+          }
+        }
+      });
+    }
+  }
+  onMessage(obj) {
+    this.log.debug(JSON.stringify(obj));
+    let wait = false;
+    if (typeof obj === "object" && obj.message) {
+      switch (obj.command) {
+        case "getDevices":
+          wait = false;
+          import_serialport.SerialPort.list().then((port) => {
+            const ports = [];
+            port.forEach((p) => {
+              ports.push(p.path);
+            });
+            obj.message = JSON.stringify(ports);
+          });
+          break;
+        default:
+          obj.message = `Unknown command: ${obj.command}`;
+          this.log.warn(obj.message);
+          return;
+      }
+    }
+    if (!wait && obj.callback) {
+      this.sendTo(obj.from, obj.command, obj.message, obj.callback);
+    }
+    return;
   }
 }
 if (require.main !== module) {

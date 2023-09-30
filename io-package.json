@@ -111,6 +111,33 @@
         "def": false
       },
       "native": {}
+    },
+    {
+      "_id": "time.set",
+      "type": "state",
+      "common": {
+        "role": "button",
+        "name": {
+          "en": "Set the actual time to device time",
+          "de": "Legen Sie die tatsächliche Zeit in die Gerätezeit",
+          "ru": "Установите фактическое время на время устройства",
+          "pt": "Defina o tempo real para o tempo do dispositivo",
+          "nl": "Zet de juiste tijd in om tijd te buigen",
+          "fr": "Réglez l'heure réelle de l'appareil",
+          "it": "Impostare il tempo reale al tempo del dispositivo",
+          "es": "Establecer el tiempo real para el dispositivo",
+          "pl": "Ustanowiono czas na czas urządzenie",
+          "uk": "Встановити час на пристрій",
+          "zh-cn": "确定设备时间的实际时间"
+        },
+        "type": "boolean",
+        "read": false,
+        "write": true,
+        "def": true
+      },
+      "native": {
+        "function": "akttime"
+      }
     }
   ]
 }
