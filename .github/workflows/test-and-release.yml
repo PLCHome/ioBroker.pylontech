@@ -104,6 +104,9 @@ jobs:
       - name: Install Dependencies
         uses: bahmutov/npm-install@v1
 
+      - name: ioBroker testing action
+        uses: ioBroker/testing-action-adapter@v1
+
       - name: Publish package to npm
         uses: JS-DevTools/npm-publish@v1
         with:
