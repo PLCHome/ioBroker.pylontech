@@ -1,9 +1,9 @@
 {
   "common": {
     "name": "pylontech",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "news": {
-      "0.0.1": {
+      "0.0.3": {
         "en": "initial release",
         "de": "erstausstrahlung",
         "ru": "начальный выпуск",
@@ -87,7 +87,8 @@
     "statistic": true,
     "celldata": true,
     "cellsoh": true,
-    "log": true
+    "log": true,
+    "time": true
   },
   "objects": [],
   "instanceObjects": [

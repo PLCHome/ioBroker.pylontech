@@ -64,6 +64,7 @@ class Pylontech extends utils.Adapter {
     if (typeof this.config.celldata == 'undefined') this.config.celldata = true;
     if (typeof this.config.cellsoh == 'undefined') this.config.cellsoh = true;
     if (typeof this.config.log == 'undefined') this.config.log = true;
+    if (typeof this.config.time == 'undefined') this.config.time = true;
     if (typeof this.config.cycle == 'undefined') this.config.cycle = 5;
 
     this._fktInOrder.addFunc(this._onTimer.bind(this));
@@ -94,6 +95,7 @@ class Pylontech extends utils.Adapter {
           celldata: this.config.celldata,
           cellsoh: this.config.cellsoh,
           log: this.config.log,
+          time: this.config.time,
         })
         .then((allData: any) => {
           worker.close();
