@@ -42,10 +42,6 @@ class Pylontech extends utils.Adapter {
       this.config.connection = "1";
     if (typeof this.config.baudrate == "undefined")
       this.config.baudrate = 115200;
-    if (typeof this.config.rfc2217 == "undefined")
-      this.config.rfc2217 = false;
-    if (typeof this.config.netbaudrate == "undefined")
-      this.config.netbaudrate = 115200;
     if (typeof this.config.info == "undefined")
       this.config.info = true;
     if (typeof this.config.power == "undefined")
@@ -58,10 +54,12 @@ class Pylontech extends utils.Adapter {
       this.config.cellsoh = true;
     if (typeof this.config.log == "undefined")
       this.config.log = true;
+    if (typeof this.config.time == "undefined")
+      this.config.time = true;
     if (typeof this.config.cycle == "undefined")
       this.config.cycle = 5;
     this._fktInOrder.addFunc(this._onTimer.bind(this));
-    this._workTimer = setInterval(() => {
+    this._workTimer = this.setInterval(() => {
       if (this._fktInOrder)
         this._fktInOrder.addFunc(this._onTimer.bind(this));
     }, this.config.cycle * 6e4);
@@ -71,15 +69,21 @@ class Pylontech extends utils.Adapter {
   }
   _onTimer(resolve, reject) {
     try {
-      const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate, false, this._debugData.bind(this)) : new import_WorkerNet.default(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217, false, this._debugData.bind(this));
-      worker.getData({
-        info: this.config.info,
-        power: this.config.power,
-        statistic: this.config.statistic,
-        celldata: this.config.celldata,
-        cellsoh: this.config.cellsoh,
-        log: this.config.log
-      }).then((allData) => {
+      const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate, false, this._debugData.bind(this)) : new import_WorkerNet.default(this.config.host, this.config.port, false, this._debugData.bind(this));
+      worker.open().then(
+        (() => {
+          this.log.info("getData");
+          return worker.getData({
+            info: this.config.info,
+            power: this.config.power,
+            statistic: this.config.statistic,
+            celldata: this.config.celldata,
+            cellsoh: this.config.cellsoh,
+            log: this.config.log,
+            time: this.config.time
+          });
+        }).bind(this)
+      ).then((allData) => {
         worker.close();
         this.setState("info.connection", true, true);
         resolve();
@@ -146,11 +150,13 @@ class Pylontech extends utils.Adapter {
             return val.toString().padStart(2, "0");
           };
           var f2 = f22;
-          const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate, false, this._debugData.bind(this)) : new import_WorkerNet.default(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217, false, this._debugData.bind(this));
+          const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate, false, this._debugData.bind(this)) : new import_WorkerNet.default(this.config.host, this.config.port, false, this._debugData.bind(this));
           const cmd = `time ${f22(d.getFullYear() % 100)} ${f22(d.getMonth() + 1)} ${f22(d.getDate())} ${f22(d.getHours())} ${f22(d.getMinutes())} ${f22(
             d.getSeconds()
           )}`;
-          worker.sendCommand(cmd).then(() => {
+          worker.open().then(() => {
+            return worker.sendCommand(cmd);
+          }).then(() => {
             worker.close();
             resolve();
             if (cb)
@@ -173,8 +179,10 @@ class Pylontech extends utils.Adapter {
     if (this._fktInOrder) {
       this._fktInOrder.addFunc((resolve, reject) => {
         try {
-          const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate, true, this._debugData.bind(this)) : new import_WorkerNet.default(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217, true, this._debugData.bind(this));
-          worker.sendSpeedInit().then(() => {
+          const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate, true, this._debugData.bind(this)) : new import_WorkerNet.default(this.config.host, this.config.port, true, this._debugData.bind(this));
+          worker.open().then(() => {
+            return worker.sendSpeedInit();
+          }).then(() => {
             worker.close();
             resolve();
             if (cb)
@@ -195,7 +203,7 @@ class Pylontech extends utils.Adapter {
   }
   _onUnload(callback) {
     try {
-      clearInterval(this._workTimer);
+      this.clearInterval(this._workTimer);
       callback();
     } catch (e) {
       callback();

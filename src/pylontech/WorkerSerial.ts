@@ -34,7 +34,20 @@ export = class WorkerSerial extends WorkerAbstract {
     if (noPrompt) this._noPrompt = noPrompt;
     if (debugData) this._socket.on('data', debugData);
     this._socket.pipe(this._consolenReader);
-    this._socket.open(this._connected.bind(this));
+  }
+
+  open(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this._socket.open(
+        ((err: any) => {
+          if (err) {
+            reject(err);
+          }
+          this._connected();
+          resolve();
+        }).bind(this)
+      );
+    });
   }
 
   sendDataB(data: Buffer): void {

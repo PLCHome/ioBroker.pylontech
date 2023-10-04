@@ -27,7 +27,7 @@ import WorkerNet from './pylontech/WorkerNet';
 import WorkerSerial from './pylontech/WorkerSerial';
 
 class Pylontech extends utils.Adapter {
-  private _workTimer: NodeJS.Timeout | undefined;
+  private _workTimer: ioBroker.Interval | undefined;
   private _fktInOrder: FktInOrder | undefined;
 
   /**
@@ -56,8 +56,6 @@ class Pylontech extends utils.Adapter {
 
     if (typeof this.config.connection == 'undefined') this.config.connection = '1';
     if (typeof this.config.baudrate == 'undefined') this.config.baudrate = 115200;
-    if (typeof this.config.rfc2217 == 'undefined') this.config.rfc2217 = false;
-    if (typeof this.config.netbaudrate == 'undefined') this.config.netbaudrate = 115200;
     if (typeof this.config.info == 'undefined') this.config.info = true;
     if (typeof this.config.power == 'undefined') this.config.power = true;
     if (typeof this.config.statistic == 'undefined') this.config.statistic = true;
@@ -68,7 +66,7 @@ class Pylontech extends utils.Adapter {
     if (typeof this.config.cycle == 'undefined') this.config.cycle = 5;
 
     this._fktInOrder.addFunc(this._onTimer.bind(this));
-    this._workTimer = setInterval((): void => {
+    this._workTimer = this.setInterval((): void => {
       if (this._fktInOrder) this._fktInOrder.addFunc(this._onTimer.bind(this));
     }, this.config.cycle * 60000);
   }
@@ -85,18 +83,23 @@ class Pylontech extends utils.Adapter {
       const worker: WorkerAbstract =
         this.config.connection == '1'
           ? new WorkerSerial(this.config.device, this.config.baudrate, false, this._debugData.bind(this))
-          : new WorkerNet(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217, false, this._debugData.bind(this));
+          : new WorkerNet(this.config.host, this.config.port, false, this._debugData.bind(this));
 
       worker
-        .getData({
-          info: this.config.info,
-          power: this.config.power,
-          statistic: this.config.statistic,
-          celldata: this.config.celldata,
-          cellsoh: this.config.cellsoh,
-          log: this.config.log,
-          time: this.config.time,
-        })
+        .open()
+        .then(
+          (() => {
+            return worker.getData({
+              info: this.config.info,
+              power: this.config.power,
+              statistic: this.config.statistic,
+              celldata: this.config.celldata,
+              cellsoh: this.config.cellsoh,
+              log: this.config.log,
+              time: this.config.time,
+            });
+          }).bind(this)
+        )
         .then((allData: any) => {
           worker.close();
           this.setState('info.connection', true, true);
@@ -165,7 +168,7 @@ class Pylontech extends utils.Adapter {
           const worker: WorkerAbstract =
             this.config.connection == '1'
               ? new WorkerSerial(this.config.device, this.config.baudrate, false, this._debugData.bind(this))
-              : new WorkerNet(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217, false, this._debugData.bind(this));
+              : new WorkerNet(this.config.host, this.config.port, false, this._debugData.bind(this));
 
           function f2(val: number): string {
             return val.toString().padStart(2, '0');
@@ -174,7 +177,10 @@ class Pylontech extends utils.Adapter {
             d.getSeconds()
           )}`;
           worker
-            .sendCommand(cmd)
+            .open()
+            .then(() => {
+              return worker.sendCommand(cmd);
+            })
             .then(() => {
               worker.close();
               resolve();
@@ -203,10 +209,13 @@ class Pylontech extends utils.Adapter {
           const worker: WorkerAbstract =
             this.config.connection == '1'
               ? new WorkerSerial(this.config.device, this.config.baudrate, true, this._debugData.bind(this))
-              : new WorkerNet(this.config.host, this.config.port, this.config.netbaudrate, this.config.rfc2217, true, this._debugData.bind(this));
+              : new WorkerNet(this.config.host, this.config.port, true, this._debugData.bind(this));
 
           worker
-            .sendSpeedInit()
+            .open()
+            .then(() => {
+              return worker.sendSpeedInit();
+            })
             .then(() => {
               worker.close();
               resolve();
@@ -230,7 +239,7 @@ class Pylontech extends utils.Adapter {
    */
   private _onUnload(callback: () => void): void {
     try {
-      clearInterval(this._workTimer);
+      this.clearInterval(this._workTimer);
       callback();
     } catch (e) {
       callback();

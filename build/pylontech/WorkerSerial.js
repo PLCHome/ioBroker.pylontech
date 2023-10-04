@@ -31,7 +31,19 @@ module.exports = class WorkerSerial extends import_WorkerAbstract.default {
     if (debugData)
       this._socket.on("data", debugData);
     this._socket.pipe(this._consolenReader);
-    this._socket.open(this._connected.bind(this));
+  }
+  open() {
+    return new Promise((resolve, reject) => {
+      this._socket.open(
+        ((err) => {
+          if (err) {
+            reject(err);
+          }
+          this._connected();
+          resolve();
+        }).bind(this)
+      );
+    });
   }
   sendDataB(data) {
     debugApi("MyWorkerSerial.sendData", "data:", data.toString("hex"), "this._activeCmd:", this._activeCmd);

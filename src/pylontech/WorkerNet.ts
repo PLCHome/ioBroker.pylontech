@@ -26,67 +26,75 @@ const debugApi = Debug('pylontech:api');
 
 export = class WorkerNet extends WorkerAbstract {
   protected _socket: net.Socket = new net.Socket();
-  protected _baudRate: number;
-  protected _rfc2217: boolean;
+  protected _host: string;
+  protected _port: number;
 
-  constructor(host: string, port: number, baudRate: number, rfc2217: boolean, noPrompt?: boolean, debugData?: (data: Buffer) => void) {
+  constructor(host: string, port: number, noPrompt?: boolean, debugData?: (data: Buffer) => void) {
     debugApi('MyWorkerNet.constructor', 'host:', host, 'port:', port);
     super();
     if (debugData) this._socket.on('data', debugData);
-    this._baudRate = baudRate;
-    this._rfc2217 = rfc2217;
     if (noPrompt) this._noPrompt = noPrompt;
+    this._host = host;
+    this._port = port;
     this._socket.pipe(this._consolenReader);
-    this._socket.connect(port, host, this._netConnected.bind(this));
   }
 
-  protected _netConnected(): void {
-    if (this._rfc2217) {
-      this._will();
-      this._setBaudRate(this._baudRate);
-    }
-    this._connected();
+  open(): Promise<void> {
+    return new Promise<void>(
+      ((resolve: () => void, reject: (err: Error) => void) => {
+        this._socket.on('error', reject);
+        this._socket.connect(
+          this._port,
+          this._host,
+          (() => {
+            this._connected();
+            resolve();
+          }).bind(this)
+        );
+      }).bind(this)
+    );
   }
 
-  protected _will(): void {
+  /*
+  protected _rfc2217_will(): void {
     const data = Buffer.from('FFFB2C', 'hex');
     this.sendDataB(data);
   }
 
-  protected _setBaudRate(baudRate: number): void {
-    this._will();
+  protected _rfc2217_setBaudRate(baudRate: number): void {
+    this._rfc2217_will();
     const data = Buffer.from('fffa2c0100000000fff0', 'hex');
     data.writeUInt32BE(baudRate, 4);
     this.sendDataB(data);
   }
 
-  protected _setDatasize(datasize: number): void {
-    this._will();
+  protected _rfc2217_setDatasize(datasize: number): void {
+    this._rfc2217_will();
     const data = Buffer.from('fffa2c0200fff0', 'hex');
     data.writeUInt8(datasize, 4);
     this.sendDataB(data);
   }
 
-  protected _setParity(parity: number): void {
-    this._will();
+  protected _rfc2217_setParity(parity: number): void {
+    this._rfc2217_will();
     const data = Buffer.from('fffa2c0300fff0', 'hex');
     data.writeUInt8(parity, 4);
     this.sendDataB(data);
   }
 
-  protected _setStopsize(stopsize: number): void {
-    this._will();
+  protected _rfc2217_setStopsize(stopsize: number): void {
+    this._rfc2217_will();
     const data = Buffer.from('fffa2c0400fff0', 'hex');
     data.writeUInt8(stopsize, 4);
     this.sendDataB(data);
   }
-
-  protected _setControl(control: number): void {
-    this._will();
+  protected _rfc2217_setControl(control: number): void {
+    this._rfc2217_will();
     const data = Buffer.from('fffa2c0500fff0', 'hex');
     data.writeUInt8(control, 4);
     this.sendDataB(data);
   }
+*/
 
   sendDataB(data: Buffer): void {
     debugApi('MyWorkerNet.sendDataB', 'data:', data.toString('hex'), 'this._activeCmd:', this._activeCmd);

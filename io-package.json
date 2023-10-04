@@ -1,9 +1,9 @@
 {
   "common": {
     "name": "pylontech",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "news": {
-      "0.0.3": {
+      "0.0.4": {
         "en": "initial release",
         "de": "erstausstrahlung",
         "ru": "начальный выпуск",
@@ -79,8 +79,6 @@
     "baudrate": 115200,
     "host": "",
     "port": 23,
-    "rfc2217": false,
-    "netbaudrate": 115200,
     "cycle": 5,
     "info": true,
     "power": true,

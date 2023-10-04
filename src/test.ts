@@ -20,24 +20,27 @@
 import fs from 'fs/promises';
 import { Value } from './pylontech/Value';
 import WorkerAbstract from './pylontech/WorkerAbstract';
-import WorkerSerial from './pylontech/WorkerSerial';
+import WorkerNet from './pylontech/WorkerNet';
 
-const worker: WorkerAbstract = new WorkerSerial('com7', 115200);
+//const worker: WorkerAbstract = new WorkerSerial('com7', 115200);
+const worker: WorkerAbstract = new WorkerNet('esp-link.fritz.box', 23);
 
 fs.writeFile('./elements', '', { flag: 'w+' });
-worker.getData({ info: true, power: true, statistic: true, celldata: true, cellsoh: true }).then((allData: any) => {
-  console.log(JSON.stringify(allData, null, ' '));
-  function walk(path: string, val: any): void {
-    if (val instanceof Value) {
-      fs.writeFile('./elements', path + '\t' + val.value + '\n', { flag: 'a+' });
-      console.log(path + '\t' + val.value);
-    } else {
-      Object.keys(val).forEach(key => {
-        walk(`${path}.${key}`, val[key]);
-      });
+worker.open().then(() => {
+  return worker.getData({ info: true, power: true, statistic: true, celldata: true, cellsoh: true }).then((allData: any) => {
+    console.log(JSON.stringify(allData, null, ' '));
+    function walk(path: string, val: any): void {
+      if (val instanceof Value) {
+        fs.writeFile('./elements', path + '\t' + val.value + '\n', { flag: 'a+' });
+        console.log(path + '\t' + val.value);
+      } else {
+        Object.keys(val).forEach(key => {
+          walk(`${path}.${key}`, val[key]);
+        });
+      }
     }
-  }
-  walk('pylontech.0', allData);
+    walk('pylontech.0', allData);
+  });
 });
 
 function to(time: number): Promise<void> {

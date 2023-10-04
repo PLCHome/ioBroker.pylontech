@@ -127,6 +127,8 @@ abstract class WorkerAbstract implements IWorker {
 
   abstract sendData(data: string): void;
 
+  abstract open(): Promise<void>;
+
   abstract close(): Promise<boolean>;
 
   protected async _getAlldata(batteries: string[], cmd: string): Promise<any> {
@@ -274,7 +276,6 @@ abstract class WorkerAbstract implements IWorker {
     if (typeof option.celldata == 'undefined') option.celldata = true;
     if (typeof option.cellsoh == 'undefined') option.cellsoh = true;
     if (typeof option.log == 'undefined') option.log = true;
-    if (typeof option.time == 'undefined') option.time = true;
     return new Promise<any>((resolve, reject) => {
       this._getPwr()
         .then((p: { pwrs: any; batteries: string[] }) => {
@@ -290,7 +291,7 @@ abstract class WorkerAbstract implements IWorker {
                             .then(p => {
                               this._getOne(p.allData, 'log', option.log)
                                 .then(allData => {
-                                  this._getOne(allData, 'time', option.time)
+                                  this._getOne(allData, 'time', option.log)
                                     .then(allData => {
                                       resolve(allData);
                                     })

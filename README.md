@@ -1,4 +1,4 @@
-![Logo](admin/logo.png)
+![Logo](media/logo.png)
 
 # ioBroker.pylontech
 
@@ -79,7 +79,7 @@ If there is no USB port nearby, you can build a serial to WiFi adapter with an E
 
 These adapters speak a kind of Telnet and essentially extend the serial interface through the WiFi. Here it is important to install a driver module for the serial interface. E.g. the MAX3232. Please pay attention to the voltages but most of them are 3V.
 
-#### Raspi MAX
+#### Raspi with MAX
 
 Since the Raspberry also offers a TTL interface with 3V, you can also connect a MAX3232 here.
 
@@ -131,7 +131,7 @@ sudo /etc/init.d/udev restart
 
 ### com over tcp
 
-Instead of:
+Instead of local connect:
 
 ```
 +--------+   comport  +----------+
@@ -139,7 +139,7 @@ Instead of:
 +--------+            +----------+
 ```
 
-Does this adapter also support:
+Does this adapter also support network connect:
 
 ```
 +--------+   comport  +--------+       network        +----------+
@@ -147,7 +147,7 @@ Does this adapter also support:
 +--------+            +--------+                      +----------+
 ```
 
-#### ESP MAX
+#### ESP with MAX
 
 There are several projects that connect ESP or ESP32 to Telnet. Please remember the MAX. If the MAX gets hot then either the signal level of 5V is too high because you got a 3.3V model or you have connected a 3.3V version to 5V operating voltage.
 
@@ -174,7 +174,8 @@ The configuration line (for /etc/ser2net.conf) that corresponds to windows setup
 7000:telnet:0:/dev/ttyUSB0:115200 8DATABITS NONE 1STOPBIT remctl
 ```
 
-Here are the settings of the above config. RFC2217 can be selected here in the ioBroker adapter. The device port is 7000.
+RFC
+Here are the settings of the above config. The device port is 7000.
 
 - 7000 - port
 - /dev/ttyUSB0 - name of serial port
@@ -187,6 +188,10 @@ More information can be found here: https://gist.github.com/DraTeots/e0c66960846
 
 There is ready-made hardware that can be connected via wifi and/or lan. As long as it uses a transparent TCP server it should work.
 
+Example:
+
+- Waveshare RS232/485 TO ETH (for EU)
+
 ## Anyway, you can also contact me in the ioBroker forum via PM if you need anything.
 
 Another tip: there are cheap and expensive USB serial converters. Converters with CHxxx PLxxx and CPxxx in the name have no identifying features. If you connect two of them and then swap the ports or boot for the first time, you no longer know who is who. Therefore it is better to take the good ones with FTDI and serial number. There are also good serial converters without an FTDI chip that have a serial number.
@@ -198,11 +203,14 @@ What was tested:
 
 #### RS232 to ioBroker
 
-| Communication hardware | Is working | Comments                                                                                                                                                                                                                                            |
-| ---------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ESP-LINK               | yes        | In the current version on github there is a castle at RFC2217 it is possible to set 115200. The device assumes an incorrect baud rate. No baud rates up to 9600 are no problem to set using RFC2217.                                                |
-| Serial to USB          | yes        | There is a large selection of chips for the adapters. Depending on the model, identification problems can occur if the adapters do not have a serial number and more than one is connected. Windows already assigns one COM port for each USB plug. |
-| LogiLink AU0034        | yes        |                                                                                                                                                                                                                                                     |
+| Communication hardware              | Type    | Is working | Comments                                                                                                                                                                                                                                            |
+| ----------------------------------- | ------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Serial to USB                       | local   | yes        | There is a large selection of chips for the adapters. Depending on the model, identification problems can occur if the adapters do not have a serial number and more than one is connected. Windows already assigns one COM port for each USB plug. |
+| LogiLink AU0034                     | local   | yes        |                                                                                                                                                                                                                                                     |
+| ESP-LINK                            | network | yes        | Assign the device an IP in the network. Check transmission speed 115200 8 N 1. Everything else left unchanged.                                                                                                                                      |
+| Waveshare RS232/485 TO ETH (for EU) | network | yes        | Assign the device an IP in the network. Check transmission speed 115200 8 N 1. Everything else left unchanged.                                                                                                                                      |
+
+|
 
 #### Batteries
 
@@ -265,13 +273,9 @@ Enter the name of the com server here. No http or anything like that at the begi
 
 In order to establish communication, the port under which the server provides communication must be specified. For ESP-Link, for example, it is 23.
 
-#### Supports rfc2217
-
-RFC2217 can be used to set the parameters of the RS232 interface of the TCP server, such as speed. If it is selected you can set the speed. If you have an old device that communicates with 1200, you have to set the speed on the TCP server to 1200 and then change the speed via "pylontech. -n- . config.set_speed". Attention rfc2217 does not work properly with the ESP-LINK see above.
-
 #### Transmission speed
 
-The transmission speed can be set here is rfc2217 is selected.
+The speed must be set on the network device.
 
 ### Cycle time in minutes
 
@@ -373,7 +377,7 @@ The log channel contains 31 channels with the last 31 log information. The neuse
 
 ### channel time
 
-#### state ds3231 odr rtc
+#### state ds3231 or rtc
 
 The time read from the inverter is stored here. On the US3000 it is called RTC and on the old VS2000 it is called ds3231. If you write to the time, your time will be transferred to the battery and the battery time will be adjusted.
 
@@ -382,6 +386,12 @@ The time read from the inverter is stored here. On the US3000 it is called RTC a
 If true without ack is written to set, the current time is sent to the Pylontech. When the command has been executed, the status is set to ack = true.
 
 ## Changelog
+
+### 0.0.4 (04.10.2023)
+
+- (PLCHome) Removed RFC2217.
+- (PLCHome) Changed interval to this.interval.
+- (PLCHome) Change the connection procedure to catch the exception.
 
 ### 0.0.3
 
