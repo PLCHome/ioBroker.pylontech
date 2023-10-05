@@ -72,7 +72,6 @@ class Pylontech extends utils.Adapter {
       const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate, false, this._debugData.bind(this)) : new import_WorkerNet.default(this.config.host, this.config.port, false, this._debugData.bind(this));
       worker.open().then(
         (() => {
-          this.log.info("getData");
           return worker.getData({
             info: this.config.info,
             power: this.config.power,

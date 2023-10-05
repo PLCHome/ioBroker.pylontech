@@ -1,0 +1,12 @@
+pylon>unit
+▒▒
+AverageTempr: 20750
+Index Volt Curr Tempr BTlow BThigh BVlow BVhigh Base.St Volt.St Temp.St CoulombAH CoulombWH Time
+1 98185 -1916 20000 20000 20000 3272 3273 Dischg Normal Normal 64% 23531 mAH 66% 2331178 mWH 2023-10-04 20:22:41
+2 98237 -1916 20000 20000 20000 3274 3275 Dischg Normal Normal 64% 23531 mAH 66% 2337650 mWH 2023-10-04 20:22:41
+3 98212 -1916 21000 21000 21000 3272 3274 Dischg Normal Normal 57% 20941 mAH 66% 2340475 mWH 2023-10-04 20:22:41
+4 98218 -1916 22000 22000 22000 3272 3275 Dischg Normal Normal 64% 23531 mAH 67% 2364111 mWH 2023-10-04 20:22:41
+Command completed successfully
+$$
+
+pylon>

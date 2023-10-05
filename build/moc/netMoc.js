@@ -23,15 +23,15 @@ var net = __toESM(require("net"));
 const args = process.argv.slice(2);
 const host = args[0];
 const port = parseInt(args[1]);
-const baudRate = parseInt(args[2]);
+const typ = args[2];
 console.log("arg1:", "host =>", host);
 console.log("arg2:", "port =>", port);
-console.log("arg3:", "baudRate =>", baudRate);
+console.log("arg3:", "typ =>", typ);
 const portWork = new net.Socket();
 portWork.connect(port, host);
 const parser = portWork.pipe(new import_parser_regex.RegexParser({ regex: /[\r\n]+/ }));
 parser.on("data", function(data) {
-  (0, import_promises.readFile)("data/" + data + ".txt").then((data2) => {
+  (0, import_promises.readFile)(`data/${typ}/${data}.txt`).then((data2) => {
     portWork.write(data2.toString());
   }).catch((err) => {
     console.log("File fehler", err);

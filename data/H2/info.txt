@@ -1,0 +1,44 @@
+pylon>info
+Xx▒
+Device address : 1
+Manufacturer : Pylon
+Device name : Force_H2
+Board version : MMCBSP02V20R03
+Hard version : V20R4C5
+Main Soft version : B52.26.0
+Soft version : V1.5
+Boot version : V1.1
+Comm version : V2.0
+Release Date : 21-06-18
+
+PCBA Barcode : Axxxxxxxxxxxxxxxxxxxx6
+Module Barcode : Yxxxxxxxxxxxxxx3
+PowerSupply Barcode : Axxxxxxxxxxxxxxxxxx5
+
+Device Test Time : 2022-06-26 08:51:57
+Specification : 384V/37AH
+Cell Number : 120
+Max Dischg Curr : -40000mA
+Max Charge Curr : 40000mA
+Shut Circuit : Yes
+Relay Feedback : Yes
+
+Unit 1 Barcode
+Module: : Yxxxxxxxxxxxxxx2
+PCBA: : A2003006226Txxxxxxxxx5
+
+Unit 2 Barcode
+Module: : Yxxxxxxxxxxxxxx9
+PCBA: : A2003006225Txxxxxxxxx9
+
+Unit 3 Barcode
+Module: : Yxxxxxxxxxxxxxx1
+PCBA: : A2003006225Txxxxxxxxx1
+
+Unit 4 Barcode
+Module: : Pxxxxxxxxxxxxxx5
+PCBA: : A2003006228Txxxxxxxxx1
+Command completed successfully
+$$
+
+pylon>

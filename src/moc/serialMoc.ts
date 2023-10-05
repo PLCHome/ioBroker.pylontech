@@ -25,13 +25,15 @@ import { SerialPort } from 'serialport';
 const args = process.argv.slice(2);
 const path: string = args[0];
 const baudRate: number = parseInt(args[1]);
+const typ: string = args[2];
 console.log('arg1:', 'port =>', path);
 console.log('arg2:', 'baudRate =>', baudRate);
+console.log('arg3:', 'typ =>', typ);
 
 const portWork = new SerialPort({ path, baudRate });
 const parser = portWork.pipe(new RegexParser({ regex: /[\r\n]+/ }));
 parser.on('data', function (data) {
-  readFile('data/' + data + '.txt')
+  readFile(`data/${typ}/${data}.txt`)
     .then(data => {
       portWork.write(data.toString());
     })

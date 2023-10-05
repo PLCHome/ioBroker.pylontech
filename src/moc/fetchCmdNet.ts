@@ -18,30 +18,41 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-import { RegexParser } from '@serialport/parser-regex';
-import { readFile } from 'fs/promises';
+import { writeFile } from 'fs/promises';
 import * as net from 'net';
+import { ConsolenReader } from '../pylontech/ConsolenReader';
 
 const args = process.argv.slice(2);
 const host: string = args[0];
 const port: number = parseInt(args[1]);
-const typ: string = args[2];
+const command: string = args[2];
 console.log('arg1:', 'host =>', host);
 console.log('arg2:', 'port =>', port);
-console.log('arg3:', 'typ =>', typ);
+console.log('arg3:', 'command =>', command);
 
 const portWork = new net.Socket();
 portWork.connect(port, host);
-const parser = portWork.pipe(new RegexParser({ regex: /[\r\n]+/ }));
-parser.on('data', function (data) {
-  readFile(`data/${typ}/${data}.txt`)
-    .then(data => {
-      portWork.write(data.toString());
-    })
-    .catch(err => {
-      console.log('File fehler', err);
-    });
-
-  console.log('Pack received:\n' + data);
+const consolenReader: ConsolenReader = new ConsolenReader();
+portWork.pipe(consolenReader);
+consolenReader.on('needsenddata', (data: string): void => {
+  portWork.write(data);
 });
-portWork.setKeepAlive(true, 1000);
+const file = `${command}.txt`;
+writeFile(file, '', { flag: 'w+' });
+portWork.on('data', function (data) {
+  writeFile(file, data, { flag: 'a+' });
+  console.log('DataRecived\n' + data);
+});
+portWork.write('\r\n');
+portWork.write(command);
+portWork.write('\n');
+
+function to(time: number): Promise<void> {
+  return new Promise<void>(resolve => {
+    setTimeout(resolve, time * 1000);
+  });
+}
+
+to(2).then(() => {
+  portWork.end();
+});
