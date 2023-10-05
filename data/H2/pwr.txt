@@ -1,12 +1,12 @@
-pylon>pwr
-▒|▒
-AverageTempr : 20616
-DC Volt : 391681
-Bat Volt : 391918
-
-Volt Curr Tempr BTlow BThigh BVlow BVhigh UTlow UThigh UVlow UVhigh Base.St Volt.St Curr.St Temp.St CoulombAH CoulombWH Time B.V.St B.T.St U.V.St U.T.St Err Code
-392984 -1772 33000 20000 22000 3273 3276 20000 22000 98220 98270 Dischg Normal Normal Normal 56% 20680 mAH 65% 9271059 mWH 2023-10-04 20:31:18 Normal Normal Normal Normal 0x0
-Command completed successfully
-$$
-
-pylon>
+pylon>
+pylon>pwr
+@
+AverageTempr   : 22483       
+DC Volt        : 400437      
+Bat Volt       : 400916      
+
+Volt   Curr   Tempr  BTlow  BThigh BVlow  BVhigh UTlow  UThigh UVlow  UVhigh Base.St  Volt.St  Curr.St  Temp.St  CoulombAH                CoulombWH              Time                 B.V.St   B.T.St   U.V.St   U.T.St   Err Code
+401758 521    33000  22000  24000  3346   3349   22000  23466  100428 100451 Charge   Normal   Normal   Normal    78%          28903 mAH  84%        11903117 mWH 2023-10-05 16:14:35  Normal   Normal   Normal   Normal   0x0
+Command completed successfully
+$$
+pylon>

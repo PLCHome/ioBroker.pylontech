@@ -64,6 +64,9 @@ class Pylontech extends utils.Adapter {
     if (typeof this.config.log == 'undefined') this.config.log = true;
     if (typeof this.config.time == 'undefined') this.config.time = true;
     if (typeof this.config.cycle == 'undefined') this.config.cycle = 5;
+    if (typeof this.config.model == 'undefined') this.config.model = 'US';
+    if (typeof this.config.sysinfo == 'undefined') this.config.sysinfo = true;
+    if (typeof this.config.unit == 'undefined') this.config.unit = true;
 
     this._fktInOrder.addFunc(this._onTimer.bind(this));
     this._workTimer = this.setInterval((): void => {
@@ -82,8 +85,8 @@ class Pylontech extends utils.Adapter {
     try {
       const worker: WorkerAbstract =
         this.config.connection == '1'
-          ? new WorkerSerial(this.config.device, this.config.baudrate, false, this._debugData.bind(this))
-          : new WorkerNet(this.config.host, this.config.port, false, this._debugData.bind(this));
+          ? new WorkerSerial(this.config.device, this.config.baudrate, this.config.model, false, this._debugData.bind(this))
+          : new WorkerNet(this.config.host, this.config.port, this.config.model, false, this._debugData.bind(this));
 
       worker
         .open()
@@ -167,8 +170,8 @@ class Pylontech extends utils.Adapter {
         try {
           const worker: WorkerAbstract =
             this.config.connection == '1'
-              ? new WorkerSerial(this.config.device, this.config.baudrate, false, this._debugData.bind(this))
-              : new WorkerNet(this.config.host, this.config.port, false, this._debugData.bind(this));
+              ? new WorkerSerial(this.config.device, this.config.baudrate, this.config.model, false, this._debugData.bind(this))
+              : new WorkerNet(this.config.host, this.config.port, this.config.model, false, this._debugData.bind(this));
 
           function f2(val: number): string {
             return val.toString().padStart(2, '0');
@@ -208,8 +211,8 @@ class Pylontech extends utils.Adapter {
         try {
           const worker: WorkerAbstract =
             this.config.connection == '1'
-              ? new WorkerSerial(this.config.device, this.config.baudrate, true, this._debugData.bind(this))
-              : new WorkerNet(this.config.host, this.config.port, true, this._debugData.bind(this));
+              ? new WorkerSerial(this.config.device, this.config.baudrate, this.config.model, true, this._debugData.bind(this))
+              : new WorkerNet(this.config.host, this.config.port, this.config.model, true, this._debugData.bind(this));
 
           worker
             .open()

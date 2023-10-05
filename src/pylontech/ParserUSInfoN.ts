@@ -22,7 +22,7 @@ import ParserBase from './ParserBase';
 
 const COMMAND: string = 'info';
 
-export class ParserInfoN extends ParserBase {
+export class ParserUSInfoN extends ParserBase {
   _number: number | undefined;
 
   isParser(data: string): boolean {

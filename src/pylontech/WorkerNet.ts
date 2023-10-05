@@ -29,9 +29,9 @@ export = class WorkerNet extends WorkerAbstract {
   protected _host: string;
   protected _port: number;
 
-  constructor(host: string, port: number, noPrompt?: boolean, debugData?: (data: Buffer) => void) {
+  constructor(host: string, port: number, model: string, noPrompt?: boolean, debugData?: (data: Buffer) => void) {
     debugApi('MyWorkerNet.constructor', 'host:', host, 'port:', port);
-    super();
+    super(model);
     if (debugData) this._socket.on('data', debugData);
     if (noPrompt) this._noPrompt = noPrompt;
     this._host = host;

@@ -46,6 +46,20 @@
       function load(settings, onChange) {
         // example: select elements with id=key and class=value and insert value
         if (!settings) return;
+        if (typeof settings.connection == 'undefined') settings.connection = '1';
+        if (typeof settings.baudrate == 'undefined') settings.baudrate = 115200;
+        if (typeof settings.info == 'undefined') settings.info = true;
+        if (typeof settings.power == 'undefined') settings.power = true;
+        if (typeof settings.statistic == 'undefined') settings.statistic = true;
+        if (typeof settings.celldata == 'undefined') settings.celldata = true;
+        if (typeof settings.cellsoh == 'undefined') settings.cellsoh = true;
+        if (typeof settings.log == 'undefined') settings.log = true;
+        if (typeof settings.time == 'undefined') settings.time = true;
+        if (typeof settings.cycle == 'undefined') settings.cycle = 5;
+        if (typeof settings.model == 'undefined') settings.model = 'US';
+        if (typeof settings.sysinfo == 'undefined') settings.sysinfo = true;
+        if (typeof settings.unit == 'undefined') settings.unit = true;
+
         $('.value').each(function () {
           var $key = $(this);
           var id = $key.attr('id');
@@ -74,12 +88,14 @@
           })
           .trigger('change');
 
-        $('#rfc2217')
+        $('#model')
           .change(function () {
-            if ($(this).prop('checked')) {
-              $('.netbaudrate').show();
+            if ($(this).val() == 'FORCE') {
+              $('.us').hide();
+              $('.force').show();
             } else {
-              $('.netbaudrate').hide();
+              $('.force').hide();
+              $('.us').show();
             }
           })
           .trigger('change');
@@ -142,48 +158,65 @@
           <label for="host" class="translate">Network host</label>
         </div>
         <div class="col s6 input-field">
-          <input type="number" class="value" id="port" />
+          <input type="number" class="value" id="port" min="0" max="65535" step="1" />
           <label for="port" class="translate">Network port</label>
         </div>
       </div>
       <div class="row">
         <div class="col s6 input-field">
-          <input type="number" class="value" id="cycle" />
+          <input type="number" class="value" id="cycle" min="1" max="120" step="1" />
           <label for="cycle" class="translate">Cycle time in minutes</label>
+        </div>
+        <div class="col s6 input-field">
+          <select class="value" id="model">
+            <option value="US" class="translate">US series</option>
+            <option value="FORCE" class="translate">Force series</option>
+          </select>
+          <label for="model" class="translate">Modell</label>
         </div>
       </div>
       <div class="row">
-        <div class="col s6 input-field">
+        <div class="col s6 input-field usforce">
           <input type="checkbox" class="value" id="info" />
           <label for="info" class="translate">Download the battery information data</label>
         </div>
 
-        <div class="col s6 input-field">
+        <div class="col s6 input-field force">
+          <input type="checkbox" class="value" id="sysinfo" />
+          <label for="sysinfo" class="translate">Download the battery system information data</label>
+        </div>
+
+        <div class="col s6 input-field usforce">
           <input type="checkbox" class="value" id="power" />
           <label for="power" class="translate">Download the battery power data</label>
         </div>
 
-        <div class="col s6 input-field">
+        <div class="col s6 input-field us">
           <input type="checkbox" class="value" id="statistic" />
           <label for="statistic" class="translate">Download the battery statistics data</label>
         </div>
 
-        <div class="col s6 input-field">
+        <div class="col s6 input-field usforce">
           <input type="checkbox" class="value" id="celldata" />
           <label for="celldata" class="translate">Download the battery cells data</label>
         </div>
 
-        <div class="col s6 input-field">
+        <div class="col s6 input-field us">
           <input type="checkbox" class="value" id="cellsoh" />
           <label for="cellsoh" class="translate">Download the battery cells state of health</label>
         </div>
 
-        <div class="col s6 input-field">
+        <div class="col s6 input-field force">
+          <input type="checkbox" class="value" id="unit" />
+          <label for="unit" class="translate">Download the unit data</label>
+        </div>
+
+        <div class="col s6 input-field usforce">
           <input type="checkbox" class="value" id="log" />
           <label for="log" class="translate">Download the log data</label>
         </div>
 
-        <div class="col s6 input-field">
+        <div class="col s6 input-field usforce">
           <input type="checkbox" class="value" id="time" />
           <label for="time" class="translate">Download the time information</label>
         </div>

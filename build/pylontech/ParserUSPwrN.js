@@ -22,14 +22,14 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var ParserInfoN_exports = {};
-__export(ParserInfoN_exports, {
-  ParserInfoN: () => ParserInfoN
+var ParserUSPwrN_exports = {};
+__export(ParserUSPwrN_exports, {
+  ParserUSPwrN: () => ParserUSPwrN
 });
-module.exports = __toCommonJS(ParserInfoN_exports);
+module.exports = __toCommonJS(ParserUSPwrN_exports);
 var import_ParserBase = __toESM(require("./ParserBase"));
-const COMMAND = "info";
-class ParserInfoN extends import_ParserBase.default {
+const COMMAND = "pwr";
+class ParserUSPwrN extends import_ParserBase.default {
   isParser(data) {
     const prompt = /(>)(\S+)\s(\d+)$/gm;
     return this._isParser(data, prompt, COMMAND);
@@ -41,6 +41,6 @@ class ParserInfoN extends import_ParserBase.default {
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  ParserInfoN
+  ParserUSPwrN
 });
-//# sourceMappingURL=ParserInfoN.js.map
+//# sourceMappingURL=ParserUSPwrN.js.map

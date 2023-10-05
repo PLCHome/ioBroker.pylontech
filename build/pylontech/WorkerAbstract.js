@@ -30,14 +30,14 @@ const BAT = "bat";
 const SOH = "soh";
 const INFO = "info";
 class WorkerAbstract {
-  constructor() {
+  constructor(model) {
     this._consolenReader = new import_ConsolenReader.ConsolenReader();
     this._commands = [];
     this._timeout = 5e3;
     this._started = false;
-    this._parser = new import_Parsers.Parsers();
     this._noPrompt = false;
     debugApi("MyWorkerAbstract.constructor");
+    this._parser = new import_Parsers.Parsers(model);
     this._consolenReader.on("data", this._onData.bind(this));
     this._consolenReader.on("needsenddata", this.sendData.bind(this));
   }

@@ -36,7 +36,7 @@ portWork.pipe(consolenReader);
 consolenReader.on('needsenddata', (data: string): void => {
   portWork.write(data);
 });
-const file = `data/${command}.txt`;
+const file = `${command}.txt`;
 writeFile(file, '', { flag: 'w+' });
 portWork.on('data', function (data) {
   writeFile(file, data, { flag: 'a+' });

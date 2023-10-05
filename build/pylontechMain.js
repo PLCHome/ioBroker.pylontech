@@ -58,6 +58,12 @@ class Pylontech extends utils.Adapter {
       this.config.time = true;
     if (typeof this.config.cycle == "undefined")
       this.config.cycle = 5;
+    if (typeof this.config.model == "undefined")
+      this.config.model = "US";
+    if (typeof this.config.sysinfo == "undefined")
+      this.config.sysinfo = true;
+    if (typeof this.config.unit == "undefined")
+      this.config.unit = true;
     this._fktInOrder.addFunc(this._onTimer.bind(this));
     this._workTimer = this.setInterval(() => {
       if (this._fktInOrder)
@@ -69,7 +75,7 @@ class Pylontech extends utils.Adapter {
   }
   _onTimer(resolve, reject) {
     try {
-      const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate, false, this._debugData.bind(this)) : new import_WorkerNet.default(this.config.host, this.config.port, false, this._debugData.bind(this));
+      const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate, this.config.model, false, this._debugData.bind(this)) : new import_WorkerNet.default(this.config.host, this.config.port, this.config.model, false, this._debugData.bind(this));
       worker.open().then(
         (() => {
           return worker.getData({
@@ -149,7 +155,7 @@ class Pylontech extends utils.Adapter {
             return val.toString().padStart(2, "0");
           };
           var f2 = f22;
-          const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate, false, this._debugData.bind(this)) : new import_WorkerNet.default(this.config.host, this.config.port, false, this._debugData.bind(this));
+          const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate, this.config.model, false, this._debugData.bind(this)) : new import_WorkerNet.default(this.config.host, this.config.port, this.config.model, false, this._debugData.bind(this));
           const cmd = `time ${f22(d.getFullYear() % 100)} ${f22(d.getMonth() + 1)} ${f22(d.getDate())} ${f22(d.getHours())} ${f22(d.getMinutes())} ${f22(
             d.getSeconds()
           )}`;
@@ -178,7 +184,7 @@ class Pylontech extends utils.Adapter {
     if (this._fktInOrder) {
       this._fktInOrder.addFunc((resolve, reject) => {
         try {
-          const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate, true, this._debugData.bind(this)) : new import_WorkerNet.default(this.config.host, this.config.port, true, this._debugData.bind(this));
+          const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate, this.config.model, true, this._debugData.bind(this)) : new import_WorkerNet.default(this.config.host, this.config.port, this.config.model, true, this._debugData.bind(this));
           worker.open().then(() => {
             return worker.sendSpeedInit();
           }).then(() => {

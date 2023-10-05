@@ -15,7 +15,7 @@ portWork.pipe(consolenReader);
 consolenReader.on("needsenddata", (data) => {
   portWork.write(data);
 });
-const file = `data/${command}.txt`;
+const file = `${command}.txt`;
 (0, import_promises.writeFile)(file, "", { flag: "w+" });
 portWork.on("data", function(data) {
   (0, import_promises.writeFile)(file, data, { flag: "a+" });

@@ -27,9 +27,9 @@ const debugApi = Debug('pylontech:api');
 export = class WorkerSerial extends WorkerAbstract {
   protected _socket: SerialPort;
 
-  constructor(path: string, baudRate: number, noPrompt?: boolean, debugData?: (data: Buffer) => void) {
+  constructor(path: string, baudRate: number, modul: string, noPrompt?: boolean, debugData?: (data: Buffer) => void) {
     debugApi('MyWorkerNet.constructor', 'path:', path, 'baudRate:', baudRate);
-    super();
+    super(modul);
     this._socket = new SerialPort({ path, baudRate });
     if (noPrompt) this._noPrompt = noPrompt;
     if (debugData) this._socket.on('data', debugData);

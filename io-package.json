@@ -80,10 +80,13 @@
     "host": "",
     "port": 23,
     "cycle": 5,
+    "model": "US",
     "info": true,
+    "sysinfo": true,
     "power": true,
     "statistic": true,
     "celldata": true,
+    "unit": true,
     "cellsoh": true,
     "log": true,
     "time": true

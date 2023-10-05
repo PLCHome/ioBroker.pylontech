@@ -1,0 +1,14 @@
+pylon>
+pylon>bmuinfo 3
+@
+Manufacturer        : Pylon
+Device name         : BMU
+Board version       : LT30SV20R02
+
+PCBA Barcode        : Axxxxxxxxxxxxxxxxxxxx5PowerSupply Barcode : 200005          
+Device Test Time    : 2022-06-26 15:45:16
+Specification       : 37AH
+Cell Number         : 30
+Command completed successfully
+$$
+pylon>

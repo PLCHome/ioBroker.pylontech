@@ -214,11 +214,12 @@ What was tested:
 
 #### Batteries
 
-| Pylontech model  | Firmware      | Is working | Comment                                    |
-| ---------------- | ------------- | ---------- | ------------------------------------------ |
-| US5000           | V1.3 22-08-10 | fine       |                                            |
-| US2000C          | V2.6 21-09-26 | fine       |                                            |
-| US2000 (US2KBPL) | V2.8 21-04-29 | fine       | Temperatures only in one degree increments |
+| Pylontech model  | Moedel | Firmware      | Is working | Comment                                    |
+| ---------------- | ------ | ------------- | ---------- | ------------------------------------------ |
+| US5000           | US     | V1.3 22-08-10 | fine       |                                            |
+| US2000C          | US     | V2.6 21-09-26 | fine       |                                            |
+| US2000 (US2KBPL) | US     | V2.8 21-04-29 | fine       | Temperatures only in one degree increments |
+| Force H2         | Force  | B52.26.0      | in test    |                                            |
 
 If you use hardware, please write to me in the forum or in Github as an issue. We would be happy to continue this list.
 
@@ -281,7 +282,13 @@ The speed must be set on the network device.
 
 The cycle time can be set here. Personally I think 5 minutes is enough to get an idea if the batteries are working well. Please note that the batteries should primarily communicate with the inverter and not the debugger.
 
-### Determine which data is read
+### Model
+
+Here you can select the model. You can currently choose between US and Force. You can't destroy anything. So feel free to test which setting your Pylontech is running on. There are also some listed at the top of the compatibility list. If it doesn't work, you can contact me via the ioBroker forum and we can see why the data cannot be read.
+
+ioBroker forum: https://forum.iobroker.net/topic/68707
+
+### Determine which data is read for the model US
 
 If errors occur because the adapter requests data that the batteries do not provide, the request can be stopped here. The adapter was built on the basis of re-engineering, so I may have to make improvements.
 If there are too many objects for you, you can also reduce the data here.
@@ -308,13 +315,28 @@ The command “soh -n-” is only written to the console if this is set here.
 
 #### Download the log data
 
-The command “log -n-” is only written to the console if this is set here.
+The command “log” is only written to the console if this is set here.
 
 #### Download the time information
 
 The command “time” is only written to the console if this is set here.
 
-## Values and operations
+### Determine which data is read for the model Force
+
+If errors occur because the adapter requests data that the batteries do not provide, the request can be stopped here. The adapter was built on the basis of re-engineering, so I may have to make improvements.
+If there are too many objects for you, you can also reduce the data here.
+
+todo
+
+#### Download the log data
+
+The command “log” is only written to the console if this is set here.
+
+#### Download the time information
+
+The command “time” is only written to the console if this is set here.
+
+## Values and operations for the model US
 
 Almost all measurements are stored here in milli (one part in a thousand).
 
@@ -349,6 +371,10 @@ The information of the following commands is stored here
 The information of the following command is stored here
 
 - command “stat -n-”
+
+## Values and operations for the model Force
+
+todo
 
 ### channel config
 
@@ -386,6 +412,10 @@ The time read from the inverter is stored here. On the US3000 it is called RTC a
 If true without ack is written to set, the current time is sent to the Pylontech. When the command has been executed, the status is set to ack = true.
 
 ## Changelog
+
+### 0.0.5 (05.10.2023)
+
+- (PLCHome) Implemenmt the force H2. Thanx to radi for suppoting this project!
 
 ### 0.0.4 (04.10.2023)
 

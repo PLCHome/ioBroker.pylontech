@@ -22,25 +22,28 @@ __export(Parsers_exports, {
 });
 module.exports = __toCommonJS(Parsers_exports);
 var import_debug = require("debug");
-var import_ParserBatN = require("./ParserBatN");
-var import_ParserInfoN = require("./ParserInfoN");
 var import_ParserLog = require("./ParserLog");
-var import_ParserPwr = require("./ParserPwr");
-var import_ParserPwrN = require("./ParserPwrN");
-var import_ParserSohN = require("./ParserSohN");
-var import_ParserStatN = require("./ParserStatN");
 var import_ParserTime = require("./ParserTime");
+var import_ParserUSBatN = require("./ParserUSBatN");
+var import_ParserUSInfoN = require("./ParserUSInfoN");
+var import_ParserUSPwr = require("./ParserUSPwr");
+var import_ParserUSPwrN = require("./ParserUSPwrN");
+var import_ParserUSSohN = require("./ParserUSSohN");
+var import_ParserUSStatN = require("./ParserUSStatN");
 const debugParsers = (0, import_debug.debug)("pylontech:parsers");
 class Parsers {
-  constructor() {
+  constructor(model) {
     this._parser = [];
     debugParsers("Parsers.constructor");
-    this._parser.push(new import_ParserInfoN.ParserInfoN());
-    this._parser.push(new import_ParserPwrN.ParserPwrN());
-    this._parser.push(new import_ParserBatN.ParserBatN());
-    this._parser.push(new import_ParserSohN.ParserSohN());
-    this._parser.push(new import_ParserStatN.ParserStatN());
-    this._parser.push(new import_ParserPwr.ParserPwr());
+    if (model == "FORCE") {
+    } else {
+      this._parser.push(new import_ParserUSInfoN.ParserUSInfoN());
+      this._parser.push(new import_ParserUSPwrN.ParserUSPwrN());
+      this._parser.push(new import_ParserUSBatN.ParserUSBatN());
+      this._parser.push(new import_ParserUSSohN.ParserUSSohN());
+      this._parser.push(new import_ParserUSStatN.ParserUSStatN());
+      this._parser.push(new import_ParserUSPwr.ParserUSPwr());
+    }
     this._parser.push(new import_ParserLog.ParserLog());
     this._parser.push(new import_ParserTime.ParserTime());
   }

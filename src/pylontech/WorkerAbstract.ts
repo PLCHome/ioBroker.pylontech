@@ -44,11 +44,12 @@ abstract class WorkerAbstract implements IWorker {
   protected _activeCmd: CommandList | undefined;
   protected _timeout: number = 5000;
   protected _started: boolean = false;
-  protected _parser: Parsers = new Parsers();
+  protected _parser: Parsers;
   protected _noPrompt: boolean = false;
 
-  constructor() {
+  constructor(model: string) {
     debugApi('MyWorkerAbstract.constructor');
+    this._parser = new Parsers(model);
     this._consolenReader.on('data', this._onData.bind(this));
     this._consolenReader.on('needsenddata', this.sendData.bind(this));
   }

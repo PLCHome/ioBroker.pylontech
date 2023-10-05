@@ -23,7 +23,7 @@ import WorkerAbstract from './pylontech/WorkerAbstract';
 import WorkerNet from './pylontech/WorkerNet';
 
 //const worker: WorkerAbstract = new WorkerSerial('com7', 115200);
-const worker: WorkerAbstract = new WorkerNet('esp-link.fritz.box', 23);
+const worker: WorkerAbstract = new WorkerNet('esp-link.fritz.box', 23, 'US');
 
 fs.writeFile('./elements', '', { flag: 'w+' });
 worker.open().then(() => {

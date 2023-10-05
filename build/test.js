@@ -20,7 +20,7 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 var import_promises = __toESM(require("fs/promises"));
 var import_Value = require("./pylontech/Value");
 var import_WorkerNet = __toESM(require("./pylontech/WorkerNet"));
-const worker = new import_WorkerNet.default("esp-link.fritz.box", 23);
+const worker = new import_WorkerNet.default("esp-link.fritz.box", 23, "US");
 import_promises.default.writeFile("./elements", "", { flag: "w+" });
 worker.open().then(() => {
   return worker.getData({ info: true, power: true, statistic: true, celldata: true, cellsoh: true }).then((allData) => {

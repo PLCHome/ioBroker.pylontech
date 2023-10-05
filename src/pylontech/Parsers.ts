@@ -20,28 +20,31 @@
 
 import { debug } from 'debug';
 import { IParser } from './IParser';
-import { ParserBatN } from './ParserBatN';
-import { ParserInfoN } from './ParserInfoN';
 import { ParserLog } from './ParserLog';
-import { ParserPwr } from './ParserPwr';
-import { ParserPwrN } from './ParserPwrN';
-import { ParserSohN } from './ParserSohN';
-import { ParserStatN } from './ParserStatN';
 import { ParserTime } from './ParserTime';
+import { ParserUSBatN } from './ParserUSBatN';
+import { ParserUSInfoN } from './ParserUSInfoN';
+import { ParserUSPwr } from './ParserUSPwr';
+import { ParserUSPwrN } from './ParserUSPwrN';
+import { ParserUSSohN } from './ParserUSSohN';
+import { ParserUSStatN } from './ParserUSStatN';
 
 const debugParsers = debug('pylontech:parsers');
 
 export class Parsers {
   protected _parser: IParser[] = [];
 
-  constructor() {
+  constructor(model: string) {
     debugParsers('Parsers.constructor');
-    this._parser.push(new ParserInfoN());
-    this._parser.push(new ParserPwrN());
-    this._parser.push(new ParserBatN());
-    this._parser.push(new ParserSohN());
-    this._parser.push(new ParserStatN());
-    this._parser.push(new ParserPwr());
+    if (model == 'FORCE') {
+    } else {
+      this._parser.push(new ParserUSInfoN());
+      this._parser.push(new ParserUSPwrN());
+      this._parser.push(new ParserUSBatN());
+      this._parser.push(new ParserUSSohN());
+      this._parser.push(new ParserUSStatN());
+      this._parser.push(new ParserUSPwr());
+    }
     this._parser.push(new ParserLog());
     this._parser.push(new ParserTime());
   }

@@ -20,16 +20,18 @@
 
 import ParserBase from './ParserBase';
 
-const COMMAND: string = 'bat';
+const COMMAND: string = 'pwr';
 
-export class ParserBatN extends ParserBase {
+export class ParserUSPwrN extends ParserBase {
+  _number: number | undefined;
+
   isParser(data: string): boolean {
     const prompt: RegExp = /(>)(\S+)\s(\d+)$/gm;
     return this._isParser(data, prompt, COMMAND);
   }
 
-  parseData(data: string): object {
-    const row: RegExp = /^(.{9})(.{9})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{10})(.{9,16})?(.{1,3})?/gm;
-    return this._parseDataHeadlineN(data, row, COMMAND, 1);
+  parseData(data: string): any {
+    const row: RegExp = /(.+\S)\s+:\s(.*)/gm;
+    return this._parseDataNameValN(data, row, COMMAND);
   }
 }

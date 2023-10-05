@@ -20,16 +20,16 @@
 
 import ParserBase from './ParserBase';
 
-const COMMAND: string = 'soh';
+const COMMAND: string = 'pwr';
 
-export class ParserSohN extends ParserBase {
+export class ParserUSPwr extends ParserBase {
   isParser(data: string): boolean {
-    const prompt: RegExp = /(>)(\S+)\s(\d+)$/gm;
+    const prompt: RegExp = /(>)(\S+)$/gm;
     return this._isParser(data, prompt, COMMAND);
   }
 
   parseData(data: string): any {
-    const row: RegExp = /^(.{11})(.{11})(.{11})(.{9})/gm;
+    const row: RegExp = /^(.{6})(.{7})(.{7})(.{7})(.{7})(.{7})(.{7})(.{7})(.{9})(.{9})(.{9})(.{9})(.{9})(.{21})(.{9})(.{9})?(.{8})?(.{7})?/gm;
     return this._parseDataHeadlineN(data, row, COMMAND, 1);
   }
 }

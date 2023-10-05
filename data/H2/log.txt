@@ -1,0 +1,125 @@
+pylon>
+pylon>log
+ Index   : 19    
+ Time    : 23-10-05 12:06:53
+ ModID   : BMM
+ Code    : 8c8c
+ Info    : The device start charging. 
+
+ Index   : 18    
+ Time    : 23-10-05 12:06:11
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging. 
+
+ Index   : 17    
+ Time    : 23-10-05 10:12:47
+ ModID   : BMM
+ Code    : 0
+ Info    : The coulomb of device is normal. 
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 16    
+ Time    : 23-10-05 10:12:45
+ ModID   : BMM
+ Code    : 8c8b
+ Info    : The device start charging. 
+
+ Index   : 15    
+ Time    : 23-10-05 10:12:17
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging. 
+
+ Index   : 14    
+ Time    : 23-10-05 10:12:17
+ ModID   : BMM
+ Code    : 0
+ Info    : The coulomb of device is low. 
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 13    
+ Time    : 23-10-05 10:07:43
+ ModID   : BMM
+ Code    : 0
+ Info    : The coulomb of device is normal. 
+
+ Index   : 12    
+ Time    : 23-10-05 10:07:41
+ ModID   : BMM
+ Code    : 8c8a
+ Info    : The device start charging. 
+
+ Index   : 11    
+ Time    : 23-10-05 10:07:13
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging. 
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 10    
+ Time    : 23-10-05 10:07:07
+ ModID   : BMM
+ Code    : 0
+ Info    : The coulomb of device is low. 
+
+ Index   : 9     
+ Time    : 23-10-05 10:02:46
+ ModID   : BMM
+ Code    : 0
+ Info    : The coulomb of device is normal. 
+
+ Index   : 8     
+ Time    : 23-10-05 10:02:44
+ ModID   : BMM
+ Code    : 8c89
+ Info    : The device start charging. 
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 7     
+ Time    : 23-10-05 10:02:02
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging. 
+
+ Index   : 6     
+ Time    : 23-10-05 10:01:58
+ ModID   : BMM
+ Code    : 0
+ Info    : The coulomb of device is low. 
+
+ Index   : 5     
+ Time    : 23-10-05 08:46:10
+ ModID   : BMM
+ Code    : 0
+ Info    : The coulomb of device is normal. 
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 4     
+ Time    : 23-10-05 08:46:08
+ ModID   : BMM
+ Code    : 8c88
+ Info    : The device start charging. 
+
+ Index   : 3     
+ Time    : 23-10-05 08:46:06
+ ModID   : BMM
+ Code    : 0
+ Info    : The coulomb of device is low. 
+
+ Index   : 2     
+ Time    : 23-10-05 08:45:56
+ ModID   : BMM
+ Code    : 0
+ Info    : The coulomb of device is normal. 
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 1     
+ Time    : 23-10-05 08:45:54
+ ModID   : BMM
+ Code    : 8c87
+ Info    : The device start charging. 
+
+ Index   : 0     
+ Time    : 23-10-05 08:45:52
+ ModID   : BMM
+ Code    : 0
+ Info    : The coulomb of device is low. 
+
+Command completed successfully
+$$
+pylon>

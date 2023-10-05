@@ -22,25 +22,25 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var ParserPwrN_exports = {};
-__export(ParserPwrN_exports, {
-  ParserPwrN: () => ParserPwrN
+var ParserUSBatN_exports = {};
+__export(ParserUSBatN_exports, {
+  ParserUSBatN: () => ParserUSBatN
 });
-module.exports = __toCommonJS(ParserPwrN_exports);
+module.exports = __toCommonJS(ParserUSBatN_exports);
 var import_ParserBase = __toESM(require("./ParserBase"));
-const COMMAND = "pwr";
-class ParserPwrN extends import_ParserBase.default {
+const COMMAND = "bat";
+class ParserUSBatN extends import_ParserBase.default {
   isParser(data) {
     const prompt = /(>)(\S+)\s(\d+)$/gm;
     return this._isParser(data, prompt, COMMAND);
   }
   parseData(data) {
-    const row = /(.+\S)\s+:\s(.*)/gm;
-    return this._parseDataNameValN(data, row, COMMAND);
+    const row = /^(.{9})(.{9})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{10})(.{9,16})?(.{1,3})?/gm;
+    return this._parseDataHeadlineN(data, row, COMMAND, 1);
   }
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  ParserPwrN
+  ParserUSBatN
 });
-//# sourceMappingURL=ParserPwrN.js.map
+//# sourceMappingURL=ParserUSBatN.js.map

@@ -1,0 +1,84 @@
+pylon>
+pylon>stat
+Device address           0
+EvenData Items  :      124
+HistData Items  :     1023
+MiscData Items  :      256
+Charge Cnt.     :     1744
+Discharge Cnt.  :        0
+Charge Times    :    35981
+Status Cnt.     :     1743
+Idle Times      :    17141
+COC Times       :        0
+DOC Times       :        0
+COCA Times      :        0
+DOCA Times      :        0
+SC Times        :        0
+Bat OV Times    :        0
+Bat HV Times    :      122
+Bat LV Times    :        0
+Bat UV Times    :        0
+Bat SHUT Times  :        0
+Pwr OV Times    :        0
+Pwr HV Times    :        0
+Pwr LV Times    :        0
+Pwr UV Times    :        0
+Pwr SHUT Times  :        0
+Bat OT Times    :        0
+Bat UT Times    :        0
+Bat HT Times    :        0
+Bat LT Times    :        0
+Board OT Times  :        0
+Board UT Times  :        0
+Board HT Times  :        0
+Board LT Times  :        0
+Shut Times      :        1
+Reset Times     :       68
+RV Times        :        0
+Input OV Times  :        0
+SOH Times       :      132
+BMICERR Times   :        0
+CYCLE Times     :      142
+Pwr Percent     :       74
+Pwr Coulomb(mAS): 99148734
+Pwr PercentWatt :       77
+Bat CoulWatt(uWH):   91008790
+Dsg Cap(mAH)    :  5257824
+SOH Percent     :      100
+His.Chg Cap(WH) : 23489014
+His.Chg Capl(mWH) :      551
+His.Dsg Cap(WH) : 19144042
+His.Dsg Capl(mWH) :      923
+Day Chg Cap(WH) :     9330
+Day Chg Capl(mWH) :        1
+Day Dsg Cap(WH) :     5612
+Day Dsg Capl(mWH) :      134
+Min.Chg Cap(WH) :     9323
+Min.Dsg Cap(WH) :     5612
+HTChgDsg Secs   :        0
+LTChg Secs      :        0
+LTDsg Secs      :        0
+HT Secs         :        0
+LT Secs         :        0
+HV1 Secs        :        0
+HV2 Secs        :        0
+LV Secs         :        0
+ChgCurr 0~0.2C Secs      :  6496484
+ChgCurr 0.2C~0.5C Secs   :   382582
+ChgCurr 0.5C~0.8C Secs   :        2
+ChgCurr 0.8C~1C Secs     :        0
+ChgCurr 1C above Secs    :        0
+DsgCurr 0~0.2C Secs      : 12078226
+DsgCurr 0.2C~0.5C Secs   :    66404
+DsgCurr 0.5C~0.8C Secs   :       14
+DsgCurr 0.8C~1C Secs     :       10
+DsgCurr 1C above Secs    :        0
+Soc 0~20% Secs      :  3898542
+Soc 20~60% Secs     : 15303464
+Soc 60% above Secs  : 13361906
+LifeWarning Times   :        0
+LifeAlarm Times     :        0
+FlashFail Times     :        0
+Command completed successfully
+$$
+pylon>

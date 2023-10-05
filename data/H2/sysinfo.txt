@@ -1,57 +1,56 @@
-pylon>sysinfo
-a▒@
-Chg Sug Volt : 426000 mV
-Chg Cut Volt : 432000 mV
-Dsg Cut Volt : 348000 mV
-Max Chg Curr : 18500 mA
-Max Dsg Curr : -18500 mA
-Bal Chg Req : Yes
-Force Chg Req : NO
-
-Vol High 4 : 3600 mV
-Vol High 4R : 3400 mV
-Vol High 3 : 3550 mV
-Vol High 3R : 3400 mV
-Vol High 2 : 3520 mV
-Vol High 2R : 3400 mV
-Vol High 1 : 3500 mV
-Vol High 1R : 3300 mV
-Vol Low 1 : 2900 mV
-Vol Low 1R : 3200 mV
-Vol Low 2 : 2800 mV
-Vol Low 2R : 3200 mV
-
-Temp High 2 : 50000
-Temp High 2R : 45000
-Temp High 1 : 45000
-Temp High 1R : 40000
-Temp Nor High 1 : 42500
-Temp Nor High 1R : 37500
-Temp Nor Low 1 : 17500
-Temp Nor Low 1R : 22500
-Temp Low 1 : 10000
-Temp Low 1R : 12000
-Temp Low 2 : 0
-Temp Low 2R : 2000
-Temp Low 3 : -10000
-Temp Low 3R : -8000
-
-Bal High 5 : 150
-Bal High 5R : 125
-Bal High 4 : 120
-Bal High 4R : 105
-Bal High 3 : 100
-Bal High 3R : 85
-Bal High 2 : 80
-Bal High 2R : 60
-Bal High 1 : 50
-Bal High 1R : 30
-
-FChgV : 2850
-FChgVR : 3200
-FChgS : 4
-FChgSR : 10
-Command completed successfully
-$$
-
-pylon>
+pylon>
+pylon>sysinfo
+ Chg Sug Volt       : 426000     mV
+ Chg Cut Volt       : 432000     mV
+ Dsg Cut Volt       : 348000     mV
+ Max Chg Curr       : 18500      mA
+ Max Dsg Curr       : -18500     mA
+ Bal Chg Req        : Yes       
+ Force Chg Req      : NO        
+
+ Vol High 4         : 3600       mV
+ Vol High 4R        : 3400       mV
+ Vol High 3         : 3550       mV
+ Vol High 3R        : 3400       mV
+ Vol High 2         : 3520       mV
+ Vol High 2R        : 3400       mV
+ Vol High 1         : 3500       mV
+ Vol High 1R        : 3300       mV
+ Vol Low  1         : 2900       mV
+ Vol Low  1R        : 3200       mV
+ Vol Low  2         : 2800       mV
+ Vol Low  2R        : 3200       mV
+
+ Temp High 2        : 50000     
+ Temp High 2R       : 45000     
+ Temp High 1        : 45000     
+ Temp High 1R       : 40000     
+ Temp Nor High 1    : 42500     
+ Temp Nor High 1R   : 37500     
+ Temp Nor Low 1     : 17500     
+ Temp Nor Low 1R    : 22500     
+ Temp Low 1         : 10000     
+ Temp Low 1R        : 12000     
+ Temp Low 2         : 0         
+ Temp Low 2R        : 2000      
+ Temp Low 3         : -10000    
+ Temp Low 3R        : -8000     
+
+ Bal High 5         : 150       
+ Bal High 5R        : 125       
+ Bal High 4         : 120       
+ Bal High 4R        : 105       
+ Bal High 3         : 100       
+ Bal High 3R        : 85        
+ Bal High 2         : 80        
+ Bal High 2R        : 60        
+ Bal High 1         : 50        
+ Bal High 1R        : 30        
+
+ FChgV              : 2850      
+ FChgVR             : 3200      
+ FChgS              : 4         
+ FChgSR             : 10        
+Command completed successfully
+$$
+pylon>

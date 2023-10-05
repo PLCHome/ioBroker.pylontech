@@ -1,0 +1,39 @@
+
+pylon>
+pylon>help
+@
+Local command:
+bat      Battery data show - bat 
+cmdquit  Quit the Console Mode
+data     History data load - data [event/history/misc][item]
+datalist Show recorded data - datalist [event/history/misc][item/bat][batnun][volt/curr/temp/coul][item]
+disp     Display Info at regular intervals - disp [pwr/val]/[volt/curr/temp] / disp [bat] [batNo]
+getpwr   Get power Info - getpwr
+help     Help [cmd]
+info     Device infomation - info
+bmuinfo  Device infomation - bmuinfo [chip]
+log      Log information show - log
+login    Login Admin mode - login [password]
+logout   user mode  - logout
+pwr      Power data show - pwr
+unit     Unit data show - unit
+sysinfo  System Info - sysinfo
+twakeup  Test Wake Up - twakeup
+tsleep   Test sleep - tsleep
+Press [Enter] to be continued,other key to exit                                                  tshut    Test Shut Down - tshut
+swrec    Self-Waking Rec data show - swrec
+soh      State of health - soh 
+stat     Statistic data show - stat
+time     Time - time [year] [month] [day] [hour] [minute] [second]
+trst     Test Soft Reset - trst
+tchgcmd  Test Chg Cmd - tchgcmd
+tdsgcmd  Test Dsg Cmd - tchgcmd
+trtdoff  Relay time delay off - trtdoff
+tethernet Test tethernet - tethernet
+updata   updata system - updata
+bmudtesttime Device Test Time - bmudtesttime [year] [month] [day] [hour] [minute] [second]
+cmudtesttime Device Test Time - cmudtesttime [year] [month] [day] [hour] [minute] [second]
+**********************************************************
+Command completed successfully
+$$
+pylon>
