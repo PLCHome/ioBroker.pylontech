@@ -208,18 +208,18 @@ What was tested:
 | Serial to USB                       | local   | yes        | There is a large selection of chips for the adapters. Depending on the model, identification problems can occur if the adapters do not have a serial number and more than one is connected. Windows already assigns one COM port for each USB plug. |
 | LogiLink AU0034                     | local   | yes        |                                                                                                                                                                                                                                                     |
 | ESP-LINK                            | network | yes        | Assign the device an IP in the network. Check transmission speed 115200 8 N 1. Everything else left unchanged.                                                                                                                                      |
-| Waveshare RS232/485 TO ETH (for EU) | network | yes        | Assign the device an IP in the network. Check transmission speed 115200 8 N 1. Everything else left unchanged.                                                                                                                                      |
+| Waveshare RS232/485 TO ETH (for EU) | network | yes        | Assign the device an IP in the network. Check transmission speed 115200 8 N 1. Everything else left unchanged. Use the RS232 SUBD Port.                                                  |
 
 |
 
 #### Batteries
 
-| Pylontech model  | Moedel | Firmware      | Is working | Comment                                    |
+| Pylontech model  | Model  | Firmware      | Is working | Comment                                    |
 | ---------------- | ------ | ------------- | ---------- | ------------------------------------------ |
 | US5000           | US     | V1.3 22-08-10 | fine       |                                            |
 | US2000C          | US     | V2.6 21-09-26 | fine       |                                            |
 | US2000 (US2KBPL) | US     | V2.8 21-04-29 | fine       | Temperatures only in one degree increments |
-| Force H2         | Force  | B52.26.0      | in test    |                                            |
+| Force H2         | Force  | V1.5          | in test    |                                            |
 
 If you use hardware, please write to me in the forum or in Github as an issue. We would be happy to continue this list.
 
