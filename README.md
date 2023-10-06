@@ -207,10 +207,10 @@ What was tested:
 | ----------------------------------- | ------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Serial to USB                       | local   | yes        | There is a large selection of chips for the adapters. Depending on the model, identification problems can occur if the adapters do not have a serial number and more than one is connected. Windows already assigns one COM port for each USB plug. |
 | LogiLink AU0034                     | local   | yes        |                                                                                                                                                                                                                                                     |
-| ESP-LINK                            | network | yes        | Assign the device an IP in the network. Check transmission speed 115200 8 N 1. Everything else left unchanged.                                                                                                                                      |
+| ESP-LINK                            | network | yes        | Assign the device an IP in the network. Check transmission speed 115200 8 N 1. Everything else left unchanged. Remember to use a converter like the MAX                     |
 | Waveshare RS232/485 TO ETH (for EU) | network | yes        | Assign the device an IP in the network. Check transmission speed 115200 8 N 1. Everything else left unchanged. Use the RS232 SUBD Port.                                                  |
 
-|
+
 
 #### Batteries
 
