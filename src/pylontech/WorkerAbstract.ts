@@ -37,6 +37,12 @@ const STATISTIC = 'statistic';
 const BAT = 'bat';
 const SOH = 'soh';
 const INFO = 'info';
+const LOG = 'log';
+const TIME = 'time';
+const CELLS = 'cells';
+const SYSTEMINFO = 'systeminfo';
+const SYSINFO = 'sysinfo';
+const UNIT = 'unit';
 
 abstract class WorkerAbstract implements IWorker {
   protected _consolenReader: ConsolenReader = new ConsolenReader();
@@ -46,9 +52,11 @@ abstract class WorkerAbstract implements IWorker {
   protected _started: boolean = false;
   protected _parser: Parsers;
   protected _noPrompt: boolean = false;
+  protected _model: string;
 
   constructor(model: string) {
     debugApi('MyWorkerAbstract.constructor');
+    this._model = model;
     this._parser = new Parsers(model);
     this._consolenReader.on('data', this._onData.bind(this));
     this._consolenReader.on('needsenddata', this.sendData.bind(this));
@@ -150,7 +158,7 @@ abstract class WorkerAbstract implements IWorker {
     });
   }
 
-  protected async _getPwr(): Promise<{ pwrs: any; batteries: string[] }> {
+  protected async _getUsPwr(): Promise<{ pwrs: any; batteries: string[] }> {
     return new Promise<{ pwrs: any; batteries: string[] }>((resolve, reject) => {
       this.sendCommand(PWR)
         .then(pwrs => {
@@ -173,7 +181,7 @@ abstract class WorkerAbstract implements IWorker {
     });
   }
 
-  protected async _getinfo(p: { pwrs: any; batteries: string[] }, info: boolean, power: boolean): Promise<resultForGet> {
+  protected async _getUsInfo(p: { pwrs: any; batteries: string[] }, info: boolean, power: boolean): Promise<resultForGet> {
     return new Promise<resultForGet>((resolve, reject) => {
       this._getAlldata(p.batteries, INFO)
         .then((infos: any) => {
@@ -208,7 +216,7 @@ abstract class WorkerAbstract implements IWorker {
     });
   }
 
-  protected async _getNormal(p: resultForGet, what: string, to: string, process: boolean): Promise<resultForGet> {
+  protected async _getUsNormal(p: resultForGet, what: string, to: string, process: boolean): Promise<resultForGet> {
     return new Promise<resultForGet>((resolve, reject) => {
       if (process) {
         this._getAlldata(p.batteries, what)
@@ -229,7 +237,7 @@ abstract class WorkerAbstract implements IWorker {
     });
   }
 
-  protected async _getBatterie(p: resultForGet, what: string, process: boolean): Promise<resultForGet> {
+  protected async _getUsBatterie(p: resultForGet, what: string, process: boolean): Promise<resultForGet> {
     return new Promise<resultForGet>((resolve, reject) => {
       if (process) {
         this._getAlldata(p.batteries, what)
@@ -253,13 +261,26 @@ abstract class WorkerAbstract implements IWorker {
     });
   }
 
-  protected async _getOne(allData: any, what: string, process: boolean): Promise<any> {
+  protected async _getOne(allData: any, what: string, name: string, process: boolean): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       if (process) {
         this.sendCommand(what)
           .then(data => {
             if (data[what]) {
-              allData[what] = data[what];
+              if (allData[name]) {
+                function copy(to: any, from: any): void {
+                  Object.keys(from).forEach(key => {
+                    if (to[key]) {
+                      copy(to[key], from[key]);
+                    } else {
+                      to[key] = from[key];
+                    }
+                  });
+                }
+                copy(allData[name], data[what]);
+              } else {
+                allData[name] = data[what];
+              }
             }
             resolve(allData);
           })
@@ -270,29 +291,23 @@ abstract class WorkerAbstract implements IWorker {
     });
   }
 
-  public async getData(option: any): Promise<any> {
-    if (typeof option.info == 'undefined') option.info = true;
-    if (typeof option.power == 'undefined') option.power = true;
-    if (typeof option.statistic == 'undefined') option.statistic = true;
-    if (typeof option.celldata == 'undefined') option.celldata = true;
-    if (typeof option.cellsoh == 'undefined') option.cellsoh = true;
-    if (typeof option.log == 'undefined') option.log = true;
+  protected _getDataUS(option: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
-      this._getPwr()
+      this._getUsPwr()
         .then((p: { pwrs: any; batteries: string[] }) => {
-          this._getinfo(p, option.info, option.power)
+          this._getUsInfo(p, option.info, option.power)
             .then((p: resultForGet) => {
-              this._getNormal(p, PWR, POWER, option.power)
+              this._getUsNormal(p, PWR, POWER, option.power)
                 .then(p => {
-                  this._getNormal(p, STAT, STATISTIC, option.statistic)
+                  this._getUsNormal(p, STAT, STATISTIC, option.statistic)
                     .then(p => {
-                      this._getBatterie(p, BAT, option.celldata)
+                      this._getUsBatterie(p, BAT, option.celldata)
                         .then(p => {
-                          this._getBatterie(p, SOH, option.cellsoh)
+                          this._getUsBatterie(p, SOH, option.cellsoh)
                             .then(p => {
-                              this._getOne(p.allData, 'log', option.log)
+                              this._getOne(p.allData, LOG, LOG, option.log)
                                 .then(allData => {
-                                  this._getOne(allData, 'time', option.log)
+                                  this._getOne(allData, TIME, TIME, option.time)
                                     .then(allData => {
                                       resolve(allData);
                                     })
@@ -312,6 +327,66 @@ abstract class WorkerAbstract implements IWorker {
         })
         .catch(reject);
     });
+  }
+
+  protected _getDataFORCE(option: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this._getOne({}, INFO, INFO, option.info)
+        .then(allData => {
+          this._getOne(allData, SYSINFO, SYSTEMINFO, option.sysinfo)
+            .then(allData => {
+              this._getOne(allData, PWR, POWER, option.power)
+                .then(allData => {
+                  this._getOne(allData, UNIT, UNIT, option.unit)
+                    .then(allData => {
+                      this._getOne(allData, STAT, STATISTIC, option.statistic)
+                        .then(allData => {
+                          this._getOne(allData, BAT, CELLS, option.celldata)
+                            .then(allData => {
+                              this._getOne(allData, SOH, CELLS, option.cellsoh)
+                                .then(allData => {
+                                  this._getOne(allData, LOG, LOG, option.log)
+                                    .then(allData => {
+                                      this._getOne(allData, TIME, TIME, option.time)
+                                        .then(allData => {
+                                          if (!allData.info) {
+                                            allData.info = {};
+                                          }
+                                          allData.info['1'] = {
+                                            connected: new Value(true, 'boolean', '', 'Connected'),
+                                          };
+                                          resolve(allData);
+                                        })
+                                        .catch(reject);
+                                    })
+                                    .catch(reject);
+                                })
+                                .catch(reject);
+                            })
+                            .catch(reject);
+                        })
+                        .catch(reject);
+                    })
+                    .catch(reject);
+                })
+                .catch(reject);
+            })
+            .catch(reject);
+        })
+        .catch(reject);
+    });
+  }
+
+  public getData(option: any): Promise<any> {
+    if (typeof option.info == 'undefined') option.info = true;
+    if (typeof option.power == 'undefined') option.power = true;
+    if (typeof option.unit == 'undefined') option.unit = true;
+    if (typeof option.statistic == 'undefined') option.statistic = true;
+    if (typeof option.celldata == 'undefined') option.celldata = true;
+    if (typeof option.cellsoh == 'undefined') option.cellsoh = true;
+    if (typeof option.log == 'undefined') option.log = true;
+    if (typeof option.time == 'undefined') option.time = true;
+    return this._model == 'FORCE' ? this._getDataFORCE(option) : this._getDataUS(option);
   }
 }
 export = WorkerAbstract;

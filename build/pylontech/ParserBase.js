@@ -14,20 +14,27 @@ class ParserBase {
   _parseDataHeadlineN(data, row, command, identColumn) {
     const head = row.exec(data);
     let result = {};
+    let lasthead = "-X-";
     if (head !== null) {
       for (let i = 1; i < head.length; i++) {
-        head[i] = head[i] ? head[i].trim() : "-X-";
+        head[i] = head[i].trim() == "" ? `${lasthead}_` : head[i].trim();
+        lasthead = head[i];
       }
       result[command] = {};
       for (let match; (match = row.exec(data)) !== null; ) {
         const dat = {};
         for (let i = 1; i < match.length; i++) {
           if (match[i]) {
-            dat[head[i] !== null ? head[i] : "-X-"] = match[i].trim();
+            dat[head[i] !== null ? head[i] : `${lasthead}_`] = match[i].trim();
+            lasthead = head[i];
           }
         }
-        if (match[identColumn]) {
-          result[command][match[identColumn].trim()] = dat;
+        if (identColumn > 0) {
+          if (match[identColumn]) {
+            result[command][match[identColumn].trim()] = dat;
+          }
+        } else {
+          result[command] = dat;
         }
       }
     }
@@ -42,9 +49,11 @@ class ParserBase {
     let result = {};
     result = {};
     result[command] = {};
+    let lasthead = "-X-";
     for (let match; (match = row.exec(data)) !== null; ) {
       if (match !== null) {
-        result[command][match[1] === "" ? "-X-" : match[1].trim()] = match[2].trim();
+        result[command][match[1].trim() === "" ? `${lasthead}_` : match[1].trim()] = match[2].trim();
+        lasthead = match[1].trim();
       }
     }
     if (this._number) {
@@ -58,9 +67,11 @@ class ParserBase {
     const result = {};
     result[command] = {};
     let index = NaN;
+    let lasthead = "-X-";
     for (let match; (match = row.exec(data)) !== null; ) {
       if (match !== null) {
-        const col = match[1] === "" ? "-X-" : match[1].trim();
+        const col = match[1].trim() === "" ? `${lasthead}_` : match[1].trim();
+        lasthead = match[1].trim();
         if (col === indexColum) {
           index = parseInt(match[2]);
           result[command][index] = {};
@@ -78,7 +89,7 @@ class ParserBase {
       if (typeof data[key] === "object") {
         result[key] = this._processDatatypes(data[key]);
       } else {
-        const newKey = key.replaceAll(".", "").replaceAll(" ", "_").replaceAll("__", "_").toLowerCase();
+        const newKey = key.replaceAll(">", "").replaceAll(".", "").replaceAll(" ", "_").replaceAll("__", "_").toLowerCase();
         if (data[key] !== "-" && !this._filterKeys.includes(newKey)) {
           result[newKey] = this._convertValue.parseValues(key, data[key], this._noConvertKeys);
         }

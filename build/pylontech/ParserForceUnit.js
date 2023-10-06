@@ -22,34 +22,28 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var ParserTime_exports = {};
-__export(ParserTime_exports, {
-  ParserTime: () => ParserTime
+var ParserForceUnit_exports = {};
+__export(ParserForceUnit_exports, {
+  ParserForceUnit: () => ParserForceUnit
 });
-module.exports = __toCommonJS(ParserTime_exports);
+module.exports = __toCommonJS(ParserForceUnit_exports);
 var import_ParserBase = __toESM(require("./ParserBase"));
-const COMMAND = "time";
-class ParserTime extends import_ParserBase.default {
-  constructor() {
-    super(...arguments);
-    this._noConvertKeys = ["Code"];
-  }
+const COMMAND = "unit";
+class ParserForceUnit extends import_ParserBase.default {
   isParser(data) {
     const prompt = /(>)(\S+)$/gm;
     return this._isParser(data, prompt, COMMAND);
   }
   parseData(data) {
-    const row = /(\S+)\s+(\d{2,4}-[0-1]\d-[0-3]\d [0-2]\d:[0-5]\d:[0-5]\d)/gm;
-    const result = this._parseDataNameValN(data, row, COMMAND);
-    Object.keys(result.time).forEach((key) => {
-      result.time[key].write = true;
-      result.time[key].function = "settime";
-    });
-    return result;
+    const rowVal = /(.+\S)\s*:\s(.*)/gm;
+    const val = this._parseDataNameValN(data, rowVal, COMMAND);
+    const rowTab = /^(.{7})(.{7})(.{7})(.{7})(.{7})(.{7})(.{7})(.{7})(.{9})(.{9})(.{9})(.{10})(.{15})(.{10})(.{14})(.{11,21})?/gm;
+    val[COMMAND] = Object.assign(val[COMMAND], this._parseDataHeadlineN(data, rowTab, COMMAND, 1)[COMMAND]);
+    return val;
   }
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  ParserTime
+  ParserForceUnit
 });
-//# sourceMappingURL=ParserTime.js.map
+//# sourceMappingURL=ParserForceUnit.js.map

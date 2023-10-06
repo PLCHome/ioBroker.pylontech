@@ -19,16 +19,14 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var import_promises = __toESM(require("fs/promises"));
 var import_Value = require("./pylontech/Value");
-var import_WorkerNet = __toESM(require("./pylontech/WorkerNet"));
-const worker = new import_WorkerNet.default("esp-link.fritz.box", 23, "US");
+var import_WorkerSerial = __toESM(require("./pylontech/WorkerSerial"));
+const worker = new import_WorkerSerial.default("com4", 115200, "FORCE");
 import_promises.default.writeFile("./elements", "", { flag: "w+" });
 worker.open().then(() => {
   return worker.getData({ info: true, power: true, statistic: true, celldata: true, cellsoh: true }).then((allData) => {
-    console.log(JSON.stringify(allData, null, " "));
     function walk(path, val) {
       if (val instanceof import_Value.Value) {
         import_promises.default.writeFile("./elements", path + "	" + val.value + "\n", { flag: "a+" });
-        console.log(path + "	" + val.value);
       } else {
         Object.keys(val).forEach((key) => {
           walk(`${path}.${key}`, val[key]);

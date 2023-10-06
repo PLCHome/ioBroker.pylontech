@@ -80,7 +80,9 @@ class Pylontech extends utils.Adapter {
         (() => {
           return worker.getData({
             info: this.config.info,
+            sysinfo: this.config.sysinfo,
             power: this.config.power,
+            unit: this.config.unit,
             statistic: this.config.statistic,
             celldata: this.config.celldata,
             cellsoh: this.config.cellsoh,

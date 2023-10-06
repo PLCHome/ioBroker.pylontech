@@ -29,6 +29,12 @@ const STATISTIC = "statistic";
 const BAT = "bat";
 const SOH = "soh";
 const INFO = "info";
+const LOG = "log";
+const TIME = "time";
+const CELLS = "cells";
+const SYSTEMINFO = "systeminfo";
+const SYSINFO = "sysinfo";
+const UNIT = "unit";
 class WorkerAbstract {
   constructor(model) {
     this._consolenReader = new import_ConsolenReader.ConsolenReader();
@@ -37,6 +43,7 @@ class WorkerAbstract {
     this._started = false;
     this._noPrompt = false;
     debugApi("MyWorkerAbstract.constructor");
+    this._model = model;
     this._parser = new import_Parsers.Parsers(model);
     this._consolenReader.on("data", this._onData.bind(this));
     this._consolenReader.on("needsenddata", this.sendData.bind(this));
@@ -120,7 +127,7 @@ class WorkerAbstract {
       }).catch(reject);
     });
   }
-  async _getPwr() {
+  async _getUsPwr() {
     return new Promise((resolve, reject) => {
       this.sendCommand(PWR).then((pwrs) => {
         const batteries = [];
@@ -140,7 +147,7 @@ class WorkerAbstract {
       }).catch(reject);
     });
   }
-  async _getinfo(p, info, power) {
+  async _getUsInfo(p, info, power) {
     return new Promise((resolve, reject) => {
       this._getAlldata(p.batteries, INFO).then((infos) => {
         const allData = {};
@@ -171,7 +178,7 @@ class WorkerAbstract {
       }).catch(reject);
     });
   }
-  async _getNormal(p, what, to, process) {
+  async _getUsNormal(p, what, to, process) {
     return new Promise((resolve, reject) => {
       if (process) {
         this._getAlldata(p.batteries, what).then((data) => {
@@ -187,7 +194,7 @@ class WorkerAbstract {
       }
     });
   }
-  async _getBatterie(p, what, process) {
+  async _getUsBatterie(p, what, process) {
     return new Promise((resolve, reject) => {
       if (process) {
         this._getAlldata(p.batteries, what).then((data) => {
@@ -206,12 +213,26 @@ class WorkerAbstract {
       }
     });
   }
-  async _getOne(allData, what, process) {
+  async _getOne(allData, what, name, process) {
     return new Promise((resolve, reject) => {
       if (process) {
         this.sendCommand(what).then((data) => {
           if (data[what]) {
-            allData[what] = data[what];
+            if (allData[name]) {
+              let copy2 = function(to, from) {
+                Object.keys(from).forEach((key) => {
+                  if (to[key]) {
+                    copy2(to[key], from[key]);
+                  } else {
+                    to[key] = from[key];
+                  }
+                });
+              };
+              var copy = copy2;
+              copy2(allData[name], data[what]);
+            } else {
+              allData[name] = data[what];
+            }
           }
           resolve(allData);
         }).catch(reject);
@@ -220,28 +241,16 @@ class WorkerAbstract {
       }
     });
   }
-  async getData(option) {
-    if (typeof option.info == "undefined")
-      option.info = true;
-    if (typeof option.power == "undefined")
-      option.power = true;
-    if (typeof option.statistic == "undefined")
-      option.statistic = true;
-    if (typeof option.celldata == "undefined")
-      option.celldata = true;
-    if (typeof option.cellsoh == "undefined")
-      option.cellsoh = true;
-    if (typeof option.log == "undefined")
-      option.log = true;
+  _getDataUS(option) {
     return new Promise((resolve, reject) => {
-      this._getPwr().then((p) => {
-        this._getinfo(p, option.info, option.power).then((p2) => {
-          this._getNormal(p2, PWR, POWER, option.power).then((p3) => {
-            this._getNormal(p3, STAT, STATISTIC, option.statistic).then((p4) => {
-              this._getBatterie(p4, BAT, option.celldata).then((p5) => {
-                this._getBatterie(p5, SOH, option.cellsoh).then((p6) => {
-                  this._getOne(p6.allData, "log", option.log).then((allData) => {
-                    this._getOne(allData, "time", option.log).then((allData2) => {
+      this._getUsPwr().then((p) => {
+        this._getUsInfo(p, option.info, option.power).then((p2) => {
+          this._getUsNormal(p2, PWR, POWER, option.power).then((p3) => {
+            this._getUsNormal(p3, STAT, STATISTIC, option.statistic).then((p4) => {
+              this._getUsBatterie(p4, BAT, option.celldata).then((p5) => {
+                this._getUsBatterie(p5, SOH, option.cellsoh).then((p6) => {
+                  this._getOne(p6.allData, LOG, LOG, option.log).then((allData) => {
+                    this._getOne(allData, TIME, TIME, option.time).then((allData2) => {
                       resolve(allData2);
                     }).catch(reject);
                   }).catch(reject);
@@ -252,6 +261,54 @@ class WorkerAbstract {
         }).catch(reject);
       }).catch(reject);
     });
+  }
+  _getDataFORCE(option) {
+    return new Promise((resolve, reject) => {
+      this._getOne({}, INFO, INFO, option.info).then((allData) => {
+        this._getOne(allData, SYSINFO, SYSTEMINFO, option.sysinfo).then((allData2) => {
+          this._getOne(allData2, PWR, POWER, option.power).then((allData3) => {
+            this._getOne(allData3, UNIT, UNIT, option.unit).then((allData4) => {
+              this._getOne(allData4, STAT, STATISTIC, option.statistic).then((allData5) => {
+                this._getOne(allData5, BAT, CELLS, option.celldata).then((allData6) => {
+                  this._getOne(allData6, SOH, CELLS, option.cellsoh).then((allData7) => {
+                    this._getOne(allData7, LOG, LOG, option.log).then((allData8) => {
+                      this._getOne(allData8, TIME, TIME, option.time).then((allData9) => {
+                        if (!allData9.info) {
+                          allData9.info = {};
+                        }
+                        allData9.info["1"] = {
+                          connected: new import_Value.Value(true, "boolean", "", "Connected")
+                        };
+                        resolve(allData9);
+                      }).catch(reject);
+                    }).catch(reject);
+                  }).catch(reject);
+                }).catch(reject);
+              }).catch(reject);
+            }).catch(reject);
+          }).catch(reject);
+        }).catch(reject);
+      }).catch(reject);
+    });
+  }
+  getData(option) {
+    if (typeof option.info == "undefined")
+      option.info = true;
+    if (typeof option.power == "undefined")
+      option.power = true;
+    if (typeof option.unit == "undefined")
+      option.unit = true;
+    if (typeof option.statistic == "undefined")
+      option.statistic = true;
+    if (typeof option.celldata == "undefined")
+      option.celldata = true;
+    if (typeof option.cellsoh == "undefined")
+      option.cellsoh = true;
+    if (typeof option.log == "undefined")
+      option.log = true;
+    if (typeof option.time == "undefined")
+      option.time = true;
+    return this._model == "FORCE" ? this._getDataFORCE(option) : this._getDataUS(option);
   }
 }
 module.exports = WorkerAbstract;

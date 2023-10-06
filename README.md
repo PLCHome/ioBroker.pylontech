@@ -207,19 +207,17 @@ What was tested:
 | ----------------------------------- | ------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Serial to USB                       | local   | yes        | There is a large selection of chips for the adapters. Depending on the model, identification problems can occur if the adapters do not have a serial number and more than one is connected. Windows already assigns one COM port for each USB plug. |
 | LogiLink AU0034                     | local   | yes        |                                                                                                                                                                                                                                                     |
-| ESP-LINK                            | network | yes        | Assign the device an IP in the network. Check transmission speed 115200 8 N 1. Everything else left unchanged. Remember to use a converter like the MAX                     |
-| Waveshare RS232/485 TO ETH (for EU) | network | yes        | Assign the device an IP in the network. Check transmission speed 115200 8 N 1. Everything else left unchanged. Use the RS232 SUBD Port.                                                  |
-
-
+| ESP-LINK                            | network | yes        | Assign the device an IP in the network. Check transmission speed 115200 8 N 1. Everything else left unchanged. Remember to use a converter like the MAX                                                                                             |
+| Waveshare RS232/485 TO ETH (for EU) | network | yes        | Assign the device an IP in the network. Check transmission speed 115200 8 N 1. Everything else left unchanged. Use the RS232 SUBD Port.                                                                                                             |
 
 #### Batteries
 
-| Pylontech model  | Model  | Firmware      | Is working | Comment                                    |
-| ---------------- | ------ | ------------- | ---------- | ------------------------------------------ |
-| US5000           | US     | V1.3 22-08-10 | fine       |                                            |
-| US2000C          | US     | V2.6 21-09-26 | fine       |                                            |
-| US2000 (US2KBPL) | US     | V2.8 21-04-29 | fine       | Temperatures only in one degree increments |
-| Force H2         | Force  | V1.5 21-06-18 | in test    |                                            |
+| Pylontech model  | Model | Firmware      | Is working | Comment                                    |
+| ---------------- | ----- | ------------- | ---------- | ------------------------------------------ |
+| US5000           | US    | V1.3 22-08-10 | fine       |                                            |
+| US2000C          | US    | V2.6 21-09-26 | fine       |                                            |
+| US2000 (US2KBPL) | US    | V2.8 21-04-29 | fine       | Temperatures only in one degree increments |
+| Force H2         | Force | V1.5 21-06-18 | in test    |                                            |
 
 If you use hardware, please write to me in the forum or in Github as an issue. We would be happy to continue this list.
 
@@ -293,18 +291,6 @@ ioBroker forum: https://forum.iobroker.net/topic/68707
 If errors occur because the adapter requests data that the batteries do not provide, the request can be stopped here. The adapter was built on the basis of re-engineering, so I may have to make improvements.
 If there are too many objects for you, you can also reduce the data here.
 
-#### Download the battery information data
-
-The command “info -n-” is always written to the console. Here you will find information about which serial number the individual batteries have. It is needed for the object tree. If this is switched off, the information will not be transmitted to the ioBroker.
-
-#### Download the battery power data
-
-The "pwr" command is always written to the console. The command “pwr -n-” is only written to the console if this is set here. Here you will find information about the positions of the individual batteries. It is needed for the object tree. If this is switched off, the information from the "pwr" command is not transferred to the ioBroker and the "pwr -n-" command is not issued.
-
-#### Download the battery statistics data
-
-The command “stat -n-” is only written to the console if this is set here.
-
 #### Download the battery cells data
 
 The command “bat -n-” is only written to the console if this is set here.
@@ -313,9 +299,21 @@ The command “bat -n-” is only written to the console if this is set here.
 
 The command “soh -n-” is only written to the console if this is set here.
 
+#### Download the battery information data
+
+The command “info -n-” is always written to the console. Here you will find information about which serial number the individual batteries have. It is needed for the object tree. If this is switched off, the information will not be transmitted to the ioBroker.
+
 #### Download the log data
 
 The command “log” is only written to the console if this is set here.
+
+#### Download the battery power data
+
+The "pwr" command is always written to the console. The command “pwr -n-” is only written to the console if this is set here. Here you will find information about the positions of the individual batteries. It is needed for the object tree. If this is switched off, the information from the "pwr" command is not transferred to the ioBroker and the "pwr -n-" command is not issued.
+
+#### Download the battery statistics data
+
+The command “stat -n-” is only written to the console if this is set here.
 
 #### Download the time information
 
@@ -326,11 +324,37 @@ The command “time” is only written to the console if this is set here.
 If errors occur because the adapter requests data that the batteries do not provide, the request can be stopped here. The adapter was built on the basis of re-engineering, so I may have to make improvements.
 If there are too many objects for you, you can also reduce the data here.
 
-todo
+#### Download the battery cells data
+
+The command “bat” is only written to the console if this is set here.
+
+#### Download the battery cells state of health
+
+The command “soh” is only written to the console if this is set here.
+
+#### Download the battery information data
+
+The command “info” is only written to the console if this is set here.
 
 #### Download the log data
 
 The command “log” is only written to the console if this is set here.
+
+#### Download the battery power data
+
+The command “pwr” is only written to the console if this is set here.
+
+#### Download the battery statistics data
+
+The command “stat” is only written to the console if this is set here.
+
+#### Download the battery system information data
+
+The command “sysinfo” is only written to the console if this is set here.
+
+#### Download the unit data
+
+The command unit” is only written to the console if this is set here.
 
 #### Download the time information
 
@@ -383,7 +407,7 @@ todo
 You can write the “set_speed” status to “true” without confirmation. On older models, a command is sent to the battery that corrects the speed. With newer models an error message comes back.
 Ack is set to true when the command is written.
 
-### channel info
+### channel info US
 
 #### state connection
 
@@ -403,7 +427,27 @@ The log channel contains 31 channels with the last 31 log information. The neuse
 
 ### channel time
 
-#### state ds3231 or rtc
+#### state ds3231, rtc or time
+
+The time read from the inverter is stored here. On the US3000 it is called RTC and on the old VS2000 it is called ds3231. If you write to the time, your time will be transferred to the battery and the battery time will be adjusted.
+
+#### state set
+
+If true without ack is written to set, the current time is sent to the Pylontech. When the command has been executed, the status is set to ack = true.
+
+### channel info Force
+
+#### state connection
+
+Is true if the adapter was able to establish communication
+
+### channel log
+
+The log channel contains 31 channels with the last 31 log information. The neuset is always in 31 and is then pushed down when there are new messages.
+
+### channel time
+
+#### state ds3231, rtc or time
 
 The time read from the inverter is stored here. On the US3000 it is called RTC and on the old VS2000 it is called ds3231. If you write to the time, your time will be transferred to the battery and the battery time will be adjusted.
 

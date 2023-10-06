@@ -1,0 +1,6 @@
+pylon>
+pylon>bmuinfo 3
+@
+Command completed unccessfully
+$$
+pylon>

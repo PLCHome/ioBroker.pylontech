@@ -20,16 +20,23 @@
 
 import ParserBase from './ParserBase';
 
-const COMMAND: string = 'info';
+const COMMAND: string = 'pwr';
 
-export class ParserUSInfoN extends ParserBase {
+export class ParserForcePwr extends ParserBase {
   isParser(data: string): boolean {
-    const prompt: RegExp = /(>)(\S+)\s(\d+)$/gm;
+    const prompt: RegExp = /(>)(\S+)$/gm;
     return this._isParser(data, prompt, COMMAND);
   }
 
   parseData(data: string): any {
-    const row: RegExp = /(.+\S)\s+:\s(.*)/gm;
-    return this._parseDataNameValN(data, row, COMMAND);
+    const rowVal: RegExp = /(.+\S)\s*:\s(.*)/gm;
+    const val: any = this._parseDataNameValN(data, rowVal, COMMAND);
+    const rowTab: RegExp =
+      /^(.{7})(.{7})(.{7})(.{7})(.{7})(.{7})(.{7})(.{7})(.{7})(.{7})(.{7})(.{9})(.{9})(.{9})(.{9})(.{9})(.{16})(.{9})(.{14})(.{21})(.{9})?(.{9})?(.{9})?(.{9})?(.{4,8})?/gm;
+    const valtab: any = this._parseDataHeadlineN(data, rowTab, COMMAND, 0);
+    Object.keys(valtab[COMMAND]).forEach(key => {
+      val[COMMAND][key] = valtab[COMMAND][key];
+    });
+    return val;
   }
 }

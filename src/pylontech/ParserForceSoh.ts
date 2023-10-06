@@ -20,16 +20,22 @@
 
 import ParserBase from './ParserBase';
 
-const COMMAND: string = 'info';
+const COMMAND: string = 'soh';
 
-export class ParserUSInfoN extends ParserBase {
+export class ParserForceSoh extends ParserBase {
   isParser(data: string): boolean {
-    const prompt: RegExp = /(>)(\S+)\s(\d+)$/gm;
+    const prompt: RegExp = /(>)(\S+)$/gm;
     return this._isParser(data, prompt, COMMAND);
   }
 
   parseData(data: string): any {
-    const row: RegExp = /(.+\S)\s+:\s(.*)/gm;
-    return this._parseDataNameValN(data, row, COMMAND);
+    const rowVal: RegExp = /(.+\S)\s*:\s(.*)/gm;
+    const val: any = this._parseDataNameValN(data, rowVal, COMMAND);
+    const rowTab: RegExp = /^(.{11})(.{11})(.{11})(.{9,10})?/gm;
+    const valtab: any = this._parseDataHeadlineN(data, rowTab, COMMAND, 1);
+    Object.keys(valtab[COMMAND]).forEach(key => {
+      val[COMMAND][`battery${(parseInt(key) + 1).toString().padStart(3, '0')}`] = valtab[COMMAND][key];
+    });
+    return val;
   }
 }

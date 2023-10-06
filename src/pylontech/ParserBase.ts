@@ -36,20 +36,27 @@ abstract class ParserBase implements IParser {
   protected _parseDataHeadlineN(data: string, row: RegExp, command: string, identColumn: number): any {
     const head: RegExpExecArray | null = row.exec(data);
     let result: any = {};
+    let lasthead: string = '-X-';
     if (head !== null) {
       for (let i: number = 1; i < head.length; i++) {
-        head[i] = head[i] ? head[i].trim() : '-X-';
+        head[i] = head[i].trim() == '' ? `${lasthead}_` : head[i].trim();
+        lasthead = head[i];
       }
       result[command] = {};
       for (let match: RegExpExecArray | null; (match = row.exec(data)) !== null; ) {
         const dat: any = {};
         for (let i: number = 1; i < match.length; i++) {
           if (match[i]) {
-            dat[head[i] !== null ? head[i] : '-X-'] = match[i].trim();
+            dat[head[i] !== null ? head[i] : `${lasthead}_`] = match[i].trim();
+            lasthead = head[i];
           }
         }
-        if (match[identColumn]) {
-          result[command][match[identColumn].trim()] = dat;
+        if (identColumn > 0) {
+          if (match[identColumn]) {
+            result[command][match[identColumn].trim()] = dat;
+          }
+        } else {
+          result[command] = dat;
         }
       }
     }
@@ -65,9 +72,11 @@ abstract class ParserBase implements IParser {
     let result: any = {};
     result = {};
     result[command] = {};
+    let lasthead: string = '-X-';
     for (let match; (match = row.exec(data)) !== null; ) {
       if (match !== null) {
-        result[command][match[1] === '' ? '-X-' : match[1].trim()] = match[2].trim();
+        result[command][match[1].trim() === '' ? `${lasthead}_` : match[1].trim()] = match[2].trim();
+        lasthead = match[1].trim();
       }
     }
     if (this._number) {
@@ -82,9 +91,11 @@ abstract class ParserBase implements IParser {
     const result: any = {};
     result[command] = {};
     let index: number = NaN;
+    let lasthead: string = '-X-';
     for (let match; (match = row.exec(data)) !== null; ) {
       if (match !== null) {
-        const col: string = match[1] === '' ? '-X-' : match[1].trim();
+        const col: string = match[1].trim() === '' ? `${lasthead}_` : match[1].trim();
+        lasthead = match[1].trim();
         if (col === indexColum) {
           index = parseInt(match[2]);
           result[command][index] = {};
@@ -103,7 +114,7 @@ abstract class ParserBase implements IParser {
       if (typeof data[key] === 'object') {
         result[key] = this._processDatatypes(data[key]);
       } else {
-        const newKey = key.replaceAll('.', '').replaceAll(' ', '_').replaceAll('__', '_').toLowerCase();
+        const newKey = key.replaceAll('>', '').replaceAll('.', '').replaceAll(' ', '_').replaceAll('__', '_').toLowerCase();
         if (data[key] !== '-' && !this._filterKeys.includes(newKey)) {
           result[newKey] = this._convertValue.parseValues(key, data[key], this._noConvertKeys);
         }

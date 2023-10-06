@@ -11,9 +11,8 @@
 Comm version        : V2.0
 Release Date        : 21-06-18
 
-PCBA Barcode        : A2004005226T2204242026          
-Module Barcode      : Y226025E22260223                
-PowerSupply Barcode : A1002007226T2204251275          
+PCBA Barcode        : Axxxxxxxxxxxxxxxxxxxx6          Module Barcode      : Yxxxxxxxxxxxxxx3                
+PowerSupply Barcode : Axxxxxxxxxxxxxxxxxxxx5          
 
 Device Test Time    : 2022-06-26 08:51:57
 Specification       : 384V/37AH

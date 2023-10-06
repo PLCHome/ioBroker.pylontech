@@ -36,6 +36,8 @@ export class ConvertValue {
     { rex: /^(-|\+)?\d+\s*%$/gm, type: 'number', unit: '%', convert: this._toNumber },
     { rex: /^(-|\+)?\d+\s*mAH$/gm, type: 'number', unit: 'mAH', convert: this._toNumber },
     { rex: /^(-|\+)?\d+\s*mA$/gm, type: 'number', unit: 'mA', convert: this._toNumber },
+    { rex: /^(-|\+)?\d+\s*mWH$/gm, type: 'number', unit: 'mWH', convert: this._toNumber },
+    { rex: /^(-|\+)?\d+\s*mW$/gm, type: 'number', unit: 'mW', convert: this._toNumber },
     { rex: /^(-|\+)?\d+\s*mV$/gm, type: 'number', unit: 'mV', convert: this._toNumber },
     { rex: /^(-|\+)?\d+\s*mC$/gm, type: 'number', unit: 'mC', convert: this._toNumber },
     { rex: /^(-|\+)?\d+\s*s$/gm, type: 'number', unit: 's', convert: this._toNumber },

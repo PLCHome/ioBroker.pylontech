@@ -27,10 +27,10 @@ const debugApi = Debug('pylontech:api');
 export = class WorkerSerial extends WorkerAbstract {
   protected _socket: SerialPort;
 
-  constructor(path: string, baudRate: number, modul: string, noPrompt?: boolean, debugData?: (data: Buffer) => void) {
+  constructor(path: string, baudRate: number, model: string, noPrompt?: boolean, debugData?: (data: Buffer) => void) {
     debugApi('MyWorkerNet.constructor', 'path:', path, 'baudRate:', baudRate);
-    super(modul);
-    this._socket = new SerialPort({ path, baudRate });
+    super(model);
+    this._socket = new SerialPort({ path, baudRate, autoOpen: false });
     if (noPrompt) this._noPrompt = noPrompt;
     if (debugData) this._socket.on('data', debugData);
     this._socket.pipe(this._consolenReader);
@@ -41,10 +41,12 @@ export = class WorkerSerial extends WorkerAbstract {
       this._socket.open(
         ((err: any) => {
           if (err) {
+            console.log(err);
             reject(err);
+          } else {
+            this._connected();
+            resolve();
           }
-          this._connected();
-          resolve();
         }).bind(this)
       );
     });

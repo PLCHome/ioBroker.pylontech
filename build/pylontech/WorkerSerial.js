@@ -22,10 +22,10 @@ var import_serialport = require("serialport");
 var import_WorkerAbstract = __toESM(require("./WorkerAbstract"));
 const debugApi = (0, import_debug.default)("pylontech:api");
 module.exports = class WorkerSerial extends import_WorkerAbstract.default {
-  constructor(path, baudRate, modul, noPrompt, debugData) {
+  constructor(path, baudRate, model, noPrompt, debugData) {
     debugApi("MyWorkerNet.constructor", "path:", path, "baudRate:", baudRate);
-    super(modul);
-    this._socket = new import_serialport.SerialPort({ path, baudRate });
+    super(model);
+    this._socket = new import_serialport.SerialPort({ path, baudRate, autoOpen: false });
     if (noPrompt)
       this._noPrompt = noPrompt;
     if (debugData)
@@ -37,10 +37,12 @@ module.exports = class WorkerSerial extends import_WorkerAbstract.default {
       this._socket.open(
         ((err) => {
           if (err) {
+            console.log(err);
             reject(err);
+          } else {
+            this._connected();
+            resolve();
           }
-          this._connected();
-          resolve();
         }).bind(this)
       );
     });

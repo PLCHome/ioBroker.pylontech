@@ -20,16 +20,16 @@
 
 import ParserBase from './ParserBase';
 
-const COMMAND: string = 'info';
+const COMMAND: string = 'stat';
 
-export class ParserUSInfoN extends ParserBase {
+export class ParserForceStat extends ParserBase {
   isParser(data: string): boolean {
-    const prompt: RegExp = /(>)(\S+)\s(\d+)$/gm;
+    const prompt: RegExp = /(>)(\S+)$/gm;
     return this._isParser(data, prompt, COMMAND);
   }
 
   parseData(data: string): any {
-    const row: RegExp = /(.+\S)\s+:\s(.*)/gm;
+    const row: RegExp = /(.+\S)\s*:(.*)/gm;
     return this._parseDataNameValN(data, row, COMMAND);
   }
 }

@@ -20,16 +20,18 @@
 
 import ParserBase from './ParserBase';
 
-const COMMAND: string = 'info';
+const COMMAND: string = 'sysinfo';
 
-export class ParserUSInfoN extends ParserBase {
+export class ParserForceSysinfo extends ParserBase {
+  protected _filterKeys: string[] = ['module:', 'pcba:'];
+
   isParser(data: string): boolean {
-    const prompt: RegExp = /(>)(\S+)\s(\d+)$/gm;
+    const prompt: RegExp = /(>)(\S+)$/gm;
     return this._isParser(data, prompt, COMMAND);
   }
 
   parseData(data: string): any {
-    const row: RegExp = /(.+\S)\s+:\s(.*)/gm;
+    const row: RegExp = /(.+\S)\s*:\s(.*)/gm;
     return this._parseDataNameValN(data, row, COMMAND);
   }
 }

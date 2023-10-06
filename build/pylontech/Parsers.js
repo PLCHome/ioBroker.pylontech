@@ -22,6 +22,14 @@ __export(Parsers_exports, {
 });
 module.exports = __toCommonJS(Parsers_exports);
 var import_debug = require("debug");
+var import_ParserForceBat = require("./ParserForceBat");
+var import_ParserForceBmuinfoN = require("./ParserForceBmuinfoN");
+var import_ParserForceInfo = require("./ParserForceInfo");
+var import_ParserForcePwr = require("./ParserForcePwr");
+var import_ParserForceSoh = require("./ParserForceSoh");
+var import_ParserForceStat = require("./ParserForceStat");
+var import_ParserForceSysinfo = require("./ParserForceSysinfo");
+var import_ParserForceUnit = require("./ParserForceUnit");
 var import_ParserLog = require("./ParserLog");
 var import_ParserTime = require("./ParserTime");
 var import_ParserUSBatN = require("./ParserUSBatN");
@@ -36,6 +44,14 @@ class Parsers {
     this._parser = [];
     debugParsers("Parsers.constructor");
     if (model == "FORCE") {
+      this._parser.push(new import_ParserForceInfo.ParserForceInfo());
+      this._parser.push(new import_ParserForceStat.ParserForceStat());
+      this._parser.push(new import_ParserForcePwr.ParserForcePwr());
+      this._parser.push(new import_ParserForceUnit.ParserForceUnit());
+      this._parser.push(new import_ParserForceBmuinfoN.ParserForceBmuinfoN());
+      this._parser.push(new import_ParserForceBat.ParserForceBat());
+      this._parser.push(new import_ParserForceSysinfo.ParserForceSysinfo());
+      this._parser.push(new import_ParserForceSoh.ParserForceSoh());
     } else {
       this._parser.push(new import_ParserUSInfoN.ParserUSInfoN());
       this._parser.push(new import_ParserUSPwrN.ParserUSPwrN());

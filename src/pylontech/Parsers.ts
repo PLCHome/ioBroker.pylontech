@@ -20,6 +20,14 @@
 
 import { debug } from 'debug';
 import { IParser } from './IParser';
+import { ParserForceBat } from './ParserForceBat';
+import { ParserForceBmuinfoN } from './ParserForceBmuinfoN';
+import { ParserForceInfo } from './ParserForceInfo';
+import { ParserForcePwr } from './ParserForcePwr';
+import { ParserForceSoh } from './ParserForceSoh';
+import { ParserForceStat } from './ParserForceStat';
+import { ParserForceSysinfo } from './ParserForceSysinfo';
+import { ParserForceUnit } from './ParserForceUnit';
 import { ParserLog } from './ParserLog';
 import { ParserTime } from './ParserTime';
 import { ParserUSBatN } from './ParserUSBatN';
@@ -37,6 +45,14 @@ export class Parsers {
   constructor(model: string) {
     debugParsers('Parsers.constructor');
     if (model == 'FORCE') {
+      this._parser.push(new ParserForceInfo());
+      this._parser.push(new ParserForceStat());
+      this._parser.push(new ParserForcePwr());
+      this._parser.push(new ParserForceUnit());
+      this._parser.push(new ParserForceBmuinfoN());
+      this._parser.push(new ParserForceBat());
+      this._parser.push(new ParserForceSysinfo());
+      this._parser.push(new ParserForceSoh());
     } else {
       this._parser.push(new ParserUSInfoN());
       this._parser.push(new ParserUSPwrN());
