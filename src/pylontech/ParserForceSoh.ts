@@ -23,9 +23,9 @@ import ParserBase from './ParserBase';
 const COMMAND: string = 'soh';
 
 export class ParserForceSoh extends ParserBase {
-  isParser(data: string): boolean {
-    const prompt: RegExp = /(>)(\S+)$/gm;
-    return this._isParser(data, prompt, COMMAND);
+  isParser(cmd: string): boolean {
+    const prompt: RegExp = /(\S+)$/gm;
+    return this._isParser(cmd, prompt, COMMAND);
   }
 
   parseData(data: string): any {

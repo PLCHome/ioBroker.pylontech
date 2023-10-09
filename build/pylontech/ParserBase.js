@@ -6,10 +6,10 @@ class ParserBase {
     this._noConvertKeys = [];
     this._filterKeys = ["voltage", "battery", "power"];
   }
-  _isParser(data, prompt, command) {
-    const cmd = prompt.exec(data);
-    this._number = cmd !== null ? parseInt(cmd[3]) : void 0;
-    return this._number !== void 0 && cmd !== null && cmd[2] === command;
+  _isParser(cmd, prompt, command) {
+    const cmdParsed = prompt.exec(cmd);
+    this._number = cmdParsed !== null ? parseInt(cmdParsed[2]) : void 0;
+    return this._number !== void 0 && cmdParsed !== null && cmdParsed[1] === command;
   }
   _parseDataHeadlineN(data, row, command, identColumn) {
     const head = row.exec(data);
@@ -52,8 +52,8 @@ class ParserBase {
     let lasthead = "-X-";
     for (let match; (match = row.exec(data)) !== null; ) {
       if (match !== null) {
-        result[command][match[1].trim() === "" ? `${lasthead}_` : match[1].trim()] = match[2].trim();
-        lasthead = match[1].trim();
+        lasthead = match[1] && match[1].trim() !== "" ? match[1].trim() : `${lasthead}_`;
+        result[command][lasthead] = match[2].trim();
       }
     }
     if (this._number) {

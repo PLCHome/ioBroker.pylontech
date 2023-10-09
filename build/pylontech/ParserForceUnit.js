@@ -30,9 +30,9 @@ module.exports = __toCommonJS(ParserForceUnit_exports);
 var import_ParserBase = __toESM(require("./ParserBase"));
 const COMMAND = "unit";
 class ParserForceUnit extends import_ParserBase.default {
-  isParser(data) {
-    const prompt = /(>)(\S+)$/gm;
-    return this._isParser(data, prompt, COMMAND);
+  isParser(cmd) {
+    const prompt = /(\S+)$/gm;
+    return this._isParser(cmd, prompt, COMMAND);
   }
   parseData(data) {
     const rowVal = /(.+\S)\s*:\s(.*)/gm;

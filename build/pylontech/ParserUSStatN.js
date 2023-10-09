@@ -30,9 +30,9 @@ module.exports = __toCommonJS(ParserUSStatN_exports);
 var import_ParserBase = __toESM(require("./ParserBase"));
 const COMMAND = "stat";
 class ParserUSStatN extends import_ParserBase.default {
-  isParser(data) {
-    const prompt = /(>)(\S+)\s(\d+)$/gm;
-    return this._isParser(data, prompt, COMMAND);
+  isParser(cmd) {
+    const prompt = /(\S+)\s(\d+)$/gm;
+    return this._isParser(cmd, prompt, COMMAND);
   }
   parseData(data) {
     const row = /(.+\S)\s+:\s(.*)/gm;

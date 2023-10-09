@@ -1,8 +1,3 @@
-/* eslint no-unused-vars: off */
-/* eslint no-global-assign: off */
-/* global systemDictionary */
-'use strict';
-
 systemDictionary = {
   'pylontech adapter settings': {
     en: 'Adapter settings for pylontech',

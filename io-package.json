@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pylontech",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "news": {
+      "0.0.6": {
+        "en": "The sent command was recognized from the response. Now the command is passed to the parser.",
+        "de": "Der gesendete Befehl wurde von der Antwort erkannt. Jetzt wird der Befehl an den Parser übergeben.",
+        "ru": "Присланная команда была признана от ответа. Теперь команда передана парсеру.",
+        "pt": "O comando enviado foi reconhecido pela resposta. Agora o comando é passado para o parser.",
+        "nl": "Het bevel werd herkend door de reactie. Nu is het bevel doorgegeven aan de parochie.",
+        "fr": "Le commandement envoyé a été reconnu de la réponse. Le commandement est passé au parser.",
+        "it": "Il comando inviato è stato riconosciuto dalla risposta. Ora il comando viene passato al parser.",
+        "es": "The sent command was recognized from the response. Ahora el comando se pasa al parser.",
+        "pl": "Wysłany dowódca został rozpoznany w odpowiedzi. Teraz dowództwo zostało przekazane parserowi.",
+        "uk": "Відповідна команда була визнана від відповіді. Тепер команда надходить до патрона.",
+        "zh-cn": "发出的指挥从答复中得到承认。 现在该指挥部被带到该行。."
+      },
       "0.0.5": {
         "en": "initial release",
         "de": "erstausstrahlung",

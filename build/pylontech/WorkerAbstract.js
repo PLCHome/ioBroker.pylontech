@@ -44,14 +44,14 @@ class WorkerAbstract {
     this._noPrompt = false;
     debugApi("MyWorkerAbstract.constructor");
     this._model = model;
-    this._parser = new import_Parsers.Parsers(model);
+    this._parsers = new import_Parsers.Parsers(model);
     this._consolenReader.on("data", this._onData.bind(this));
     this._consolenReader.on("needsenddata", this.sendData.bind(this));
   }
   _onData(data) {
     const dataString = data.toString();
     debugApi("MyWorkerAbstract._onData", "data:", dataString, "this._activeCmd:", this._activeCmd);
-    const parser = this._parser.getParser(dataString);
+    const parser = this._parsers.getParser();
     let result = {};
     if (parser !== void 0) {
       result = parser.parseData(dataString);
@@ -68,6 +68,7 @@ class WorkerAbstract {
     if (!this._activeCmd && this._started) {
       this._activeCmd = this._commands.shift();
       if (this._activeCmd) {
+        this._parsers.setCMD(this._activeCmd.cmd);
         this.sendData(this._activeCmd.cmd + "\r");
         this._activeCmd.timeout = setTimeout(this._ontimeout.bind(this), this._timeout);
       }

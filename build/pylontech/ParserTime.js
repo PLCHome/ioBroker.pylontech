@@ -34,16 +34,22 @@ class ParserTime extends import_ParserBase.default {
     super(...arguments);
     this._noConvertKeys = ["Code"];
   }
-  isParser(data) {
-    const prompt = /(>)(\S+)$/gm;
-    return this._isParser(data, prompt, COMMAND);
+  isParser(cmd) {
+    const prompt = /(\S+)$/gm;
+    return this._isParser(cmd, prompt, COMMAND);
   }
   parseData(data) {
-    const row = /(\S+)\s+(\d{2,4}-[0-1]\d-[0-3]\d [0-2]\d:[0-5]\d:[0-5]\d)/gm;
+    const row = /^(\S*)\s*(\d{2,4}-[0-1]\d-[0-3]\d [0-2]\d:[0-5]\d:[0-5]\d)/gm;
     const result = this._parseDataNameValN(data, row, COMMAND);
     Object.keys(result.time).forEach((key) => {
-      result.time[key].write = true;
-      result.time[key].function = "settime";
+      let thekey = key;
+      if (key.toLowerCase() == "-x-_") {
+        thekey = "time";
+        result.time[thekey] = result.time[key];
+        delete result.time[key];
+      }
+      result.time[thekey].write = true;
+      result.time[thekey].function = "settime";
     });
     return result;
   }

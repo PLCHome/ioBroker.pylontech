@@ -34,9 +34,9 @@ class ParserLog extends import_ParserBase.default {
     super(...arguments);
     this._noConvertKeys = ["Code"];
   }
-  isParser(data) {
-    const prompt = /(>)(\S+)$/gm;
-    return this._isParser(data, prompt, COMMAND);
+  isParser(cmd) {
+    const prompt = /(\S+)$/gm;
+    return this._isParser(cmd, prompt, COMMAND);
   }
   parseData(data) {
     const row = /(.+\S)\s+:\s(.*)/gm;

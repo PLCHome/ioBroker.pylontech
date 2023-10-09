@@ -25,9 +25,9 @@ const COMMAND: string = 'info';
 export class ParserForceInfo extends ParserBase {
   protected _filterKeys: string[] = ['module:', 'pcba:'];
 
-  isParser(data: string): boolean {
-    const prompt: RegExp = /(>)(\S+)$/gm;
-    return this._isParser(data, prompt, COMMAND);
+  isParser(cmd: string): boolean {
+    const prompt: RegExp = /(\S+)$/gm;
+    return this._isParser(cmd, prompt, COMMAND);
   }
 
   parseData(data: string): any {

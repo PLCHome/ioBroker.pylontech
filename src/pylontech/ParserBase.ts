@@ -27,10 +27,10 @@ abstract class ParserBase implements IParser {
   protected _noConvertKeys: string[] = [];
   protected _filterKeys: string[] = ['voltage', 'battery', 'power'];
 
-  protected _isParser(data: string, prompt: RegExp, command: string): boolean {
-    const cmd: RegExpExecArray | null = prompt.exec(data);
-    this._number = cmd !== null ? parseInt(cmd[3]) : undefined;
-    return this._number !== undefined && cmd !== null && cmd[2] === command;
+  protected _isParser(cmd: string, prompt: RegExp, command: string): boolean {
+    const cmdParsed: RegExpExecArray | null = prompt.exec(cmd);
+    this._number = cmdParsed !== null ? parseInt(cmdParsed[2]) : undefined;
+    return this._number !== undefined && cmdParsed !== null && cmdParsed[1] === command;
   }
 
   protected _parseDataHeadlineN(data: string, row: RegExp, command: string, identColumn: number): any {
@@ -75,8 +75,8 @@ abstract class ParserBase implements IParser {
     let lasthead: string = '-X-';
     for (let match; (match = row.exec(data)) !== null; ) {
       if (match !== null) {
-        result[command][match[1].trim() === '' ? `${lasthead}_` : match[1].trim()] = match[2].trim();
-        lasthead = match[1].trim();
+        lasthead = match[1] && match[1].trim() !== '' ? match[1].trim() : `${lasthead}_`;
+        result[command][lasthead] = match[2].trim();
       }
     }
     if (this._number) {

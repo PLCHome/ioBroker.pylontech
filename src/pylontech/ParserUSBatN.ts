@@ -23,9 +23,9 @@ import ParserBase from './ParserBase';
 const COMMAND: string = 'bat';
 
 export class ParserUSBatN extends ParserBase {
-  isParser(data: string): boolean {
-    const prompt: RegExp = /(>)(\S+)\s(\d+)$/gm;
-    return this._isParser(data, prompt, COMMAND);
+  isParser(cmd: string): boolean {
+    const prompt: RegExp = /(\S+)\s(\d+)$/gm;
+    return this._isParser(cmd, prompt, COMMAND);
   }
 
   parseData(data: string): object {

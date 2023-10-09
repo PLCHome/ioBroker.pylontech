@@ -25,9 +25,9 @@ const COMMAND: string = 'pwr';
 export class ParserUSPwrN extends ParserBase {
   _number: number | undefined;
 
-  isParser(data: string): boolean {
-    const prompt: RegExp = /(>)(\S+)\s(\d+)$/gm;
-    return this._isParser(data, prompt, COMMAND);
+  isParser(cmd: string): boolean {
+    const prompt: RegExp = /(\S+)\s(\d+)$/gm;
+    return this._isParser(cmd, prompt, COMMAND);
   }
 
   parseData(data: string): any {

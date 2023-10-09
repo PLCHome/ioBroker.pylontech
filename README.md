@@ -457,6 +457,10 @@ If true without ack is written to set, the current time is sent to the Pylontech
 
 ## Changelog
 
+### 0.0.6 (09.10.2023)
+
+- (PLCHome) The sent command was recognized from the response. Now the command is passed to the parser.
+
 ### 0.0.5 (05.10.2023)
 
 - (PLCHome) Implemenmt the force H2. Thanx to radi for suppoting this project!

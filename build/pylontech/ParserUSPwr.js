@@ -30,9 +30,9 @@ module.exports = __toCommonJS(ParserUSPwr_exports);
 var import_ParserBase = __toESM(require("./ParserBase"));
 const COMMAND = "pwr";
 class ParserUSPwr extends import_ParserBase.default {
-  isParser(data) {
-    const prompt = /(>)(\S+)$/gm;
-    return this._isParser(data, prompt, COMMAND);
+  isParser(cmd) {
+    const prompt = /(\S+)$/gm;
+    return this._isParser(cmd, prompt, COMMAND);
   }
   parseData(data) {
     const row = /^(.{6})(.{7})(.{7})(.{7})(.{7})(.{7})(.{7})(.{7})(.{9})(.{9})(.{9})(.{9})(.{9})(.{21})(.{9})(.{9})?(.{8})?(.{7})?/gm;

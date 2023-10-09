@@ -25,17 +25,23 @@ const COMMAND: string = 'time';
 export class ParserTime extends ParserBase {
   protected _noConvertKeys: string[] = ['Code'];
 
-  isParser(data: string): boolean {
-    const prompt: RegExp = /(>)(\S+)$/gm;
-    return this._isParser(data, prompt, COMMAND);
+  isParser(cmd: string): boolean {
+    const prompt: RegExp = /(\S+)$/gm;
+    return this._isParser(cmd, prompt, COMMAND);
   }
 
   parseData(data: string): any {
-    const row: RegExp = /(\S+)\s+(\d{2,4}-[0-1]\d-[0-3]\d [0-2]\d:[0-5]\d:[0-5]\d)/gm;
+    const row: RegExp = /^(\S*)\s*(\d{2,4}-[0-1]\d-[0-3]\d [0-2]\d:[0-5]\d:[0-5]\d)/gm;
     const result = this._parseDataNameValN(data, row, COMMAND);
     Object.keys(result.time).forEach((key: string) => {
-      result.time[key].write = true;
-      result.time[key].function = 'settime';
+      let thekey: string = key;
+      if (key.toLowerCase() == '-x-_') {
+        thekey = 'time';
+        result.time[thekey] = result.time[key];
+        delete result.time[key];
+      }
+      result.time[thekey].write = true;
+      result.time[thekey].function = 'settime';
     });
     return result;
   }

@@ -42,6 +42,7 @@ const debugParsers = (0, import_debug.debug)("pylontech:parsers");
 class Parsers {
   constructor(model) {
     this._parser = [];
+    this._cmd = "";
     debugParsers("Parsers.constructor");
     if (model == "FORCE") {
       this._parser.push(new import_ParserForceInfo.ParserForceInfo());
@@ -63,11 +64,14 @@ class Parsers {
     this._parser.push(new import_ParserLog.ParserLog());
     this._parser.push(new import_ParserTime.ParserTime());
   }
-  getParser(data) {
-    debugParsers("Parsers.getParser", "data", data);
+  setCMD(cmd) {
+    this._cmd = cmd;
+  }
+  getParser() {
+    debugParsers("Parsers.getParser", "this._cmd ", this._cmd);
     let result;
     this._parser.forEach((parser) => {
-      if (parser.isParser(data)) {
+      if (parser.isParser(this._cmd)) {
         debugParsers("Parsers.getParser", "parser", parser.getParserName());
         result = parser;
       }

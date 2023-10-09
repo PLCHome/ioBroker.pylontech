@@ -27,6 +27,7 @@ worker.open().then(() => {
     function walk(path, val) {
       if (val instanceof import_Value.Value) {
         import_promises.default.writeFile("./elements", path + "	" + val.value + "\n", { flag: "a+" });
+        console.log(path + "	" + val.value);
       } else {
         Object.keys(val).forEach((key) => {
           walk(`${path}.${key}`, val[key]);

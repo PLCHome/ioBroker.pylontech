@@ -50,14 +50,14 @@ abstract class WorkerAbstract implements IWorker {
   protected _activeCmd: CommandList | undefined;
   protected _timeout: number = 5000;
   protected _started: boolean = false;
-  protected _parser: Parsers;
+  protected _parsers: Parsers;
   protected _noPrompt: boolean = false;
   protected _model: string;
 
   constructor(model: string) {
     debugApi('MyWorkerAbstract.constructor');
     this._model = model;
-    this._parser = new Parsers(model);
+    this._parsers = new Parsers(model);
     this._consolenReader.on('data', this._onData.bind(this));
     this._consolenReader.on('needsenddata', this.sendData.bind(this));
   }
@@ -65,7 +65,7 @@ abstract class WorkerAbstract implements IWorker {
   protected _onData(data: Buffer): void {
     const dataString = data.toString();
     debugApi('MyWorkerAbstract._onData', 'data:', dataString, 'this._activeCmd:', this._activeCmd);
-    const parser: IParser | undefined = this._parser.getParser(dataString);
+    const parser: IParser | undefined = this._parsers.getParser();
     let result: any = {};
     if (parser !== undefined) {
       result = parser.parseData(dataString);
@@ -83,6 +83,7 @@ abstract class WorkerAbstract implements IWorker {
     if (!this._activeCmd && this._started) {
       this._activeCmd = this._commands.shift();
       if (this._activeCmd) {
+        this._parsers.setCMD(this._activeCmd.cmd);
         this.sendData(this._activeCmd.cmd + '\r');
         this._activeCmd.timeout = setTimeout(this._ontimeout.bind(this), this._timeout);
       }

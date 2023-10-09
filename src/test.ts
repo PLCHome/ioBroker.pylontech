@@ -33,7 +33,7 @@ worker.open().then(() => {
     function walk(path: string, val: any): void {
       if (val instanceof Value) {
         fs.writeFile('./elements', path + '\t' + val.value + '\n', { flag: 'a+' });
-        //console.log(path + '\t' + val.value);
+        console.log(path + '\t' + val.value);
       } else {
         Object.keys(val).forEach(key => {
           walk(`${path}.${key}`, val[key]);

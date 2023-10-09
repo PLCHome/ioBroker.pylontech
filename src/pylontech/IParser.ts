@@ -19,7 +19,7 @@
 // DEALINGS IN THE SOFTWARE.
 
 export interface IParser {
-  isParser(data: string): boolean;
+  isParser(cmd: string): boolean;
   parseData(data: string): object;
   getParserName(): string;
 }
