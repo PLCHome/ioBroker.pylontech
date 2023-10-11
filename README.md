@@ -37,8 +37,16 @@ Rxd and Txd must be crossed. so that what one sends (Txd) can be received (Rxd) 
 Pylontech has changed the RJ plugs on the batteries over time.
 In the beginning there were was a RJ11 plugs like on the telephone. Now it is an RJ45 like on the network connection.
 The following drawings show a standard nine pin D-SUB female connector on the cable.
-This cable can be easily connected via the USB port with a RS232 to USB adapter.
+This cable can be easily connected via the USB port with a RS232 to USB adapter or to an RS232 to LAN or WIFI converter.
 Only the first battery in the array provides all information. You only need a cable and a serial port
+
+You can assemble such a cable yourself with a [configurable plug](https://www.amazon.de/gp/product/B0C8JFWNR7). This is available with an RJ45 connector and a female D-SUB9 plug. You simply connect a patch cable to it. In principle, you can also connect an RJ11 cable to such an adapter. But I find it very wobbly and always think it doesn't make good contact.
+
+![plug](media/configurablePlug.jpg)
+
+Or ready-made cables contact in the [forum](https://forum.iobroker.net/topic/68707).
+
+![kabel](media/Kabel.jpg)
 
 #### RJ45
 
@@ -129,6 +137,17 @@ Then you should restart the udev and disconnect and reconnect the device once.
 sudo /etc/init.d/udev restart
 ```
 
+#### Find the port on Linux second method
+
+You can find a unique name for each device. It doesn't change with FTDI or something like that. This can also be entered into the adapter.
+
+```
+$ ls -l /dev/serial/by-id
+lrwxrwxrwx 1 root root 13 10. Okt 11:37 usb-ftdi_usb_serial_converter_ftDZ0DGP-if00-port0 -> ../../ttyUSB0
+```
+
+so the device is `/dev/serial/by-id/usb-ftdi_usb_serial_converter_ftDZ0DGP-if00-port0`
+
 ### com over tcp
 
 Instead of local connect:
@@ -151,7 +170,10 @@ Does this adapter also support network connect:
 
 There are several projects that connect ESP or ESP32 to Telnet. Please remember the MAX. If the MAX gets hot then either the signal level of 5V is too high because you got a 3.3V model or you have connected a 3.3V version to 5V operating voltage.
 
+![ESP-LINK](media/esp-link.jpg)
+
 Here are some examples:
+
 ESP-LINK: https://github.com/jeelabs/esp-link
 
 ESP-Serial-Bridge: https://github.com/yuri-rage/ESP-Serial-Bridge
@@ -230,6 +252,10 @@ Only the first Accu in the array provides all information. If you connect this a
 Please note: **The RS485 and Canbus interfaces are not for this adapter. They speak a different language.**
 
 ![Battery stack](media/battery_stack.JPG)
+
+At the Force there is also a terminal.
+
+![Force](media/H2.JPG)
 
 ## Admin interface
 
