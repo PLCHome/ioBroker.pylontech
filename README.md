@@ -40,7 +40,7 @@ The following drawings show a standard nine pin D-SUB female connector on the ca
 This cable can be easily connected via the USB port with a RS232 to USB adapter or to an RS232 to LAN or WIFI converter.
 Only the first battery in the array provides all information. You only need a cable and a serial port
 
-You can assemble such a cable yourself with a [configurable plug](https://www.amazon.de/gp/product/B0C8JFWNR7). This is available with an RJ45 connector and a female D-SUB9 plug. You simply connect a patch cable to it. ** But be careful to insulate the remaining cables well so that they do not touch each other. Not all batteries have the remaining pins unused. **
+You can assemble such a cable yourself with a [configurable plug](https://www.amazon.de/gp/product/B0C8JFWNR7). This is available with an RJ45 connector and a female D-SUB9 plug. You simply connect a patch cable to it. **But be careful to insulate the remaining cables well so that they do not touch each other. Not all batteries have the remaining pins unused.**
 In principle, you can also connect an RJ11 cable to such an adapter. But I find it very wobbly and always think it doesn't make good contact.
 
 ![plug](media/configurablePlug.jpg)
