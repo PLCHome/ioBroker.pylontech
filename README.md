@@ -257,7 +257,7 @@ What was tested:
 | US5000           | US    | V1.3 22-08-10 | fine       |                                            |
 | US2000C          | US    | V2.6 21-09-26 | fine       |                                            |
 | US2000 (US2KBPL) | US    | V2.8 21-04-29 | fine       | Temperatures only in one degree increments |
-| Force H2         | Force | V1.5 21-06-18 | fine       |                                            |
+| Force H2         | Force | V1.5 21-06-18 | fine       | Attention: in some Force manuals only the RX and TX connections are listed in the connector description. The ground is on PIN 8 and must also be connected. |
 
 If you use hardware, please write to me in the forum or in Github as an issue. We would be happy to continue this list.
 
