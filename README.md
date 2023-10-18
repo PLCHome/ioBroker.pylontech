@@ -182,9 +182,11 @@ ESP-Serial-Bridge: https://github.com/yuri-rage/ESP-Serial-Bridge
 Serial Port Over WiFi: https://www.instructables.com/Serial-Port-Over-WiFi/
 
 Tasmota can also be used: https://tasmota.github.io/docs/Serial-to-TCP-Bridge/
-http://ota.tasmota.com/tasmota32/release/tasmota32-zbbrdgpro.bin
-http://ota.tasmota.com/tasmota/release/tasmota-zbbrdgpro.bin
+
 Only the following or self-compiled ones can be used as bin, otherwise the TCP server is not included:
+* http://ota.tasmota.com/tasmota32/release/tasmota32-zbbrdgpro.bin
+* http://ota.tasmota.com/tasmota/release/tasmota-zbbrdgpro.bin
+
 The Gipos must be set beforehand. One each on TCP Rx and TCP Tx.
 ```
 TCPBaudRate 115200
