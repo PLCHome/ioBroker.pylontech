@@ -195,7 +195,7 @@ Rule1 ON System#Boot do TCPStart 23 endon
 Rule1 1 
 ```
 It works because a transparent TCP server is provided on, for example, port 23. The port can be selected, simply exchange 23 for 9000, for example.
-**And of course solder a MAX2323 between the Gipos and the western plug!!!!**
+**And of course solder a MAX2323 between the Gipos and the RJ/DSUB plug!!!!**
 
 #### Linux to Net
 
