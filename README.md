@@ -181,6 +181,20 @@ ESP-Serial-Bridge: https://github.com/yuri-rage/ESP-Serial-Bridge
 
 Serial Port Over WiFi: https://www.instructables.com/Serial-Port-Over-WiFi/
 
+Tasmota can also be used: https://tasmota.github.io/docs/Serial-to-TCP-Bridge/
+http://ota.tasmota.com/tasmota32/release/tasmota32-zbbrdgpro.bin
+http://ota.tasmota.com/tasmota/release/tasmota-zbbrdgpro.bin
+Only the following or self-compiled ones can be used as bin, otherwise the TCP server is not included:
+The Gipos must be set beforehand. One each on TCP Rx and TCP Tx.
+```
+TCPBaudRate 115200
+TCPStart 23
+Rule1 ON System#Boot do TCPStart 23 endon 
+Rule1 1 
+```
+It works because a transparent TCP server is provided on, for example, port 23. The port can be selected, simply exchange 23 for 9000, for example.
+**And of course solder a MAX2323 between the Gipos and the western plug!!!!**
+
 #### Linux to Net
 
 You can use ser2net to share the port of a PC or mini Raspi over the network.
