@@ -56,7 +56,7 @@
       "uk": "Перегляньте напруги клітин і статус батарей піронетех через консоль",
       "zh-cn": "2. 通过宫颈部划分电池组和电池组的地位"
     },
-    "authors": ["PLCHome <GitHub@traeger-welt.de>"],
+    "authors": ["PLCHome"],
     "keywords": ["battery", "pylontech", "photovoltaics", "inverter", "energy storage system", "growatt", "victron"],
     "license": "MIT",
     "platform": "Javascript/Node.js",
