@@ -34,7 +34,7 @@ A serial connection requires three lines rxd, txd and ground.
 
 Rxd and Txd must be crossed. so that what one sends (Txd) can be received (Rxd) by the other. Ground is needed so that a voltage can be built up and an electrical current can be started.
 
-### The serial connection cable
+### The serial connection cable for Pylontech
 
 Pylontech has changed the RJ plugs on the batteries over time.
 In the beginning there were was a RJ11 plugs like on the telephone. Now it is an RJ45 like on the network connection.
@@ -55,9 +55,9 @@ Or ready-made cables contact in the [forum](https://forum.iobroker.net/topic/687
 
 | RJ45 | signal | DSUB | signal |
 | ---- | ------ | ---- | ------ |
-| 8    | Ground | 5    | Ground |
 | 3    | TxD    | 2    | RxD    |
 | 6    | RxD    | 3    | TxD    |
+| 8    | Ground | 5    | Ground |
 
 ![RJ45](media/8p.jpg)
 
@@ -73,9 +73,19 @@ The RJ11 and RJ12 connectors are the same size. The RJ11 has only four contacts,
 
 ![RJ11 / RJ12](media/4p.jpg)
 
-There are RJ45 console cables with USB port for Cisco routers. These do not have a compatible occupancy. However, with a little experience the RJ45 plug can be replaced.
+### The serial connection cable for Pytes
 
-Please note that due to the relatively high transfer rate for RS232 connections of 115200 baud, the cable cannot be particularly long.
+#### RJ45
+
+| RJ45 | signal | DSUB | signal |
+| ---- | ------ | ---- | ------ |
+| 3    | TxD    | 2    | RxD    |
+| 4    | Ground | 5    | Ground |
+| 6    | RxD    | 3    | TxD    |
+
+### There are RJ45 console cables with USB port for Cisco routers. These do not have a compatible occupancy. However, with a little experience the RJ45 plug can be replaced.
+
+### Please note that due to the relatively high transfer rate for RS232 connections of 115200 baud, the cable cannot be particularly long.
 
 | max. baud   | max. length |
 | ----------- | ----------- |
