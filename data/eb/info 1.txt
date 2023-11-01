@@ -1,0 +1,23 @@
+
+PYTES>
+PYTES>info 1
+@
+Device address      : 1
+Manufacturer        : PYTES
+Device name         : E-BOX-4850P
+Board version       : SQBMSV13
+Main Soft version   : SPBMS15SPH2111V1.3.19
+Soft  version       : V1.3
+Boot  version       : V1.6
+Comm version        : V2.0
+Release Date        : 22-12-20
+Barcode             : LBXXXXXXXXXXXXX4
+
+Specification       : 48V/50AH
+Cell Number         : 15
+Max Dischg Curr     : -102000mA
+Max Charge Curr     : 102000mA
+Console Port rate   : 115200
+Command completed successfully
+$$
+PYTES>

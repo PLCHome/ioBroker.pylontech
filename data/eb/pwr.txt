@@ -1,0 +1,16 @@
+
+PYTES>
+PYTES>pwr
+@
+Power Volt   Curr   Tempr  Tlow   Thigh  Vlow   Vhigh  Base.St  Volt.St  Curr.St  Temp.St  Coulomb  Time                 B.V.St   B.T.St  
+1     48314  0      26000  25000  25000  3214   3225   Idle     Normal   Normal   Normal   77%      2023-11-01 16:49:17  Normal   Normal  
+2     48322  0      26000  25000  25000  3213   3227   Idle     Normal   Normal   Normal   74%      2023-11-01 16:49:17  Normal   Normal  
+3     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -       
+4     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -       
+5     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -       
+6     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -       
+7     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -       
+8     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -       
+Command completed successfully
+$$
+PYTES>

@@ -1,0 +1,56 @@
+
+PYTES>
+PYTES>stat 1
+@
+Device address           1
+Data Items      :      487
+HisData Items   :     2249
+MiscData Items  :      249
+Charge Cnt.     :        0
+Discharge Cnt.  :        0
+Charge Times    :    32170
+Status Cnt.     :     1114
+Idle Times      :    53862
+COC Times       :        0
+DOC Times       :        0
+COCA Times      :        0
+DOCA Times      :        0
+SC Times        :        0
+Bat OV Times    :       41
+Bat HV Times    :        5
+Bat LV Times    :        0
+Bat UV Times    :        0
+Bat SLP Times   :        0
+Pwr OV Times    :        0
+Pwr HV Times    :        0
+Pwr LV Times    :        3
+Pwr UV Times    :        0
+Pwr SLP Times   :        0
+COT Times       :        0
+CUT Times       :        0
+DOT Times       :        0
+DUT Times       :        0
+CHT Times       :        0
+CLT Times       :        0
+DHT Times       :        0
+DLT Times       :        0
+Shut Times      :       11
+Reset Times     :       62
+RV Times        :        0
+Input OV Times  :        0
+SOH Times       :        4
+BMICERR Times   :        0
+CYCLE Times     :       62
+Pwr Percent     :       77
+Pwr Coulomb     : 137832026
+Dsg Cap         :  3125858
+HT@0.5C Cnt     :        0
+LT@0.5C Cnt     :        0
+HT Cnt          :        0
+LT Cnt          :        0
+LV Cnt          :     4184
+LifeWarn Times  :        0
+LifeAlarm Times :        0
+Command completed successfully
+$$
+PYTES>

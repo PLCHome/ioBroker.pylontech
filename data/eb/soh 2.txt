@@ -1,0 +1,24 @@
+
+PYTES>
+PYTES>soh 2
+@
+Power   2
+Battery    Voltage    SOHCount   SOHStatus 
+0          3222       0          Normal    
+1          3219       0          Normal    
+2          3224       0          Normal    
+3          3225       0          Normal    
+4          3223       0          Normal    
+5          3220       0          Normal    
+6          3212       0          Normal    
+7          3224       0          Normal    
+8          3222       0          Normal    
+9          3218       0          Normal    
+10         3218       0          Normal    
+11         3219       0          Normal    
+12         3227       0          Normal    
+13         3222       0          Normal    
+14         3225       0          Normal    
+Command completed successfully
+$$
+PYTES>

@@ -1,0 +1,30 @@
+
+PYTES>
+PYTES>pwr 1
+@
+ ----------------------------
+ Power  1
+
+ Voltage         : 48328       mV
+ Current         : 0           mA
+ Temperature     : 26000       mC
+ Coulomb         : 77          %
+ Total Coulomb   : 50000       mAH
+ Real Coulomb    : 49700       mAH
+ Max Voltage     : 54000       mV
+ Charge Times    : 32170       
+ Basic Status    : Idle    
+ Volt Status     : Normal  
+ Current Status  : Normal  
+ Tmpr. Status    : Normal  
+ Coul. Status    : Normal  
+ Soh. Status     : Normal  
+ Heater Status   : OFF     
+ Protect ENA     : BOV BHV BLV BUV POV PHV PLV PUV CBOT CBHT CBLT CBUT DBOT DBHT DBLT DBUT POT PHT PLT PUT COC COC2 COCA DOCA DOC DOC2 SC LCOUL 
+ Bat Events      : 0x0        
+ Power Events    : 0x0        
+ System Fault    : 0x0        
+ ----------------------------
+Command completed successfully
+$$
+PYTES>

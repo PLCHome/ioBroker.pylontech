@@ -1,0 +1,23 @@
+
+PYTES>
+PYTES>bat 1
+@
+Battery  Volt     Curr     Tempr    Base State   Volt. State  Curr. State  Temp. State  Coulomb     
+0        3217     0        25000    Idle         Normal       Normal       Normal        77%      38286 mAH
+1        3219     0        25000    Idle         Normal       Normal       Normal        80%      39952 mAH
+2        3222     0        25000    Idle         Normal       Normal       Normal        79%      39450 mAH
+3        3223     0        25000    Idle         Normal       Normal       Normal        80%      40068 mAH
+4        3219     0        25000    Idle         Normal       Normal       Normal        79%      39472 mAH
+5        3225     0        25000    Idle         Normal       Normal       Normal        81%      40534 mAH
+6        3220     0        25000    Idle         Normal       Normal       Normal        80%      39930 mAH
+7        3222     0        25000    Idle         Normal       Normal       Normal        80%      40049 mAH
+8        3220     0        25000    Idle         Normal       Normal       Normal        80%      39885 mAH
+9        3217     0        25000    Idle         Normal       Normal       Normal        77%      38524 mAH
+10       3225     0        25000    Idle         Normal       Normal       Normal        80%      40025 mAH
+11       3223     0        25000    Idle         Normal       Normal       Normal        81%      40518 mAH
+12       3222     0        25000    Idle         Normal       Normal       Normal        80%      40178 mAH
+13       3224     0        25000    Idle         Normal       Normal       Normal        81%      40497 mAH
+14       3222     0        25000    Idle         Normal       Normal       Normal        79%      39449 mAH
+Command completed successfully
+$$
+PYTES>

@@ -39,7 +39,7 @@ abstract class ParserBase implements IParser {
     let lasthead: string = '-X-';
     if (head !== null) {
       for (let i: number = 1; i < head.length; i++) {
-        head[i] = head[i].trim() == '' ? `${lasthead}_` : head[i].trim();
+        head[i] = !head[i] || head[i].trim() == '' ? `${lasthead}_` : head[i].trim();
         lasthead = head[i];
       }
       result[command] = {};

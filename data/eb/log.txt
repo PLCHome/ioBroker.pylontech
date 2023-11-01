@@ -1,0 +1,187 @@
+
+PYTES>
+PYTES>log
+@
+ Index   : 29    
+ Time    : 23-11-01 15:59:01
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 28    
+ Time    : 23-11-01 15:58:41
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 27    
+ Time    : 23-11-01 15:58:35
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 26    
+ Time    : 23-11-01 15:56:53
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 25    
+ Time    : 23-11-01 15:56:39
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 24    
+ Time    : 23-11-01 15:56:31
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 23    
+ Time    : 23-11-01 15:56:19
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 22    
+ Time    : 23-11-01 15:55:55
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 21    
+ Time    : 23-11-01 15:55:45
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 20    
+ Time    : 23-11-01 15:55:35
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 19    
+ Time    : 23-11-01 15:55:19
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 18    
+ Time    : 23-11-01 15:54:59
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 17    
+ Time    : 23-11-01 15:52:17
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 16    
+ Time    : 23-11-01 15:51:55
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 15    
+ Time    : 23-11-01 15:51:45
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 14    
+ Time    : 23-11-01 15:51:35
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 13    
+ Time    : 23-11-01 15:51:15
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 12    
+ Time    : 23-11-01 15:50:57
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 11    
+ Time    : 23-11-01 15:50:41
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 10    
+ Time    : 23-11-01 15:50:19
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 9     
+ Time    : 23-11-01 15:49:41
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 8     
+ Time    : 23-11-01 15:49:25
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 7     
+ Time    : 23-11-01 15:49:19
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 6     
+ Time    : 23-11-01 15:48:45
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 5     
+ Time    : 23-11-01 15:47:51
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 4     
+ Time    : 23-11-01 15:46:33
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 3     
+ Time    : 23-11-01 15:46:19
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+Press [Enter] to be continued,other key to exit                                                  
+ Index   : 2     
+ Time    : 23-11-01 15:45:51
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 1     
+ Time    : 23-11-01 15:45:21
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+
+ Index   : 0     
+ Time    : 23-11-01 15:45:05
+ ModID   : BMM
+ Code    : 0
+ Info    : The device start discharging.
+Press [Enter] to be continued,other key to exit                                                  
+Command completed successfully
+$$
+PYTES>
