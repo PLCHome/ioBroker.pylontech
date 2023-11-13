@@ -1,0 +1,13 @@
+
+pylon>
+pylon>pwr
+@
+AverageTempr   : 20466       
+DC Volt        : 235008      
+Bat Volt       : 235916      
+
+Volt   Curr   Tempr  BTlow  BThigh BVlow  BVhigh UTlow  UThigh UVlow  UVhigh Base.St  Volt.St  Curr.St  Temp.St  CoulombAH                CoulombWH              Time                 B.V.St   B.T.St   U.V.St   U.T.St   Err Code
+235573 -292   30000  17000  21000  3096   3163   26000  27000  46915  47268  Dischg   Normal   Normal   Normal     7%           5180 mAH  13%            2290 WH 2023-11-12 09:22:15  Normal   Normal   Normal   Normal   0x0
+Command completed successfully
+$$
+pylon>

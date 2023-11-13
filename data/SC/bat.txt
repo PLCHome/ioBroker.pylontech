@@ -1,0 +1,89 @@
+
+pylon>
+pylon>bat
+@
+Time: 2023-11-12 09:21:49 
+A.Tempr: 20480  
+C.Curr : 37000   mA
+D.Curr : 0       mA
+B.State: Dischg 
+BalVolt: 3360
+Bat  Volt Curr    Tempr   V.State T.State AH(mAH)       WH(mWH)            Bal
+0    3160 -303    21000   Normal  Normal   17%    12580  17%        40256   N
+1    3146 -303    21000   Normal  Normal   14%    10360  14%        33152   N
+2    3148 -303    21000   Normal  Normal   15%    11100  15%        35520   N
+3    3133 -303    21000   Normal  Normal   11%     8140  11%        26048   N
+4    3162 -303    21000   Normal  Normal   17%    12580  17%        40256   N
+5    3156 -303    17000   Normal  Normal   16%    11840  16%        37888   N
+6    3155 -303    17000   Normal  Normal   16%    11840  16%        37888   N
+7    3145 -303    17000   Normal  Normal   14%    10360  14%        33152   N
+8    3162 -303    17000   Normal  Normal   17%    12580  17%        40256   N
+9    3155 -303    17000   Normal  Normal   16%    11840  16%        37888   N
+10   3150 -303    21000   Normal  Normal   15%    11100  15%        35520   N
+11   3147 -303    21000   Normal  Normal   15%    11100  15%        35520   N
+12   3153 -303    21000   Normal  Normal   16%    11840  16%        37888   N
+13   3143 -303    21000   Normal  Normal   13%     9620  13%        30784   N
+14   3156 -303    21000   Normal  Normal   16%    11840  16%        37888   N
+15   3128 -303    21000   Normal  Normal   10%     7400  10%        23680   N
+16   3138 -303    21000   Normal  Normal   12%     8880  12%        28416   N
+17   3139 -303    21000   Normal  Normal   13%     9620  13%        30784   N
+18   3139 -303    21000   Normal  Normal   12%     8880  12%        28416   N
+19   3142 -303    21000   Normal  Normal   13%     9620  13%        30784   N
+20   3117 -303    21000   Normal  Normal    9%     6660   9%        21312   N
+21   3145 -303    21000   Normal  Normal   14%     9990  14%        31996   N
+22   3128 -303    21000   Normal  Normal   10%     7400  10%        23680   N
+23   3146 -303    21000   Normal  Normal   14%    10360  14%        33152   N
+24   3141 -303    21000   Normal  Normal   13%     9620  13%        30784   N
+25   3140 -303    21000   Normal  Normal   12%     8880  12%        28416   N
+26   3150 -303    21000   Normal  Normal   15%    10730  15%        34372   N
+27   3149 -303    21000   Normal  Normal   15%    10730  15%        34371   N
+28   3129 -303    21000   Normal  Normal   11%     8140  11%        26048   N
+29   3135 -303    21000   Normal  Normal   12%     8880  12%        28416   N
+30   3138 -303    21000   Normal  Normal   12%     8880  12%        28416   N
+31   3127 -303    21000   Normal  Normal   10%     7400  10%        23680   N
+32   3124 -303    21000   Normal  Normal   10%     7400  10%        23680   N
+33   3130 -303    21000   Normal  Normal   11%     8140  11%        26048   N
+34   3124 -303    21000   Normal  Normal   10%     7400  10%        23680   N
+35   3097 -303    21000   Normal  Normal    7%     5180   7%        16576   N
+36   3110 -303    21000   Normal  Normal    8%     5920   8%        18944   N
+37   3116 -303    21000   Normal  Normal    9%     6660   9%        21312   N
+38   3141 -303    21000   Normal  Normal   13%     9620  13%        30784   N
+39   3147 -303    21000   Normal  Normal   15%    10730  15%        34384   N
+40   3130 -303    20200   Normal  Normal   11%     8140  11%        26048   N
+41   3127 -303    20200   Normal  Normal   10%     7400  10%        23680   N
+42   3126 -303    20200   Normal  Normal   10%     7400  10%        23680   N
+43   3138 -303    20200   Normal  Normal   12%     8880  12%        28416   N
+44   3130 -303    20200   Normal  Normal   11%     8140  11%        26048   N
+45   3138 -303    21000   Normal  Normal   12%     8880  12%        28416   N
+46   3137 -303    21000   Normal  Normal   12%     8880  12%        28416   N
+47   3144 -303    21000   Normal  Normal   13%     9620  13%        30784   N
+48   3145 -303    21000   Normal  Normal   14%    10360  14%        33152   N
+49   3154 -303    21000   Normal  Normal   16%    11840  16%        37888   N
+50   3151 -303    21000   Normal  Normal   15%    11100  15%        35520   N
+51   3127 -303    21000   Normal  Normal   10%     7400  10%        23680   N
+52   3143 -303    21000   Normal  Normal   14%    10360  14%        33152   N
+53   3148 -303    21000   Normal  Normal   15%    11100  15%        35520   N
+54   3133 -303    21000   Normal  Normal   11%     8140  11%        26048   N
+55   3140 -303    21000   Normal  Normal   13%     9620  13%        30784   N
+56   3135 -303    21000   Normal  Normal   12%     8880  12%        28416   N
+57   3151 -303    21000   Normal  Normal   15%    11100  15%        35520   N
+58   3146 -303    21000   Normal  Normal   14%    10360  14%        33152   N
+59   3146 -303    21000   Normal  Normal   14%    10360  14%        33152   N
+60   3134 -303    20000   Normal  Normal   12%     8880  12%        28416   N
+61   3140 -303    20000   Normal  Normal   13%     9620  13%        30784   N
+62   3149 -303    20000   Normal  Normal   15%    11100  15%        35520   N
+63   3153 -303    20000   Normal  Normal   16%    11840  16%        37888   N
+64   3159 -303    20000   Normal  Normal   17%    12580  17%        40256   N
+65   3161 -303    20000   Normal  Normal   17%    12580  17%        40256   N
+66   3149 -303    20000   Normal  Normal   15%    11100  15%        35520   N
+67   3141 -303    20000   Normal  Normal   13%     9620  13%        30784   N
+68   3140 -303    20000   Normal  Normal   13%     9620  13%        30784   N
+69   3150 -303    20000   Normal  Normal   15%    11100  15%        35520   N
+70   3151 -303    20000   Normal  Normal   15%    11100  15%        35520   N
+71   3149 -303    20000   Normal  Normal   15%    11100  15%        35520   N
+72   3127 -303    20000   Normal  Normal   10%     7400  10%        23680   N
+73   3157 -303    20000   Normal  Normal   17%    12580  17%        40256   N
+74   3130 -303    20000   Normal  Normal   11%     8140  11%        26048   N
+Command completed successfully
+$$
+pylon>

@@ -1,0 +1,83 @@
+
+pylon>
+pylon>soh
+@
+Battery    Voltage    SOHCount   SOHStatus 
+0          3161       85         Normal    
+1          3146       3          Normal    
+2          3148       3          Normal    
+3          3133       76         Normal    
+4          3162       0          Normal    
+5          3155       0          Normal    
+6          3155       935        Normal    
+7          3145       1082       Normal    
+8          3162       0          Normal    
+9          3153       4          Normal    
+10         3151       0          Normal    
+11         3148       0          Normal    
+12         3153       0          Normal    
+13         3142       26         Normal    
+14         3154       186        Normal    
+15         3127       245        Normal    
+16         3138       0          Normal    
+17         3138       8          Normal    
+18         3139       264        Normal    
+19         3141       60         Normal    
+20         3116       17         Normal    
+21         3145       349        Normal    
+22         3128       0          Normal    
+23         3146       186        Normal    
+24         3139       113        Normal    
+25         3137       0          Normal    
+26         3148       16         Normal    
+27         3148       8          Normal    
+28         3128       0          Normal    
+29         3135       50         Normal    
+30         3138       0          Normal    
+31         3128       0          Normal    
+32         3126       0          Normal    
+33         3131       1          Normal    
+34         3124       0          Normal    
+35         3098       1          Normal    
+36         3110       4          Normal    
+37         3117       0          Normal    
+38         3142       8          Normal    
+39         3147       0          Normal    
+40         3129       0          Normal    
+41         3130       4          Normal    
+42         3126       6          Normal    
+43         3139       5          Normal    
+44         3129       0          Normal    
+45         3137       0          Normal    
+46         3136       0          Normal    
+47         3143       0          Normal    
+48         3145       0          Normal    
+49         3156       0          Normal    
+50         3153       0          Normal    
+51         3125       0          Normal    
+52         3143       0          Normal    
+53         3148       0          Normal    
+54         3135       0          Normal    
+55         3140       0          Normal    
+56         3134       0          Normal    
+57         3149       0          Normal    
+58         3145       0          Normal    
+59         3145       0          Normal    
+60         3135       0          Normal    
+61         3140       0          Normal    
+62         3150       0          Normal    
+63         3153       0          Normal    
+64         3160       0          Normal    
+65         3161       0          Normal    
+66         3148       0          Normal    
+67         3140       0          Normal    
+68         3139       251        Normal    
+69         3149       0          Normal    
+70         3151       0          Normal    
+71         3148       0          Normal    
+72         3127       330        Normal    
+73         3159       0          Normal    
+74         3131       49         Normal    
+Command completed successfully
+$$
+pylon>

@@ -1,0 +1,14 @@
+
+pylon>
+pylon>unit
+@
+AverageTempr: 20466       
+Index  Volt   Curr   Tempr  AvgTempr BTlow  BThigh BVlow  BVhigh Base.St  Volt.St  Temp.St  CoulombAH                CoulombWH               Time               
+1      47270  -294   27000  19666  17000  21000  3133   3162    Dischg   Normal   Normal    11%           8140 mAH  15%             532 WH 2023-11-12 09:22:47 
+2      47054  -294   27000  21000  21000  21000  3115   3148    Dischg   Normal   Normal     9%           6660 mAH  12%             424 WH 2023-11-12 09:22:47 
+3      46911  -294   26000  20666  20000  21000  3097   3147    Dischg   Normal   Normal     7%           5180 mAH  10%             365 WH 2023-11-12 09:22:47 
+4      47138  -294   26000  21000  21000  21000  3125   3155    Dischg   Normal   Normal    10%           7400 mAH  13%             467 WH 2023-11-12 09:22:47 
+5      47192  -294   26000  20000  20000  20000  3127   3160    Dischg   Normal   Normal    10%           7400 mAH  14%             499 WH 2023-11-12 09:22:47 
+Command completed successfully
+$$
+pylon>

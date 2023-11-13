@@ -1,0 +1,58 @@
+
+pylon>
+pylon>stat
+@
+Device address           0
+EvenData Items  :      165
+HistData Items  :      512
+MiscData Items  :      128
+Charge Cnt.     :        0
+Discharge Cnt.  :      946
+Charge Times    :    33757
+Status Cnt.     :      945
+Idle Times      :    36051
+COC Times       :        0
+DOC Times       :        0
+COCA Times      :        0
+DOCA Times      :        0
+SC Times        :        0
+Bat OV Times    :        0
+Bat HV Times    :      141
+Bat LV Times    :        0
+Bat UV Times    :        0
+Bat SLP Times   :        0
+Pwr OV Times    :        0
+Pwr HV Times    :        0
+Pwr LV Times    :        0
+Pwr UV Times    :        0
+Pwr SLP Times   :        0
+Bat OT Times    :        0
+Bat UT Times    :        0
+Bat HT Times    :        0
+Bat LT Times    :        0
+Board OT Times  :        0
+Board UT Times  :        0
+Board HT Times  :        0
+Board LT Times  :        0
+Shut Times      :        0
+Reset Times     :        5
+RV Times        :        0
+Input OV Times  :        0
+SOH Times       :      851
+BMICERR Times   :        0
+CYCLE Times     :      203
+Pwr Percent     :        7
+Pwr Coulomb(mAS): 18648000
+Pwr PercentWatt :        7
+Bat CoulWatt(mWH):   16576000
+Dsg Cap(mAH)    : 15047133
+SOH Percent     :       99
+His.Chg Cap(WH) :  3707194
+His.Dsg Cap(WH) :  3694123
+Day Chg Cap(WH) :        0
+Day Dsg Cap(WH) :      249
+Min.Chg Cap(WH) :        0
+Min.Dsg Cap(WH) :      226
+Command completed successfully
+$$
+pylon>

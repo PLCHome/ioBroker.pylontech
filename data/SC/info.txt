@@ -1,0 +1,52 @@
+
+pylon>
+pylon>info
+@
+Device address      : 0
+Manufacturer        : Pylon
+Device name         : CMU_A
+Board version       : TISP01V10R02_1
+Hard  version       : V10R9C5
+Main Soft version   : B52.34.0
+Soft  version       : V5.6
+Boot  version       : V1.4
+Comm version        : V2.0
+Release Date        : 22-05-23
+
+Barcode             : H225xxxxxxxxxx54
+PCBA Barcode        : H100xxxxxxxTxxxxxxxx70          
+Module Barcode      : H225xxxxxxxxx154                
+PowerSupply Barcode : H2xxxxxxxxxxxxxxxxxx96          
+
+Device Test Time    : 2022-05-09 16:45:48
+
+Specification       : 240V/74AH
+Cell Number         : 75
+Max Dischg Curr     : -80000mA
+Max Charge Curr     : 80000mA
+Shut Circuit        : Yes  
+Relay Feedback      : Yes  
+New Board           : Yes  
+
+BMU 4 Barcode   
+Module:   : P22xxxxxxxxxxx77                
+PCBA:     : H1xxxxxxxxxTxxxxxxxxx1          
+
+BMU 3 Barcode   
+Module:   : P22xxxxxxxxxxx75                
+PCBA:     : H10xxxxxxxxxxxxxxxxx54          
+
+BMU 2 Barcode   
+Module:   : P22xxxxxxxxxxx79                
+PCBA:     : H10xxxxxxxxTxxxxxxxx92          
+
+BMU 1 Barcode   
+Module:   : P22xxxxxxxxxxx89                
+PCBA:     : H10xxxxxxxxTxxxxxxxx45          
+
+BMU 0 Barcode   
+Module:   : P22xxxxxxxxxxx83                
+PCBA:     : H10xxxxxxxxTxxxxxxxx00          
+Command completed successfully
+$$
+pylon>
