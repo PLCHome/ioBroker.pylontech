@@ -29,7 +29,14 @@ export class ParserUSBatN extends ParserBase {
   }
 
   parseData(data: string): object {
-    const row: RegExp = /^(.{9})(.{9})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{10})(.{9,16})?(.{1,3})?/gm;
-    return this._parseDataHeadlineN(data, row, COMMAND, 1);
+    const rowHeadA: RegExp = /^(B.{8})(.{9})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{10})(.{9,16})?(.{1,3})?/gm;
+    const rowA: RegExp = /^(.{9})(.{9})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{10})(.{9,16})?(.{1,3})?/gm;
+    //const rowHeadB: RegExp = /^(XB.{8})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{10})(.{9,16})?(.{1,3})?/gm;
+    const rowB: RegExp = /^(.{9})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{10})(.{9,16})?(.{1,3})?/gm;
+    if (rowHeadA.exec(data) != null) {
+      return this._parseDataHeadlineN(data, rowA, COMMAND, 1);
+    } else {
+      return this._parseDataHeadlineN(data, rowB, COMMAND, 1);
+    }
   }
 }

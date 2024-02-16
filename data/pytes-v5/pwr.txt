@@ -1,0 +1,25 @@
+
+PYTES>
+PYTES>pwr
+@
+Power Volt   Curr   Tempr  Tlow   Thigh  Vlow   Vhigh  Base.St  Volt.St  Curr.St  Temp.St  Coulomb  Time                 B.V.St   B.T.St   Barcode              DevType             
+1     53070  -5962  26000  24000  25000  3313   3319   Dischg   Normal   Normal   Normal   80%      2024-02-13 23:34:48  Normal   Normal   Exxxxxxxxxxxxx43     E-BOX-48100V-D      
+
+2     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -        -                    -                   
+3     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -        -                    -                   
+4     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -        -                    -                   
+5     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -        -                    -                   
+6     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -        -                    -                   
+7     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -        -                    -                   
+8     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -        -                    -                   
+9     -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -        -                    -                   
+10    -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -        -                    -                   
+11    -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -        -                    -                   
+12    -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -        -                    -                   
+13    -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -        -                    -                   
+14    -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -        -                    -                   
+15    -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -        -                    -                   
+16    -      -      -      -      -      -      -      Absent   -        -        -        -        -                    -        -        -                    -                   
+Command completed successfully
+$$
+PYTES>

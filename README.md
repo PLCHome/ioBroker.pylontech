@@ -269,7 +269,6 @@ What was tested:
 | Elfin EW10A-0                       | network | yes        | Make sure that there is enough bandwidth and signal strength on your WiFi so that the connection is stable. Check transmission speed 115200 8 N 1.                                                                                                                |
 | Elfin EE10-A                        | network | yes        | Assign the device an IP in the network. Check transmission speed 115200 8 N 1. Everything else left unchanged.                                                                                                                                                    |
 
-
 #### Batteries
 
 | Pylontech model  | Model | Firmware      | Is working | Comment                                                                                                                                                     |
@@ -281,9 +280,10 @@ What was tested:
 | US2000 (US2KBPL) | US    | V2.8 21-04-29 | fine       | Temperatures only in one degree increments                                                                                                                  |
 | Force H2         | Force | V1.5 21-06-18 | fine       | Attention: in some Force manuals only the RX and TX connections are listed in the connector description. The ground is on PIN 8 and must also be connected. |
 
-| Pytes model | Model | Firmware      | Is working | Comment                                |
-| ----------- | ----- | ------------- | ---------- | -------------------------------------- |
-| E-BOX-4850P | US    | V1.3 22-12-20 | fine       | Thanx to kletternaut for the test data |
+| Pytes model    | Model | Firmware       | Is working | Comment                                |
+| -------------- | ----- | -------------- | ---------- | -------------------------------------- |
+| E-BOX-4850P    | US    | V1.3 22-12-20  | fine       | Thanx to kletternaut for the test data |
+| E-BOX-48100V-D | US    | V1.10 23-10-13 | fine       | Adapter version >=0.0.8                |
 
 If you use hardware, please write to me in the forum or in Github as an issue. We would be happy to continue this list.
 
@@ -526,6 +526,10 @@ The time read from the inverter is stored here. On the US3000 it is called RTC a
 If true without ack is written to set, the current time is sent to the Pylontech. When the command has been executed, the status is set to ack = true.
 
 ## Changelog
+
+### 0.0.8 (16.02.2024)
+
+- (PLCHome) improved bat n for E-BOX-48100V-D
 
 ### 0.0.7 (01.11.2023)
 

@@ -1,0 +1,26 @@
+
+PYTES>
+PYTES>info
+@
+Device address      : 1
+Manufacturer        : PYTES
+Device name         : E-BOX-48100V-D
+Board version       : SQBMSV110
+Main Soft version   : SxxxxxxxxxxxxxV1.10.7.1C
+Iterate version     : SxxxxxxxxxxxxxV1.10.7.1C.T5
+Soft  version       : V1.10
+Boot  version       : V1.13
+Comm version        : V2.0
+Release Date        : 23-10-13
+Barcode             : Exxxxxxxxxxxxxx3
+Board ID            : GxxxxxxxxxxxxxxxxxxxxxxxxD
+Board SRAM Size     : 96KB
+Board FLASH Size    : 256KB
+Specification       : 51.2V/100AH
+Cell Number         : 16
+Max Dischg Curr     : -105000mA
+Max Charge Curr     : 105000mA
+Console Port rate   : 115200
+Command completed successfully
+$$
+PYTES>

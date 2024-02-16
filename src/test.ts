@@ -23,12 +23,12 @@ import WorkerAbstract from './pylontech/WorkerAbstract';
 import WorkerSerial from './pylontech/WorkerSerial';
 //import WorkerNet from './pylontech/WorkerNet';
 
-const worker: WorkerAbstract = new WorkerSerial('com4', 115200, 'FORCE');
+const worker: WorkerAbstract = new WorkerSerial('com10', 115200, 'US');
 //const worker: WorkerAbstract = new WorkerNet('esp-link.fritz.box', 23, 'FORCE');
 
 fs.writeFile('./elements', '', { flag: 'w+' });
 worker.open().then(() => {
-  return worker.getData({ info: true, power: true, statistic: true, celldata: true, cellsoh: true }).then((allData: any) => {
+  return worker.getData({ info: true, power: true, statistic: true, celldata: true, cellsoh: true, log: false }).then((allData: any) => {
     //console.log(JSON.stringify(allData, null, ' '));
     function walk(path: string, val: any): void {
       if (val instanceof Value) {

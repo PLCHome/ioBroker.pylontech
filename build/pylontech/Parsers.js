@@ -73,7 +73,9 @@ class Parsers {
     this._parser.forEach((parser) => {
       if (parser.isParser(this._cmd)) {
         debugParsers("Parsers.getParser", "parser", parser.getParserName());
-        result = parser;
+        if (result == void 0) {
+          result = parser;
+        }
       }
     });
     return result;

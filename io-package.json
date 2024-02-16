@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pylontech",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "news": {
+      "0.0.8": {
+        "en": "improved \"bat n\" for E-BOX-48100V-D.",
+        "de": "\"bat n\" für E-BOX-48100V-D verbessert.",
+        "ru": "улучшенная \"bat n\" для E-BOX-48100V-D.",
+        "pt": "melhorado \"bat n\" para E-BOX-48100V-D.",
+        "nl": "verbeterde \"bat n\" voor E-BOX-48100V-D.",
+        "fr": "\"bat n\" amélioré pour E-BOX-48100V-D.",
+        "it": "migliorato \"bat n\" per E-BOX-48100V-D.",
+        "es": "mejorado \"bat n\" para E-BOX-48100V-D.",
+        "pl": "poprawione \"bat n\" dla E-BOX-48100V-D.",
+        "uk": "покращений \"bat n\" для E-BOX-48100V-D.",
+        "zh-cn": "改进了E-BOX-48100V-D的\"bat n\" ."
+      },
       "0.0.7": {
         "en": "Issue with trim fixed, so E-BOX-4850P works now.",
         "de": "E-BOX-4850P funktioniert jetzt.",

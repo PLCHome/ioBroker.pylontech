@@ -35,8 +35,14 @@ class ParserUSBatN extends import_ParserBase.default {
     return this._isParser(cmd, prompt, COMMAND);
   }
   parseData(data) {
-    const row = /^(.{9})(.{9})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{10})(.{9,16})?(.{1,3})?/gm;
-    return this._parseDataHeadlineN(data, row, COMMAND, 1);
+    const rowHeadA = /^(B.{8})(.{9})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{10})(.{9,16})?(.{1,3})?/gm;
+    const rowA = /^(.{9})(.{9})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{10})(.{9,16})?(.{1,3})?/gm;
+    const rowB = /^(.{9})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{10})(.{9,16})?(.{1,3})?/gm;
+    if (rowHeadA.exec(data) != null) {
+      return this._parseDataHeadlineN(data, rowA, COMMAND, 1);
+    } else {
+      return this._parseDataHeadlineN(data, rowB, COMMAND, 1);
+    }
   }
 }
 // Annotate the CommonJS export names for ESM import in node:

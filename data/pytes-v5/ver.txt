@@ -1,0 +1,19 @@
+
+PYTES>
+PYTES>ver
+@
+ Main Version:
+ Version : SXXXXXXXXXXXXXV1.10.7.1C.T5
+ 
+ Size    : 0
+ Date    : 2023-10-13 09:55:00
+
+ Backup Version:
+ Version : 
+ Size    : 0
+ Date    : 2000-00-00 00:00:00
+
+ Active version : Main
+Command completed successfully
+$$
+PYTES>
