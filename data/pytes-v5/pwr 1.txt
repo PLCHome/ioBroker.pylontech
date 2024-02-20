@@ -1,57 +1,45 @@
 
-
-pylon>pwr 1
-
-@
-
+PYTES>
+PYTES>pwr 1
+@
+ ----------------------------
+ Power  1
+
+ Voltage         : 53244               mV
+ SOC Voltage     : 53240               mV
+ Current         : 0                   mA
+ Temperature     : 24000               mC
+ Coulomb         : 73                  %
+ Total Coulomb   : 360000000           mAS
+ Real Coulomb    : 100000              mAH
+ Total Power In  : 1661128             AS
+ Total Power Out : 1335388             AS
+ Charge Count    : 0               
+ Discharge Count : 0               
+ Charge Times    : 300             
+ Work Status     : 2               
+ Bat Num         : 16              
+ Barcode         : ESxxxxxxxxxxx443
+ DevType         : E-BOX-48100V-D  
+ Firm Version    : SPBMS16SRP2304V1.10.7.1C.T5
+ Next Device     : 0               
+ Basic Status    : Idle    
+ Volt Status     : Normal  
+ Current Status  : Normal  
+ Tmpr. Status    : Normal  
+ Coul. Status    : Normal  
+ Bat Status      : VNOR TNOR
+ Heater Status   : OFF     
+ CMOS Status     : ON      
+ DMOS Status     : ON      
+ Input Status    : OFF     
+ Terminal Res.   : ON      
+ Bat Protect ENA : OV HV LV UV SLP OT HT LT UT
+ Pwr Protect ENA : OV HV LV UV SLP OT HT LT UT COC COC1 COC2 COCA DOCA DOC DOC1 DOC2 SC
+ Bat Events      : 0x0       
+ Power Events    : 0x0       
+ System Fault    : 0x0       
  ----------------------------
-
- Power  1
-
-
-
- Voltage         : 49959       mV
-
- Current         : 15939       mA
-
- Temperature     : 28200       mC
-
- Coulomb         : 45          %
-
- Total Coulomb   : 100000      mAH
-
- Max Voltage     : 54000       mV
-
- Charge Times    : 11344       
-
- Basic Status    : Charge  
-
- Charge Sec.     : 1764    s
-
- Volt Status     : Normal  
-
- Current Status  : Normal  
-
- Tmpr. Status    : Normal  
-
- Coul. Status    : Normal  
-
- Soh. Status     : Normal  
-
- Heater Status   : OFF     
-
- Protect ENA     : BOV BHV BLV BUV POV PHV PLV PUV CBOT CBHT CBLT CBUT DBOT DBHT DBLT DBUT POT PHT COC COC2 COCA DOCA DOC DOC2 SC LCOUL 
-
- Bat Events      : 0x0        
-
- Power Events    : 0x0        
-
- System Fault    : 0x0        
-
- ----------------------------
-
-Command completed successfully
-
-$$
-
-pylon>
+Command completed successfully
+$$
+PYTES>

@@ -566,7 +566,7 @@ If true without ack is written to set, the current time is sent to the Pylontech
 
 MIT License
 
-Copyright (c) 2023 PLCHome
+Copyright (c) 2024 PLCHome
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

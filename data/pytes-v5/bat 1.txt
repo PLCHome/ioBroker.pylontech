@@ -1,24 +1,24 @@
 
 PYTES>
-PYTES>bat
+PYTES>bat 1
 @
 Battery  Volt     Tempr    Base State   Volt. State  Curr. State  Temp. State  Coulomb     
-0        3318     24000    Dischg       Normal       Normal       Normal        80%      80446 mAH
-1        3322     24000    Dischg       Normal       Normal       Normal        80%      80446 mAH
-2        3319     24000    Dischg       Normal       Normal       Normal        80%      80446 mAH
-3        3322     24000    Dischg       Normal       Normal       Normal        80%      80446 mAH
-4        3321     24000    Dischg       Normal       Normal       Normal        80%      80446 mAH
-5        3322     25000    Dischg       Normal       Normal       Normal        80%      80446 mAH
-6        3319     25000    Dischg       Normal       Normal       Normal        81%      81265 mAH
-7        3323     25000    Dischg       Normal       Normal       Normal        80%      80446 mAH
-8        3319     25000    Dischg       Normal       Normal       Normal        81%      81932 mAH
-9        3322     25000    Dischg       Normal       Normal       Normal        80%      80446 mAH
-10       3319     24000    Dischg       Normal       Normal       Normal        80%      80446 mAH
-11       3322     24000    Dischg       Normal       Normal       Normal        80%      80446 mAH
-12       3320     24000    Dischg       Normal       Normal       Normal        80%      80446 mAH
-13       3323     24000    Dischg       Normal       Normal       Normal        80%      80446 mAH
-14       3319     24000    Dischg       Normal       Normal       Normal        80%      80446 mAH
-15       3319     24000    Dischg       Normal       Normal       Normal        80%      80446 mAH
+0        3327     18000    Idle         Normal       Normal       Normal        73%      73866 mAH
+1        3327     18000    Idle         Normal       Normal       Normal        73%      73866 mAH
+2        3328     18000    Idle         Normal       Normal       Normal        73%      73866 mAH
+3        3328     18000    Idle         Normal       Normal       Normal        73%      73866 mAH
+4        3328     18000    Idle         Normal       Normal       Normal        73%      73866 mAH
+5        3328     18000    Idle         Normal       Normal       Normal        73%      73866 mAH
+6        3328     18000    Idle         Normal       Normal       Normal        73%      73866 mAH
+7        3328     18000    Idle         Normal       Normal       Normal        73%      73866 mAH
+8        3328     18000    Idle         Normal       Normal       Normal        73%      73866 mAH
+9        3328     18000    Idle         Normal       Normal       Normal        73%      73866 mAH
+10       3328     18000    Idle         Normal       Normal       Normal        73%      73866 mAH
+11       3328     18000    Idle         Normal       Normal       Normal        73%      73866 mAH
+12       3328     18000    Idle         Normal       Normal       Normal        73%      73866 mAH
+13       3328     18000    Idle         Normal       Normal       Normal        73%      73866 mAH
+14       3328     18000    Idle         Normal       Normal       Normal        73%      73866 mAH
+15       3325     18000    Idle         Normal       Normal       Normal        73%      73866 mAH
 Command completed successfully
 $$
 PYTES>
