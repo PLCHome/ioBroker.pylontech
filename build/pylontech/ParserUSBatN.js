@@ -18,6 +18,10 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
@@ -35,9 +39,9 @@ class ParserUSBatN extends import_ParserBase.default {
     return this._isParser(cmd, prompt, COMMAND);
   }
   parseData(data) {
-    const rowHeadA = /^(B.{8})(.{9})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{10})(.{9,16})?(.{1,3})?/gm;
-    const rowA = /^(.{9})(.{9})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{10})(.{9,16})?(.{1,3})?/gm;
-    const rowB = /^(.{9})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{10})(.{9,16})?(.{1,3})?/gm;
+    const rowHeadA = /^(B.{8})(.{9})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{9})(.{10,17})?(.{1,3})?/gm;
+    const rowA = /^(.{9})(.{9})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{9})(.{10,17})?(.{1,3})?/gm;
+    const rowB = /^(.{9})(.{9})(.{9})(.{13})(.{13})(.{13})(.{13})(.{9})(.{10,17})?(.{1,3})?/gm;
     if (rowHeadA.exec(data) != null) {
       return this._parseDataHeadlineN(data, rowA, COMMAND, 1);
     } else {

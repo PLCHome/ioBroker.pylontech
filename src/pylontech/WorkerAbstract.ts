@@ -44,11 +44,17 @@ const SYSTEMINFO = 'systeminfo';
 const SYSINFO = 'sysinfo';
 const UNIT = 'unit';
 
+const timeout: number = 5000;
+const waittime: number = 20;
+const attamps: number = 2;
+
 abstract class WorkerAbstract implements IWorker {
   protected _consolenReader: ConsolenReader = new ConsolenReader();
   protected _commands: CommandList[] = [];
   protected _activeCmd: CommandList | undefined;
-  protected _timeout: number = 5000;
+  protected _attemp: number = 0;
+  protected _timeout: number = timeout;
+  protected _waittime: number = waittime;
   protected _started: boolean = false;
   protected _parsers: Parsers;
   protected _noPrompt: boolean = false;
@@ -78,14 +84,22 @@ abstract class WorkerAbstract implements IWorker {
     this._nextcommand();
   }
 
+  protected _docommand(): void {
+    if (this._activeCmd) {
+      this._attemp--;
+      this._parsers.setCMD(this._activeCmd.cmd);
+      this.sendData(this._activeCmd.cmd + '\r');
+      this._activeCmd.timeout = setTimeout(this._ontimeout.bind(this), this._timeout);
+    }
+  }
+
   protected _nextcommand(): void {
     debugApi('MyWorkerAbstract._nextcommand', 'this._activeCmd:', this._activeCmd, 'this._started:', this._started);
     if (!this._activeCmd && this._started) {
       this._activeCmd = this._commands.shift();
       if (this._activeCmd) {
-        this._parsers.setCMD(this._activeCmd.cmd);
-        this.sendData(this._activeCmd.cmd + '\r');
-        this._activeCmd.timeout = setTimeout(this._ontimeout.bind(this), this._timeout);
+        this._attemp = attamps;
+        setTimeout(this._docommand.bind(this), this._waittime);
       }
     }
   }
@@ -93,11 +107,20 @@ abstract class WorkerAbstract implements IWorker {
   protected _ontimeout(): void {
     debugApi('MyWorkerAbstract._ontimeout', 'this._activeCmd:', this._activeCmd);
     if (this._activeCmd) {
-      this._activeCmd.reject(new Error('timeout'));
-      this._activeCmd = undefined;
-      this._consolenReader._flush(() => {
-        this._nextcommand();
-      });
+      if (this._attemp > 0) {
+        this.sendData('\r\n');
+        this._consolenReader._flush(() => {
+          setTimeout(this._docommand.bind(this), this._waittime);
+        });
+      } else {
+        this._activeCmd.reject(new Error('timeout'));
+        this._activeCmd = undefined;
+        this.sendData('\r\n');
+        this._consolenReader._flush(() => {
+          this._commands = [];
+          this._nextcommand();
+        });
+      }
     }
   }
 

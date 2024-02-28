@@ -14,6 +14,10 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
@@ -49,6 +53,46 @@ module.exports = class WorkerNet extends import_WorkerAbstract.default {
       }).bind(this)
     );
   }
+  /*
+    protected _rfc2217_will(): void {
+      const data = Buffer.from('FFFB2C', 'hex');
+      this.sendDataB(data);
+    }
+  
+    protected _rfc2217_setBaudRate(baudRate: number): void {
+      this._rfc2217_will();
+      const data = Buffer.from('fffa2c0100000000fff0', 'hex');
+      data.writeUInt32BE(baudRate, 4);
+      this.sendDataB(data);
+    }
+  
+    protected _rfc2217_setDatasize(datasize: number): void {
+      this._rfc2217_will();
+      const data = Buffer.from('fffa2c0200fff0', 'hex');
+      data.writeUInt8(datasize, 4);
+      this.sendDataB(data);
+    }
+  
+    protected _rfc2217_setParity(parity: number): void {
+      this._rfc2217_will();
+      const data = Buffer.from('fffa2c0300fff0', 'hex');
+      data.writeUInt8(parity, 4);
+      this.sendDataB(data);
+    }
+  
+    protected _rfc2217_setStopsize(stopsize: number): void {
+      this._rfc2217_will();
+      const data = Buffer.from('fffa2c0400fff0', 'hex');
+      data.writeUInt8(stopsize, 4);
+      this.sendDataB(data);
+    }
+    protected _rfc2217_setControl(control: number): void {
+      this._rfc2217_will();
+      const data = Buffer.from('fffa2c0500fff0', 'hex');
+      data.writeUInt8(control, 4);
+      this.sendDataB(data);
+    }
+  */
   sendDataB(data) {
     debugApi("MyWorkerNet.sendDataB", "data:", data.toString("hex"), "this._activeCmd:", this._activeCmd);
     this._socket.write(data);

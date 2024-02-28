@@ -14,6 +14,10 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
@@ -35,11 +39,16 @@ const CELLS = "cells";
 const SYSTEMINFO = "systeminfo";
 const SYSINFO = "sysinfo";
 const UNIT = "unit";
+const timeout = 5e3;
+const waittime = 20;
+const attamps = 2;
 class WorkerAbstract {
   constructor(model) {
     this._consolenReader = new import_ConsolenReader.ConsolenReader();
     this._commands = [];
-    this._timeout = 5e3;
+    this._attemp = 0;
+    this._timeout = timeout;
+    this._waittime = waittime;
     this._started = false;
     this._noPrompt = false;
     debugApi("MyWorkerAbstract.constructor");
@@ -63,25 +72,41 @@ class WorkerAbstract {
     }
     this._nextcommand();
   }
+  _docommand() {
+    if (this._activeCmd) {
+      this._attemp--;
+      this._parsers.setCMD(this._activeCmd.cmd);
+      this.sendData(this._activeCmd.cmd + "\r");
+      this._activeCmd.timeout = setTimeout(this._ontimeout.bind(this), this._timeout);
+    }
+  }
   _nextcommand() {
     debugApi("MyWorkerAbstract._nextcommand", "this._activeCmd:", this._activeCmd, "this._started:", this._started);
     if (!this._activeCmd && this._started) {
       this._activeCmd = this._commands.shift();
       if (this._activeCmd) {
-        this._parsers.setCMD(this._activeCmd.cmd);
-        this.sendData(this._activeCmd.cmd + "\r");
-        this._activeCmd.timeout = setTimeout(this._ontimeout.bind(this), this._timeout);
+        this._attemp = attamps;
+        setTimeout(this._docommand.bind(this), this._waittime);
       }
     }
   }
   _ontimeout() {
     debugApi("MyWorkerAbstract._ontimeout", "this._activeCmd:", this._activeCmd);
     if (this._activeCmd) {
-      this._activeCmd.reject(new Error("timeout"));
-      this._activeCmd = void 0;
-      this._consolenReader._flush(() => {
-        this._nextcommand();
-      });
+      if (this._attemp > 0) {
+        this.sendData("\r\n");
+        this._consolenReader._flush(() => {
+          setTimeout(this._docommand.bind(this), this._waittime);
+        });
+      } else {
+        this._activeCmd.reject(new Error("timeout"));
+        this._activeCmd = void 0;
+        this.sendData("\r\n");
+        this._consolenReader._flush(() => {
+          this._commands = [];
+          this._nextcommand();
+        });
+      }
     }
   }
   _connected() {

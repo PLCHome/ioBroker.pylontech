@@ -14,6 +14,10 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
@@ -24,6 +28,9 @@ var import_Value = require("./pylontech/Value");
 var import_WorkerNet = __toESM(require("./pylontech/WorkerNet"));
 var import_WorkerSerial = __toESM(require("./pylontech/WorkerSerial"));
 class Pylontech extends utils.Adapter {
+  /**
+   * a new live
+   */
   constructor(options = {}) {
     super({
       ...options,
@@ -34,6 +41,9 @@ class Pylontech extends utils.Adapter {
     this.on("message", this.onMessage.bind(this));
     this.on("unload", this._onUnload.bind(this));
   }
+  /**
+   * Is called when databases are connected and adapter received configuration.
+   */
   async onReady() {
     this.setState("info.connection", false, true);
     this.subscribeStates("*");
@@ -73,6 +83,9 @@ class Pylontech extends utils.Adapter {
   _debugData(data) {
     this.log.silly(data.toString());
   }
+  /**
+   * gets the dada
+   */
   _onTimer(resolve, reject) {
     try {
       const worker = this.config.connection == "1" ? new import_WorkerSerial.default(this.config.device, this.config.baudrate, this.config.model, false, this._debugData.bind(this)) : new import_WorkerNet.default(this.config.host, this.config.port, this.config.model, false, this._debugData.bind(this));
@@ -148,6 +161,9 @@ class Pylontech extends utils.Adapter {
       reject(e.message);
     }
   }
+  /**
+   * Sets the time on the divice
+   */
   _setTime(time, cb) {
     const d = new Date(time);
     if (this._fktInOrder) {
@@ -182,6 +198,9 @@ class Pylontech extends utils.Adapter {
       });
     }
   }
+  /**
+   * Sets the time on the divice
+   */
   _setSpeed(cb) {
     if (this._fktInOrder) {
       this._fktInOrder.addFunc((resolve, reject) => {
@@ -208,6 +227,9 @@ class Pylontech extends utils.Adapter {
       });
     }
   }
+  /**
+   * Is called when adapter shuts down - callback has to be called under any circumstances!
+   */
   _onUnload(callback) {
     try {
       this.clearInterval(this._workTimer);
@@ -216,6 +238,9 @@ class Pylontech extends utils.Adapter {
       callback();
     }
   }
+  /**
+   * Is called if a subscribed state changes
+   */
   onStateChange(id, state) {
     if (state && state.ack == false) {
       this.getObjectAsync(id).then((obj) => {
@@ -228,7 +253,7 @@ class Pylontech extends utils.Adapter {
               break;
             case "akttime":
               if (state.val)
-                this._setTime(new Date().getTime(), (ok) => {
+                this._setTime((/* @__PURE__ */ new Date()).getTime(), (ok) => {
                   this.setStateAsync(id, ok, true);
                 });
               break;
@@ -242,6 +267,9 @@ class Pylontech extends utils.Adapter {
       });
     }
   }
+  /**
+   * Is called if a message was send
+   */
   onMessage(obj) {
     this.log.debug(JSON.stringify(obj));
     let wait = false;
