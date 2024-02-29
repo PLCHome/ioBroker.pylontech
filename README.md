@@ -535,14 +535,14 @@ If true without ack is written to set, the current time is sent to the Pylontech
 ### **WORK IN PROGRESS**
 
 - (PLCHome) Configure this adapter to use the release script.
-- (PLCHome) Improved bat n for E-BOX-48100V-D on 100%.
+- (PLCHome) Improved "bat n" for E-BOX-48100V-D on 100%.
 - (PLCHome) Waiting time between commands of 20ms.
 - (PLCHome) If the timeout occurs, send the last command again.
 - (PLCHome) No further commands after a timeout.
 
 ### 0.0.8 (16.02.2024)
 
-- (PLCHome) improved bat n for E-BOX-48100V-D
+- (PLCHome) improved "bat n" for E-BOX-48100V-D
 
 ### 0.0.7 (01.11.2023)
 
