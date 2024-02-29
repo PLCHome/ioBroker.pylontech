@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pylontech",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "news": {
+      "0.0.9": {
+        "en": "Configure this adapter to use the release script.\nImproved \"bat n\" for E-BOX-48100V-D on 100%.\nWaiting time between commands of 20ms.\nIf the timeout occurs, send the last command again.\nNo further commands after a timeout.",
+        "de": "Konfigurieren Sie diesen Adapter, um das Release-Skript zu verwenden.\nVerbessert \"bat n\" für E-BOX-48100V-D auf 100%.\nWartezeit zwischen Befehlen von 20ms.\nWenn der Timeout auftritt, senden Sie den letzten Befehl erneut.\nKeine weiteren Befehle nach einem Timeout.",
+        "ru": "Настроить этот адаптер для использования сценария релиза.\nУлучшен \"бита\" для E-BOX-48100V-D на 100%.\nВремя ожидания между командами 20 мс.\nЕсли таймаут происходит, отправьте последнюю команду снова.\nНикаких дальнейших команд после тайм-аута.",
+        "pt": "Configure este adaptador para usar o script de lançamento.\nMelhorado \"bat n\" para E-BOX-48100V-D em 100%.\nTempo de espera entre comandos de 20ms.\nSe o timeout ocorrer, envie o último comando novamente.\nNão há mais comandos depois de um cronograma.",
+        "nl": "Configureer deze adapter om het release script te gebruiken.\nVerbeterde \"bat n\" voor E-BOX-48100V-D op 100%.\nWachttijd tussen commando's van 20ms.\nAls de timeout optreedt, stuur dan het laatste commando opnieuw.\nGeen commando's meer na een timeout.",
+        "fr": "Configurez cet adaptateur pour utiliser le script de sortie.\nAmélioration du \"bat n\" pour E-BOX-48100V-D sur 100%.\nTemps d'attente entre les commandes de 20ms.\nSi le timeout se produit, envoyez à nouveau la dernière commande.\nPas d'autres commandes après un délai.",
+        "it": "Configurare questo adattatore per utilizzare lo script di rilascio.\nMigliorato \"bat n\" per E-BOX-48100V-D al 100%.\nTempo di attesa tra comandi di 20ms.\nSe si verifica il timeout, invia nuovamente l'ultimo comando.\nNessun ulteriore comando dopo un timeout.",
+        "es": "Configure este adaptador para usar el script de liberación.\nMejorado \"bat n\" para E-BOX-48100V-D en 100%.\nTiempo de espera entre comandos de 20ms.\nSi el timeout ocurre, envía el último comando de nuevo.\nNo hay más comandos después de un timeout.",
+        "pl": "Konfiguracja adaptera do użycia skryptu wydania.\nUlepszony \"bat n\" dla E- BOX- 48100V- D na 100%.\nCzas oczekiwania między poleceniami 20 ms.\nJeśli nastąpi timeout, wyślij ponownie ostatnią komendę.\nŻadnych więcej poleceń po przerwie.",
+        "uk": "Налаштування цього адаптера для використання сценарію релізу.\nУдосконалено \"бат n\" для E-BOX-48100V-D на 100%.\nЧас очікування між командами 20 м.\nЯкщо настає час, відправте останню команду знову.\nНемає додаткових команд після закінчення часу.",
+        "zh-cn": "配置此适配器以使用发布脚本 .\n在100%上改进E-BOX-48100V-D的\"bat n\".\n20ms命令之间的等待时间.\n如果超时, 请再次发送最后一个命令 .\n超时后不再发布命令 ."
+      },
       "0.0.8": {
         "en": "improved \"bat n\" for E-BOX-48100V-D.",
         "de": "\"bat n\" für E-BOX-48100V-D verbessert.",
@@ -82,8 +95,19 @@
       "uk": "Перегляньте напруги клітин і статус pylontech або pytes батарей через консоль",
       "zh-cn": "2. 通过宫颈癌或电池组的配件"
     },
-    "authors": ["PLCHome"],
-    "keywords": ["battery", "pylontech", "pytes", "photovoltaics", "inverter", "energy storage system", "growatt", "victron"],
+    "authors": [
+      "PLCHome"
+    ],
+    "keywords": [
+      "battery",
+      "pylontech",
+      "pytes",
+      "photovoltaics",
+      "inverter",
+      "energy storage system",
+      "growatt",
+      "victron"
+    ],
     "license": "MIT",
     "platform": "Javascript/Node.js",
     "main": "build/pylontechMain.js",

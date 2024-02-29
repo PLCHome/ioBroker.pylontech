@@ -531,8 +531,7 @@ If true without ack is written to set, the current time is sent to the Pylontech
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 0.0.9 (2024-02-29)
 
 - (PLCHome) Configure this adapter to use the release script.
 - (PLCHome) Improved "bat n" for E-BOX-48100V-D on 100%.
