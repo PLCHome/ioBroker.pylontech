@@ -41,7 +41,7 @@ export class ConvertValue {
     { rex: /^(-|\+)?\d+\s*mV$/gm, type: 'number', unit: 'mV', convert: this._toNumber },
     { rex: /^(-|\+)?\d+\s*mC$/gm, type: 'number', unit: 'mC', convert: this._toNumber },
     { rex: /^(-|\+)?\d+\s*s$/gm, type: 'number', unit: 's', convert: this._toNumber },
-    { rex: /^0x\d+$/gm, type: 'number', unit: '', convert: this._HexToNumber },
+    { rex: /^0x\d+/gm, type: 'number', unit: '', convert: this._HexToNumber },
     {
       rex: /^\d{2}-[01]\d-[0-3]\d [0-2]\d:[0-6]\d:[0-6]\d$/gm,
       type: 'date',
