@@ -1,6 +1,6 @@
 {
   "name": "iobroker.pylontech",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Query the cell voltages and the status of pylontech or pytes batteries via the console",
   "author": {
     "name": "PLCHome"

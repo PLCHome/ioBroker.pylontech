@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pylontech",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "news": {
+      "0.0.10": {
+        "en": "Hex numbers are also recognized as such if text follows them.",
+        "de": "Hexenzahlen werden auch als solche erkannt, wenn ihnen der Text folgt.",
+        "ru": "Цифры Hex также признаются как таковые, если текст следует за ними.",
+        "pt": "Os números de hex também são reconhecidos como tal se o texto os segue.",
+        "nl": "Hex-nummers worden ook als zodanig herkend als tekst ze volgt.",
+        "fr": "Les numéros hexagonaux sont également reconnus comme tels si le texte les suit.",
+        "it": "I numeri Hex sono anche riconosciuti come tali se il testo li segue.",
+        "es": "Los números de hex también se reconocen como tales si el texto los sigue.",
+        "pl": "Liczby szesnastkowe są również uznawane za takie, jeśli tekst następuje po nich.",
+        "uk": "Ці номери визнаються також таким чином, якщо текст слідує їм.",
+        "zh-cn": "如果文字跟随六进制数字,也会被确认为六进制数字."
+      },
       "0.0.9": {
         "en": "Configure this adapter to use the release script.\nImproved \"bat n\" for E-BOX-48100V-D on 100%.\nWaiting time between commands of 20ms.\nIf the timeout occurs, send the last command again.\nNo further commands after a timeout.",
         "de": "Konfigurieren Sie diesen Adapter, um das Release-Skript zu verwenden.\nVerbessert \"bat n\" für E-BOX-48100V-D auf 100%.\nWartezeit zwischen Befehlen von 20ms.\nWenn der Timeout auftritt, senden Sie den letzten Befehl erneut.\nKeine weiteren Befehle nach einem Timeout.",
