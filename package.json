@@ -8,6 +8,7 @@
   "homepage": "https://github.com/PLCHome/ioBroker.pylontech",
   "license": "MIT",
   "keywords": [
+    "ioBroker",
     "battery",
     "pylontech",
     "pytes",
