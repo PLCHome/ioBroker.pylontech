@@ -23,10 +23,10 @@
     "url": "https://github.com/PLCHome/ioBroker.pylontech.git"
   },
   "engines": {
-    "node": ">= 18"
+    "node": ">=18"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^ 3.1.6",
+    "@iobroker/adapter-core": "^3.1.6",
     "debug": "^4.3.4",
     "net": "^1.0.2",
     "serialport": "^12.0.0",
