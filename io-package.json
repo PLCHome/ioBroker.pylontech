@@ -121,7 +121,10 @@
       "growatt",
       "victron"
     ],
-    "license": "MIT",
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    },
     "platform": "Javascript/Node.js",
     "main": "build/pylontechMain.js",
     "icon": "pylontech.png",
@@ -133,6 +136,7 @@
     "type": "energy",
     "compact": true,
     "messagebox": true,
+    "tier": 3,
     "connectionType": "local",
     "dataSource": "poll",
     "adminUI": {
@@ -140,7 +144,7 @@
     },
     "dependencies": [
       {
-        "js-controller": ">=3.3.22"
+        "js-controller": ">=5.0.19"
       }
     ],
     "globalDependencies": [
