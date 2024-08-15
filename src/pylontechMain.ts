@@ -246,6 +246,7 @@ class Pylontech extends utils.Adapter {
     try {
       this.clearInterval(this._workTimer);
       callback();
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
       callback();
     }

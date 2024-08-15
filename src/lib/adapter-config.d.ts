@@ -9,6 +9,7 @@ type _AdapterConfig = typeof native;
 // Augment the globally declared type ioBroker.AdapterConfig
 declare global {
   namespace ioBroker {
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     interface AdapterConfig extends _AdapterConfig {
       // Do not enter anything here!
     }
