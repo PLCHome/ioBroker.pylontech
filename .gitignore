@@ -22,3 +22,6 @@ admin/i18n/*/flat.txt
 
 
 /run.bat
+
+#ignore .commitinfo created by ioBroker release script
+.commitinfo
