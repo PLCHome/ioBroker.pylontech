@@ -527,6 +527,9 @@ If true without ack is written to set, the current time is sent to the Pylontech
 
 ## Changelog
 
+### **WORK IN PROGRESS**
+- (iobroker-bot) Adapter requires node.js >= 20 now.
+
 <!--
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
