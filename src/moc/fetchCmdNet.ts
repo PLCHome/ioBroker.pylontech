@@ -19,7 +19,7 @@
 // DEALINGS IN THE SOFTWARE.
 
 import { writeFile } from 'fs/promises';
-import * as net from 'net';
+import * as net from 'node:net';
 import { ConsolenReader } from '../pylontech/ConsolenReader';
 
 const args = process.argv.slice(2);

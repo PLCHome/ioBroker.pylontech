@@ -19,7 +19,7 @@
 // DEALINGS IN THE SOFTWARE.
 
 import debug from 'debug';
-import { Transform } from 'stream';
+import { Transform } from 'node:stream';
 
 const debugApi = debug('pylontech:api');
 
