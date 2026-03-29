@@ -19,7 +19,7 @@
 // DEALINGS IN THE SOFTWARE.
 
 import Debug from 'debug';
-import * as net from 'net';
+import * as net from 'node:net';
 import WorkerAbstract from './WorkerAbstract';
 
 const debugApi = Debug('pylontech:api');

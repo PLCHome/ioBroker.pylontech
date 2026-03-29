@@ -20,7 +20,7 @@
 
 import { RegexParser } from '@serialport/parser-regex';
 import { readFile } from 'fs/promises';
-import * as net from 'net';
+import * as net from 'node:net';
 
 const args = process.argv.slice(2);
 const host: string = args[0];
