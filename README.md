@@ -570,6 +570,8 @@ If true without ack is written to set, the current time is sent to the Pylontech
 
 - (PLCHome) initial release
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 
 MIT License
