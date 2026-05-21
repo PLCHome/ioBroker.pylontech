@@ -532,6 +532,10 @@ If true without ack is written to set, the current time is sent to the Pylontech
   ### **WORK IN PROGRESS**
 -->
 
+
+### **WORK IN PROGRESS**
+- (ioBroker-Bot) Adapter requires js-controller >= 6.0.11 now.
+
 ### 0.0.10 (2024-03-01)
 
 - (PLCHome) Hex numbers are also recognized as such if text follows them.
