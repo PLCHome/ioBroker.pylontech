@@ -108,8 +108,19 @@
       "uk": "Перегляньте напруги клітин і статус pylontech або pytes батарей через консоль",
       "zh-cn": "2. 通过宫颈癌或电池组的配件"
     },
-    "authors": ["PLCHome"],
-    "keywords": ["battery", "pylontech", "pytes", "photovoltaics", "inverter", "energy storage system", "growatt", "victron"],
+    "authors": [
+      "PLCHome"
+    ],
+    "keywords": [
+      "battery",
+      "pylontech",
+      "pytes",
+      "photovoltaics",
+      "inverter",
+      "energy storage system",
+      "growatt",
+      "victron"
+    ],
     "licenseInformation": {
       "license": "MIT",
       "type": "free"
@@ -132,7 +143,7 @@
     },
     "dependencies": [
       {
-        "js-controller": ">=5.0.19"
+        "js-controller": ">=6.0.11"
       }
     ],
     "globalDependencies": [
